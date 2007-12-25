@@ -266,7 +266,7 @@ Perl6::Doc provides a class method to get the raw text of a document:
 
 =head1 SCRIBES
 
-* Brian Ingerson <ingy@cpan.org>
+* Ingy döt Net <ingy@cpan.org>
 
 * Sam Vilain <samv@cpan.org>
 
@@ -286,7 +286,7 @@ http://dev.perl.org/perl6/
 
 All draft Synopses were taken out of the Pugs SVN repository.
 
-Copyright (c) 2007. Ingy döt Net. All rights reserved.
+Copyright (c) 2007. Ingy döt Net, Herbert Breunung. All rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

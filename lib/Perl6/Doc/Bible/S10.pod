@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Synopsis 10: Packages
+Synopsis_10: Packages
 
 =head1 AUTHOR
 

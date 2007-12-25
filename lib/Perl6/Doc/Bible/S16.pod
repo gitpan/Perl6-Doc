@@ -3,7 +3,7 @@
 
 =head1 NAME
 
-DRAFT: Synopsis 16: IPC / IO / Signals
+Synopsis_16: IPC / IO / Signals [DRAFT]
 
 =head1 Version
 

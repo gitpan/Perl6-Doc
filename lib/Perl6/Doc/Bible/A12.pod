@@ -1,6 +1,6 @@
 =encoding utf8
 
-=head1 NAME
+=head1_NAME
 
 Apocalypse 12: Objects
 

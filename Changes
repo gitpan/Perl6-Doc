@@ -1,4 +1,12 @@
+version: 0.32_2
+date: Sun Dec 25 2007
+changes:
+- added myself as author
+- changed brians name to ingy döt net as he requested
+- fixed name of S16*
+- changed all names to syn_nr (looks better in CPAN)
 version: 0.32_1
+---
 date: Sun Dec 25 2007
 changes:
 - rename =item1 TITLE to NAME (shows on CPAN titles nicely)

@@ -89,7 +89,7 @@ METHODS
         my $text = Perl6::Doc->get_raw('s01');
 
 SCRIBES
-    * Brian Ingerson <ingy@cpan.org>
+    * Ingy döt Net <ingy@cpan.org>
     
     * Sam Vilain <samv@cpan.org>
     
@@ -108,7 +108,7 @@ COPYRIGHT
 
     All draft Synopses were taken out of the Pugs SVN repository.
 
-    Copyright (c) 2005. Ingy döt Net. All rights reserved.
+    Copyright (c) 2005. Ingy döt Net, Herbert Breunung. All rights reserved.
 
     This program is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.

@@ -1,6 +1,6 @@
 =head1 NAME
 
-Synopsis 5: Regexes and Rules
+Synopsis_5: Regexes and Rules
 
 =head1 AUTHORS
 
