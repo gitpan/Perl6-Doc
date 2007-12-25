@@ -1,4 +1,4 @@
-=head1 TITLE
+=head1 NAME
 
 Exegesis 5: Pattern Matching
 

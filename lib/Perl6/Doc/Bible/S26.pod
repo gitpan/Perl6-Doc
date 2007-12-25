@@ -5,7 +5,7 @@
     Clearly a Perl 6 -> Perl 5 documentation translator is a high priority ;-)
 
 
-=head1 TITLE
+=head1 NAME
 
 Synopsis 26 - Documentation
 
