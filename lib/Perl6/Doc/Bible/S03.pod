@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Synopsis_3: PerlÂ 6 Operators
+Synopsis_3 - Perl 6 Operators
 
 =head1 AUTHOR
 
@@ -18,11 +18,11 @@ Luke Palmer <luke@luqui.org>
 
 =head1 Overview
 
-For a summary of the changes from PerlÂ 5, see L</Changes to PerlÂ 5 operators>.
+For a summary of the changes from Perl 5, see L</Changes to PerlÂ 5 operators>.
 
 =head1 Operator precedence
 
-Not counting terms and terminators, PerlÂ 6 has 23 operator precedence
+Not counting terms and terminators, Perl 6 has 23 operator precedence
 levels (same as Perl 5, but differently arranged).  Here we list the
 levels from "tightest" to "loosest", along with a few examples of
 each level:

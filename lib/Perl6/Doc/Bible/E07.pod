@@ -1,6 +1,6 @@
 =head1 NAME
 
-Exegesis_7: Formats
+Exegesis_7 - Formats
 
 =head1 AUTHOR
 

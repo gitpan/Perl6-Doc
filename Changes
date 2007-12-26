@@ -1,3 +1,11 @@
+version: 0.32_3
+date: Sun Dec 25 2007
+changes:
+- fixed tests
+- fixed name of A06 A12
+- changed doc names to 2 digit format
+- added perlintro Tutorial
+---
 version: 0.32_2
 date: Sun Dec 25 2007
 changes:

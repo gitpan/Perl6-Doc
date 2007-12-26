@@ -1,6 +1,6 @@
 =head1 NAME
 
-Apocalypse_5: Pattern Matching
+Apocalypse_5 - Pattern Matching
 
 =head1 AUTHOR
 

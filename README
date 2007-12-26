@@ -52,35 +52,28 @@ CONTENTS
     by a member of the Perl community but not approved by the Perl 6 Design
     Team.
 
-      A01       S01  The Ugly, the Bad, and the Good
-      A02  E02  S02  Bits and Pieces
-      A03  E03  S03  Operators
-      A04  E04  S04  Syntax
-      A05  E05  S05  Pattern Matching
-      A06  E06  S06  Subroutines
-           E07       Formats
-                     References
-                S09  Data Structures
-                S10  Packages
-                S11  Modules
-      A12       S12  Objects
-                S13  Overloading
-                     Tied Variables
-                     Unicode
-                     Interprocess Communication
-                S16* IPC / IO / Signals
-                S17* Threads
-                     Compiling
-                     The Command-Line Interface
-                     The Perl Debugger
-                     Internals and Externals
-                     CPAN
-                     Security
-                     Common Practices
-                     Portable Perl
-                S26* Perl Documentation
-                S27* Perl Culture
-                S28* Special Names
+    S01  The Ugly, the Bad, and the Good   (A01)
+    S02  Bits and Pieces                   (A02) (E02)
+    S03  Operators                         (A03) (E03)
+    S04  Syntax                            (A04) (E04)
+    S05  Pattern Matching                  (A05) (E05)
+    S06  Subroutines                       (A06) (E06)
+         Formats                                 (E07)
+    S09  Data Structures
+    S10  Packages
+    S11  Modules
+    S12  Objects                           (A12)
+    S13  Overloading
+    S16* IPC / IO / Signals  
+    S17* Concurrency
+    S22* CPAN
+         Portable Perl
+    S26* Perl Documentation
+    S27* Perl Culture
+    S28* Special Names
+    S29* Functions
+    
+    T01  Tutorial Perlintro
 
 
 METHODS
