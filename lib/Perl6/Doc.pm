@@ -52,8 +52,9 @@ sub validate_args {
 
 sub normalize_name {
     my $self = shift;
-    my $id   = uc(shift);
-    $id =~ s/^(\d+)$/sprintf('S%02s', $1)/eg;
+    my $id   = ucfirst(shift);
+    $id =~ s/^(\d+)$/S$1/;
+    $id =~ s/(\d+)/sprintf('%02s', $1)/e;
     return $id;
 }
 
@@ -82,9 +83,16 @@ sub get_raw {
 sub perldoc {
     my $self = shift;
     my $args = shift;
-    my $document = __PACKAGE__ . '::Bible';
-    $document .= '::' . $self->normalize_name(shift)
-      if @_;
+    my $document = __PACKAGE__ ;
+    if (@_){
+        my $file_name = $self->normalize_name( shift );
+        if ($file_name eq 'T01'){
+            $document .= '::Tutorial::perlintro';
+        } else {
+            $document .= '::Bible::' . $file_name;
+        }
+    }
+print "docname $document\n";
     my $options = join ' ', grep { defined $args->{$_} } qw(-t -u -m -T);
     $options ||= '';
     my $command = "perldoc $options $document";
@@ -94,6 +102,7 @@ sub perldoc {
 
 sub usage {
     print <<_;
+
 Usage: p6doc [options] [document-id]
 Try `p6doc --help` for more information.
 _
@@ -101,6 +110,7 @@ _
 
 sub help {
     print <<_;
+
 Usage: p6doc [options] [document-id]
 View the Perl 6 Canon.
 
@@ -108,6 +118,7 @@ Possible values for document-id are:
   A01 - A33  (Perl 6 Apocalypses)
   E01 - E33  (Perl 6 Exegeses)
   S01 - S33  (Perl 6 Synopses)
+  T01        (Perl 6 Tutorial)
 
 Valid options:
   -h,  --help       Print this help screen
@@ -120,7 +131,7 @@ _
 
 sub version {
     print <<_;
-This is the Perl 6 Canon as of December 24, 2007
+This is Perl 6 Documentation as of December 24, 2007
 (bundled in Perl6-Doc-$VERSION)
 _
 }
@@ -185,29 +196,21 @@ the Perl 6 Design Team.
   S05  Pattern Matching                  (A05) (E05)
   S06  Subroutines                       (A06) (E06)
        Formats                                 (E07)
-       References
   S09  Data Structures
   S10  Packages
   S11  Modules
   S12  Objects                           (A12)
   S13  Overloading
-       Tied Variables
-       Unicode
-       Interprocess Communication
   S16* IPC / IO / Signals  
-  S17* Threads
-       Compiling
-       The Command-Line Interface
-       The Perl Debugger
-       Internals and Externals
+  S17* Concurrency
   S22* CPAN
-       Security
-       Common Practices
        Portable Perl
   S26* Perl Documentation
   S27* Perl Culture
   S28* Special Names
   S29* Functions
+  
+  T01  Tutorial perlintro
 
 
 =head1 NOTES
@@ -274,10 +277,7 @@ Perl6::Doc provides a class method to get the raw text of a document:
 
 * Herbert Breunung <lichtkind@cpan.org>
 
-=head1 COPYRIGHT
-
-This Copyright applies only to the C<Perl6::Doc> Perl software
-distribution, not the documents bundled within.
+=head1 SOURCES
 
 A couple of paragraphs from _Perl 6 Essentials_ were used for the
 overview. Most docs are from the official Perl development site. 
@@ -285,6 +285,11 @@ overview. Most docs are from the official Perl development site.
 http://dev.perl.org/perl6/
 
 All draft Synopses were taken out of the Pugs SVN repository.
+
+=head1 COPYRIGHT
+
+This Copyright applies only to the C<Perl6::Doc> Perl software
+distribution, not the documents bundled within.
 
 Copyright (c) 2007. Ingy döt Net, Herbert Breunung. All rights reserved.
 

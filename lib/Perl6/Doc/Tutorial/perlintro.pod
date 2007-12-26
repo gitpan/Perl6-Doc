@@ -1,6 +1,6 @@
 =pod
 
-=head1 Name
+=head1 NAME
 
 perlintro -- a brief introduction and overview of Perl 6
 
@@ -53,14 +53,11 @@ This is the most complete interpreter so far, but is kind of slow.
 
 Assuming your code is in a file named "foo.p6", you can invoke your program as:
 
-=begin code
-	pugs foo.p6
-=end code
+C<pugs foo.p6>
 
 You can also write one-liners with the C<-e> option:
-=begin code
-	pugs -e '"Hello World".say'
-=end code
+
+C<pugs -e '"Hello World".say'>
 
 =comment TODO: continue writing
 
@@ -72,74 +69,74 @@ There is no need to have a "main()" function or anything of that kind.
 
 Perl statements end in a semi-colon:
 
-=begin code
+C<
     say "Hello, world";
-=end code
+>
 
 Comments start with a hash symbol and run to the end of the line. You can
 also have comments that are in the middle of a line by enclosing the comment
 with brackets. You can have no space between the bracket and the hash:
 
-=begin code
+C<
     # This is a comment
 	say #(this is a comment too) "Hello World";
-=end code
+>
 
 Whitespace is irrelevant, for the most part. However, there are some places
 where space is required or not allowed:
 
-=begin code
+C<
     say
         "Hello, world"
        ;    # this works
 	"foo" .say; # this is a syntax error, no space allowed.
 	"foo"\   .say; # this is a "long dot", allowed. backslashed whitespace is ignored.
-=end code
+>
 
 ... except inside quoted strings:
 
-=begin code
+C<
     # this would print with a linebreak in the middle
     say "Hello
     world";
-=end code
+>
 
 Double quotes or single quotes may be used around literal strings:
 
-=begin code
+C<
     say "Hello, world";
     say 'Hello, world';
-=end code
+>
 
 However, only double quotes "interpolate" variables and special characters such as newlines ("\n"):
 
-=begin code
+C<
     print "Hello, $name\n";     # works fine
     print 'Hello, $name\n';     # prints $name\n literally
-=end code
+>
 
 (Note that C<print> and C<say> do the same thing, only C<say> appends a newline character at the end.)
 
 Numbers don't need quotes around them:
 
-=begin code
+C<
     say 42;
-=end code
+>
 
 You can use parentheses for functions' arguments or omit them according
 to your personal taste.  They are only required occasionally to clarify
 issues of precedence.
 
-=begin code
+C<
     say("Hello, world");
     say "Hello, world";
-=end code
+>
 
 You can call methods in OO-Style notation:
 
-=begin code
+C<
     "Hello, world".say;
-=end code
+>
 
 If you provide addtional arguments to method calls, you should always use
 parentheses.
@@ -153,29 +150,29 @@ Perl has three main variable types: scalars, arrays, and hashes.
 
 A scalar represents a single value:
 
-=begin code
+C<
     my $animal = "camel";
     my $answer = 42;
-=end code
+>
 
 Scalar values can be strings, integers or floating point numbers, and Perl
 will automatically convert between them as required.  There is no need to
 pre-declare your variable types. But if you feel like, you declare their type
 explictly:
 
-=begin code
+C<
     my Str $animal = "camel";
     my Int $answer = 42;
     my Num $close_to_pi = 3.141;
-=end code
+>
 
 Scalar values can be used in various ways:
 
-=begin code
+C<
     say $animal;
     say "The animal is $animal";
     say "The square of $answer is ", $answer * $answer;
-=end code
+>
 
 There are some "magic" scalars with names that look like punctuation or line
 noise.  These special variables are used for different purposes, all of them
@@ -184,67 +181,67 @@ is C<$_> which is the "default variable".  It's used as the default argument
 to a number of functions if they start with a period C<.> and it's set 
 implicitly by certain looping constructs.
 
-=begin code
+C<
     .print; # prints contents of $_
-=end code
+>
 
 
 =head3 Arrays
 
 An array represents a list of values:
 
-=begin code
+C<
     my @animals = "camel", "llama", "owl";
     my @numbers = 23, 42, 69;
     my @mixed   = "camel", 42, 1.23;
-=end code
+>
 
 Arrays are zero-indexed.  Here's how you get at elements in an array:
 
-=begin code
+C<
     print @animals[0];              # prints "camel"
     print @animals[1];              # prints "llama"
-=end code
+>
 
 You can get the index of the last element of an arry with C<end>:
 
-=begin code
+C<
     print @mixed[@mixed.end];       # last element, prints 1.23
-=end code
+>
 
 You might be tempted to use C<@array.end + 1> to tell you how many
 items there are in an array. Don't bother.  As it happens, using
 @array where Perl expects to find a scalar value ("in scalar context") 
 will give you the number of elements in the array:
 
-=begin code
+C<
     if @animals < 5 { ... }
-=end code
+>
 
 If you want to get the number of elements explicitly, you can use C<elems>:
 
-=begin code
+C<
     print @animals.elems        # prints "3";
-=end code
+>
 
 To get multiple elements from an you can use a list of indexes in the square
 brackets:
 
-=begin code
+C<
     @animals[0,1];              # gives ("camel", "llama");
     @animals[0..2];             # gives ("camel", "llama", "owl");
     @animals[1..@animals.end];  # gives all except the first element
-=end code
+>
 
 This is called an "array slice".
 
 You can do various useful things to lists:
 
-=begin code
+C<
     my @sorted = @animals.sort;  
     # or: my @sorted =  sort @animals
     my @backwards = @numbers.reverse;
-=end code
+>
 
 There are some special arrays too, such as C<@*ARGS> (the command line
 arguments to your script). These are document in L<doc:perlvar>.
@@ -252,10 +249,10 @@ arguments to your script). These are document in L<doc:perlvar>.
 There are also some shortcuts that make life easy. For example, these two
 lines are the same:
 
-=begin code
+C<
 	my @list = <foo bar baz>;
 	my @list = 'foo', 'bar', 'baz';
-=end code
+>
 
 =comment hopefully they are...
 
@@ -264,31 +261,31 @@ lines are the same:
 
 A hash represents a set of key/value pairs:
 
-=begin code
+C<
     my %fruit_color = "apple", "red", "banana", "yellow";
-=end code
+>
 
 You can use whitespace and the "=>"  operator to lay them out more nicely:
 
-=begin code
+C<
     my %fruit_color = 
         "apple"     => "red",
         "banana"    => "yellow",
     );
-=end code
+>
 
 To get at hash elements:
 
-=begin code
+C<
     %fruit_color{"apple"};           # gives "red"
-=end code
+>
 
 You can get a list of keys and values with the C<keys> and C<values> methods:
 
-=begin code
+C<
     my @fruits = %fruit_color.keys;
     my @colors = %fruit_color.values;
-=end code
+>
 
 Hashes have no particular internal order, though you can sort the keys and
 loop through them.
@@ -306,15 +303,15 @@ TODO: when do you need captures?
 
 Throughout the previous section all the examples have used the syntax:
 
-=begin code
+C<
     my $var = "value";
-=end code
+>
 
 C<my> creates lexically scoped variables, that means they are scoped to the
 block (i.e. a bunch of statements surrounded by curly-braces) in which they are
 defined.
 
-=begin code
+C<
     my $a = "foo";
     if $some_condition {
         my $b = "bar";
@@ -323,7 +320,7 @@ defined.
     }
     say $a;               # says "foo"
     say $b;               # error: $b has fallen out of scope
-=end code
+>
 
 Using C<no strict;> at the top of your Perl scripts allows you to use
 variables without declaring them, but that is strongly discouraged. 
@@ -342,7 +339,7 @@ C<if> blocks test by conditions. Unlike Perl 5, you don't need
 parentheses. However, you need a space between the condition and
 the opening bracket:
 
-=begin code 
+C< 
     if condition {
         ...
     } elsif other condition {
@@ -350,15 +347,15 @@ the opening bracket:
     } else {
         ...
     }
-=end code
+>
 
 There's also a negated version of it:
 
-=begin code
+C<
     unless condition {
         ...
     }
-=end code
+>
 
 However, C<unless> blocks can't have C<else> or C<elsif>s attached.
 
@@ -368,7 +365,7 @@ Note that the braces are required in Perl, even if you've only got
 one line in the block.  However, there is a clever way of making your
 one-line conditional blocks more English like:
 
-=begin code
+C<
     # the traditional way
     if $zippy {
         print "Yow!";
@@ -377,29 +374,31 @@ one-line conditional blocks more English like:
     # the Perlish post-condition way
     print "Yow!" if $zippy;
     print "We have no bananas" unless $bananas;
-=end code
+>
 
 Sometimes the condition is more important than the action. You can say:
 
-=begin code
+C<
 	$zippy and print "Yow!";
-=end code
+>
 
 and get the same effect.
 
 =head3 while
 
-=begin code
+C<
     while condition {
         ...
     }
-=end code
+>
 
 There's also a negated version, for the same reason we have C<unless>:
 
+C<
     until condition {
         ...
     }
+>
 
 You can also use "while" in a post-condition:
 

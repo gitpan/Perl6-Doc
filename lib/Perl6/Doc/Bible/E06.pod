@@ -1,6 +1,6 @@
 =head1 NAME
 
-Exegesis_6 - Subroutines
+Exegesis_06 - Subroutines
 
 =head1 AUTHOR
 
@@ -8,19 +8,11 @@ Damian Conway <damian@conway.org>
 
 =head1 VERSION
 
-  Maintainer: Larry Wall <larry@wall.org
+  Maintainer: Allison Randal <al@shadowed.net>
   Date: 29 Jul 2003
-  Last Modified: 29 May 2006
+  Last Modified: 4 Aug 2003
   Number: 6
-  Version: 2
-
-[Update: Please note that this was written several years ago, and
-a number of things have changed since then.  Rather than changing
-the original document, we'll be inserting "Update" notes like this
-one to tell you where the design has since evolved.  (For the better,
-we hope).  In any event, for the latest Perl 6 design (or to figure out
-any cryptic remarks below) you should read the Synopses, which are kept
-very much more up-to-date than either the Apocalypses or Exegeses.]
+  Version: 1
 
 =over
 
@@ -183,9 +175,6 @@ they're B<constant> aliases by default. That means, unless we
 specifically tell Perl 6 otherwise, it's illegal to change an argument
 by modifying the corresponding parameter within a subroutine.
 
-[Update: We now say that they are C<readonly> aliases.  That's because
-they aren't necessarily constant from call to call.]
-
 All of which means that a the naE<iuml>ve translation of
 C<&Fahreheit_to_Kelvin> to Perl 6 isn't going to work:
 
@@ -246,9 +235,6 @@ which means that C<&part> expects its first argument to be a scalar
 value of type C<Code> (or C<Code> reference). Within the subroutine that
 first argument will thereafter be accessed via the name C<$is_sheep>.
 
-[Update: These days you'd just declare C<&is_sheep>, which also introduces
-the bare name so you can call it without the sigil.]
-
 The second parameter (C<*@data>) is what's known as a "slurpy array".
 That is, it's an array parameter with the special marker (C<*>)
 in front of it, indicating to the compiler that C<@data> is supposed to
@@ -272,7 +258,7 @@ the array in the second parameter slot would have slurped up all the remaining
 arguments anyway?
 
 Well, no. Declaring a parameter to be a regular (non-slurpy) array tells
-the subroutine to expect the corresponding argument to be an actual
+the subroutine to expect the corresponding argument to be a actual
 array (or an array reference). So if C<&part> had been defined
 with its second parameter just C<@data> (rather than C<*@data>), then we could
 call it like this:
@@ -359,10 +345,6 @@ behavioural similarity: just as a slurpy asterisk implicitly flattens any
 argument to which its parameter is bound, so too a splatty asterisk explicitly
 flattens any argument to which it is applied.
 
-[Update: We had better uses for a "splat" operator, so this flattening is
-now performed by the C<[,]> reduce operator, which pretends the values
-passed on the right were originally separated by actual commas.  See S03
-for more about reduce operators.]
 
 =head2 I do declare
 
@@ -561,9 +543,6 @@ put a comma after it to separate it from the second argument. In fact,
 I<anywhere> a block is used as an argument to a subroutine, any comma before
 or after the block is optional.
 
-[Update: The comma is now mandatory because a line-ending right curly
-assumes a following semicolon.]
-
 
 =head2 Cowabunga!
 
@@ -608,8 +587,6 @@ at the end of the call anyway, we could have just written that as:
                       map  { $_ => .height }            # 2
                       @animals;                         # 1
 
-[Update: Such blocks now require trailing commas.]
-
 But there's no reason to stint ourselves: the pipelines cost nothing in
 performance, and often make the flow of data much clearer.
 
@@ -640,8 +617,6 @@ to both pipeline operators. The argument on the "sharp" side is supposed
 to be a subroutine call. However, if it is a variable, or a list of
 variables, then the pipeline operator simply assigns the list from its
 "blunt" side to variable (or list) on its "sharp" side.
-
-[Update: Actually, it's bound, not assigned.]
 
 Hence, if we preferred to partition our animals left-to-right, we could
 write:
@@ -708,8 +683,6 @@ parameter list in that way:
 
 then all our existing code that currently passes C<Code> objects as
 C<&part>'s first argument will break.
-
-[Update: Except there's no such thing as a C<Class> type in Perl 5.  See S12.]
 
 Somehow we need to be able to pass I<either> a C<Code> object I<or> a C<Class>
 as C<&part>'s first argument. And to accomplish that we need to take a short
@@ -909,9 +882,6 @@ L<previous one|"Part the first">. The first difference is, of course,
 that we have changed the type of the first parameter. Previously it was
 C<Code>; now it's C<Code|Class>.
 
-[Update: Nowadays it's just role C<Selector> (which does
-smart matchability), possibly synonymous with C<Any>.]
-
 The second change is in the body of the subroutine itself. We replaced
 the partitioning C<if> statement:
 
@@ -958,7 +928,6 @@ to:
 Note, however, that the comma is back. Only blocks can appear in argument
 lists without accompanying commas, and the raw class isn't a block.
 
-[Update: Smart matching uses C<.does>, not C<.isa> these days.]
 
 =head1 Partitioning rules!
 
@@ -986,8 +955,6 @@ In the scalar context imposed by the C<$is_sheep> parameter, the
 C</meow/> pattern evaluates to a C<Rule> object (rather than immediately
 doing a match). That C<Rule> object is then bound to C<$is_sheep> and
 subsequently used as the selector in the C<when> statement.
-
-[Update: These are now called C<Regex> objects.]
 
 Note that the body of this third version is exactly the same as that of
 the previous version. No change is required because, when it
@@ -1021,14 +988,6 @@ name, and use that name instead. To do that, we just write:
 
     type Selector ::= Code | Class | Rule | Hash;
 
-[Update: Now written:
-
-    my subset Selector where Code | Class | Rule | Hash;
-    my subset Selector of Any where Code | Class | Rule | Hash;
-    my Any subset Selector of Any where Code | Class | Rule | Hash;
-
-Except that Selector is built in and is more general than that.]
-
     sub part (Selector $is_sheep, *@data) {
         # body exactly as before
     }
@@ -1051,8 +1010,6 @@ We've already seen how powerful and clean these new-fangled explicit
 parameters can be, but maybe you still prefer the Perl 5 approach. After
 all, C<@_> was good enough fer Grandpappy when he larned hisself Perl as
 a boy, dagnabit!
-
-[Update: As of May 2006, Larry is a Grandpappy too.]
 
 So in Perl 6 we can still pass your arguments the old-fashioned way
 and then process them manually:
@@ -1136,6 +1093,7 @@ return type after it, using the C<returns> keyword. That return type is C<List
 of Pair>, which tells the compiler that any C<return> statements in the 
 subroutine are expected to return a list of values, each of which is a Perl 6
 C<< key=>value >> pair.
+
 
 =head2 Parametric types
 
@@ -1227,10 +1185,6 @@ the preceding container what type of value it's supposed to store, so
 C<$is_sheep of Selector> tells C<$is_sheep> it's supposed to store a
 C<Selector>.
 
-[Update: The C<returns> type is only the inner type now.  The externally
-visible "of" type of a subroutine is declared out front or within
-the signature using C<< --> >> notation.  (Or via an explicit C<of>
-trait.)]
 
 =head2 You are what you eat. Not!
 
@@ -1338,8 +1292,6 @@ needs to automatically dereference that first argument. So we can just write:
 (Remember that, in Perl 6, hashes keep their C<%> sigil, even when being
 indexed).
 
-[Update: Now you'd usually write C<< %herd<sheep> >> most of the time.]
-
 Initially, of course, the entries of C<%herd> don't contain references to
 arrays at all; like all uninitialized hash entries, they contain C<undef>.
 But, because C<push> itself is defined like so:
@@ -1371,22 +1323,10 @@ user-selected key names could be passed...
 
     sub part (Selector $is_sheep,
               Str ?@labels is dim(2) = <<sheep goats>>,
-
-[Update: Optional parameters are now suffixed with C<?>, but it's
-optional if there's a default.  The dimension syntax is different now,
-and single angles are used now for C<qw//>.  So we get:
-
-              Str @labels[^2] = <sheep goats>,
-
-]
-
               *@data
              ) returns List of Pair
     {
         my ($sheep, $goats) is constant = @labels;
-
-[Update: C<is readonly> now.]
-
         my %herd = ($sheep=>[], $goats=>[]);
         for @data {
             when $is_sheep { push %herd{$sheep}, $_ }
@@ -1411,8 +1351,6 @@ dimension. For example, to create a four-dimensional array of 7x24x60x60
 elements, we'd declare it:
 
     my @seconds is dim(7,24,60,60);
-
-[Update: C<my @seconds[^7,^24,^60,^60]> now.]
 
 In the latest version of C<&part>, the C<@labels is dim(2)> declaration
 means that C<@labels> is a normal one-dimensional array, but that it
@@ -1497,8 +1435,6 @@ flattened hash:
 
     @parts = part *%args;
 
-[Update: Now C<[,]%args>.  But we have relaxed the zoning laws into
-zoning suggestions.]
 
 =head2 Who gets the last piece of cake?
 
@@ -1558,8 +1494,8 @@ start of the parameter list are bound before those towards the end. Even
 if those earlier parameters are marked optional. In other words,
 argument binding is "greedy" and (for obvious efficiency reasons) it
 never backtracks to see if there might be better ways to match arguments
-to parameters. Which means, in this case, that our data is being pre-emptively
-"stolen" by our labels.
+to parameters. Which means, in this case, that our data is being pre-
+emptively "stolen" by our labels.
 
 
 =head2 Pipeline to the rescue!
@@ -1845,7 +1781,6 @@ and still supporting legacy code. Indeed, in many cases the B<only>
 reasonable way to add a new parameter to an existing, widely used, Perl
 6 subroutine will be to add it as a named-only parameter.
 
-[Update: Named parameters are now marked with C<:> instead of C<+>.]
 
 =head1 Careful with that arg, Eugene!
 
@@ -2270,9 +2205,6 @@ Perl 6 that looks like this:
         split(/\s+/, <>, 3).[0..1];
     };
 
-[Update: Now "C<constant @def_labels = ...>" does that.  The corresponding
-trait is "C<readonly>" for things that we're only pretending are constant.]
-
 The C<is constant> trait is the way we prevent any Perl 6 variable from
 being reassigned after it's been declared. It effectively replaces the
 C<STORE> method of the variable's implementation with one that throws an
@@ -2368,9 +2300,6 @@ the contents of that block and inserts the parse tree of those contents
 into the program's parse tree. In other words, if a macro returns a
 block, a precompiled version of whatever is inside the block replaces
 the original macro call.
-
-[Update: Now we use a C<code> declaration on the block, which turns it into
-a quasiquote that returns an AST, and enables unquasiquoting inside.]
 
 Alternatively, a macro can return a string. In which case, the parser
 inserts that string back into the source code in place of the macro
@@ -2606,9 +2535,6 @@ That is, the left operand is the array to be partitioned, and the right
 operand is the selector.  In which case, to implement it we'd write;
 
     multi sub infix:~|_|~ (@data, Selector $is_sheep)
-
-[Update: This would now be spelled C<< infix:<~|_|~> >>.] 
-
         is looser(&infix:+)
         is assoc('non')
     {

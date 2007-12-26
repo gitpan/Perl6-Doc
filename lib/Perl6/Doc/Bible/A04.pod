@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Apocalypse_4 - Syntax
+Apocalypse_04 - Syntax
 
 =head1 AUTHOR
 
@@ -12,9 +12,9 @@ Larry Wall <larry@wall.org>
 
   Maintainer: Larry Wall <larry@wall.org>
   Date: 18 Jan 2002
-  Last Modified: 18 May 2006
+  Last Modified: 6 Dec 2004
   Number: 4
-  Version: 6
+  Version: 5
 
 This Apocalypse is all about syntax in the large. The corresponding
 chapter in the Camel book is entitled "Statements and Declarations",
@@ -449,8 +449,7 @@ an explicit C<.id> method in any event. We won't be relying on the
 default numify or stringify methods to produce unique representations.)
 
 [Update: Instead of an C<.id> method, which would be unclear how to compare,
-there's a C<=:=> operator for comparing identities.  Though you can always
-compare two id's with the C<===> operator.]
+there's a C<=:=> operator for comparing identities.]
 
 I've rearranged the table to be applied in order, so that default
 interpretations come later. Also, the "Matching Code" column in the RFC
@@ -542,7 +541,7 @@ it's equivalent to saying this:
     expr    expr      run-time guessing        match if ($a =~ $b) at runtime
 
 [Update: This is inaccurate in several ways; see the most recent
-table in S04.]
+table in S4.]
 
 In order to facilitate optimizations, these distinctions are made
 syntactically at compile time whenever possible. For each comparison,
@@ -642,9 +641,6 @@ to be read as "given nothing...":
         default          { ... }
     }
 
-[Update: you can just say C<given {.true}> to get the same effect without
-a special case.]
-
 A C<when> can be used by other topicalizers than just C<given>. Just as
 C<CATCH> will imply a given of C<$!>, a C<for> loop (the C<foreach>
 variety) will also imply a given of the loop variable:
@@ -662,7 +658,7 @@ a C<given> takes a scalar expression, while a C<for> takes a
 pre-flattened list and iterates over it.
 
 [Update: C<for> takes a lazily flattened list, not a pre-flattened list.
-Use the C<eager> listop to pre-flatten a list.]
+Use unary C<**> to pre-flatten a list.]
 
 Suppose you want to preserve C<$_> and alias C<$g> to the value
 instead. You can say that like this:
@@ -1040,8 +1036,6 @@ Or you might just prefer to use the unary C<true> operator:
     { ... CATCH { when true <test> { ... } } POST { ... } }
 
 I personally find that more readable than the closure.
-
-[Update: POST is now LEAVE.]
 
 RFC:
 
@@ -2554,7 +2548,7 @@ want identifiers in signatures for something else later, so we'll hold
 them in reserve.
 
 [Update: This functionality is provided by macros using the C<is parsed>
-trait.  See A06.]
+trait.  See A6.]
 
 =head2 RFC 340: with takes a context
 

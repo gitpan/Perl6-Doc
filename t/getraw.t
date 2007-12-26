@@ -1,4 +1,5 @@
 use strict;
+use warnings;
 use lib 'lib', 'blib/lib';
 use Test::More tests => 1;
 use Perl6::Doc;

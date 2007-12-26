@@ -1,6 +1,6 @@
 =head1 NAME
 
-Exegesis_4 - Syntax
+Exegesis_04 - Syntax
 
 =head1 AUTHOR
 
@@ -8,19 +8,11 @@ Damian Conway <damian@conway.org>
 
 =head1 VERSION
 
-  Maintainer: Larry Wall <larry@wall.org>
+  Maintainer: Allison Randal <al@shadowed.net>
   Date: 2 Apr 2002
-  Last Modified: 30 May 2006
+  Last Modified: unknown
   Number: 4
-  Version: 2
-
-[Update: Please note that this was written several years ago, and
-a number of things have changed since then.  Rather than changing
-the original document, we'll be inserting "Update" notes like this
-one to tell you where the design has since evolved.  (For the better,
-we hope).  In any event, for the latest Perl 6 design (or to figure out
-any cryptic remarks below) you should read the Synopses, which are kept
-very much more up-to-date than either the Apocalypses or Exegeses.]
+  Version: 1
 
 =over
 
@@ -54,8 +46,6 @@ important right now.
 
     module Calc;
 
-[Update: This syntactic form is allowed only for the entire file.]
-
     my class NoData is Exception {
         method warn(*@args) { die @args }
     }
@@ -77,16 +67,6 @@ important right now.
             '/'  => { $^a / $^b },
             '~'  => { ($^a + $^b) / 2 },
         );
-
-[Update: There is no private property.  And this would be a good place
-for a constant declaration.
-
-        constant %operator =
-            '*'  => { $^a * $^b },
-            '/'  => { $^a / $^b },
-            '~'  => { ($^a + $^b) / 2 };
-
-Note also that the right side of a list= doesn't require parens any more.]
 
         my @stack;
         my $toknum = 1;
@@ -115,9 +95,6 @@ Note also that the right side of a list= doesn't require parens any more.]
         }
         fail Err::BadData: msg=>"Too many operands" if @stack > 1;
         return %var{'$' _ $i} = pop(@stack) but true;
-
-[Update: Concatenation is now C<~> instead of underline.]
-
     }
 
     module main;
@@ -125,9 +102,6 @@ Note also that the right side of a list= doesn't require parens any more.]
     for 1..Inf -> $i {
         print "$i> ";
         my $expr = <> err last;  
-
-[Update: C<< <> >> is now C<=*> or some such.]
-
         print "$i> $( Calc::calc(i=>$i, expr=>$expr) )\n";
     }
 
@@ -159,10 +133,8 @@ For example:
 
     class B::Like::Me is interface;
 
-specifies that the C<B::Like::Me> class defines a (Java-like) interface
+specifies that the B::Like::Me class defines a (Java-like) interface
 that any subclass must implement.
-
-[Update: We now use C<role> declarations for interfaces, by the way.]
 
 The C<is Exception> is not, however, a standard property. Indeed,
 C<Exception> is the name of another (standard, built-in) class. When a
@@ -346,9 +318,6 @@ namespace afterward:
 
     module Calc;                        # Back to Calc's namespace
 
-[Update: And, in fact, that package-switching syntax is now disallowed.
-You have to use the block form for any declaration but the file scope.]
-
 Being able to "nest" the C<NoData> namespace:
 
     module Calc;                            # Open Calc's namespace
@@ -465,21 +434,12 @@ C<continue> block, which in Perl 6 becomes C<NEXT>.
 The "topic" that C<given> creates can also be aliased to a name of our
 own choosing (though it's I<always> aliased to C<$_> no matter what
 else we may do). To give the topic a more meaningful name, we just need
-to use the "topical arrow":
+to use the "topical arrow:"
 
     given check_online().{active}{names}[0] -> $name {
         when /^\w+$/  { print "$name's on first\n" }
         when /\?\?\?/    { print "Who's on first\n" }
     }
-
-[Update: Would now be written more like:
-
-    given check_online()<active><names>[0] -> $name {
-        when /^ \w+ $/   { say "$name's on first" }
-        when / \?\?\? /  { say "Who's on first" }
-    }
-
-]
 
 Having been replaced by the dot, the old Perl 5 arrow operator is given
 a new role in Perl 6. When placed after the topic specifier of a
@@ -506,9 +466,6 @@ the current topic:
         print if length > 10;   # same as: print $next if length $next > 10
         %count{$next}++;
     }
-
-[Update: There is no C<length> function any more.  You have to specify
-C<.chars> or C<.bytes> or some such.]
 
 This is subtly different from the "equivalent" Perl 5 code:
 
@@ -556,9 +513,6 @@ to:
 Note that this works because, in Perl 6, a call to C<< <> >> is
 lazily evaluated in list contexts, including the list of a C<for> loop.
 
-[Update: The first argument to a "pointy sub" is always aliased to C<$_>
-now as well.]
-
 =head1 Other whens
 
 The remaining cases of the data look-up are handled by subsequent
@@ -582,10 +536,6 @@ pragma is in effect) or else returns an C<undef> value from the scope
 in which the C<fail> was invoked. That is, the C<fail> acts like a
 C<die SomeExceptionClass> or a C<return undef>, depending on the state
 of the C<use fatal> pragma.
-
-[Update: Instead of returning a bare C<undef>, the current language
-returns a kind of undef that contains the unthrown exception that would
-have been thrown under C<use fatal>.]
 
 This is possible because, in Perl 6, I<all> flow-of-control --
 including the normal subroutine C<return> -- is exception-based. So,
@@ -620,10 +570,6 @@ documented at that point, but the mode of failure becomes
 caller-selectable. Fanatics can C<use fatal> and make each failure
 punishable by death; hippies can say C<no fatal> and make each failure
 just return C<undef>.
-
-[Update: The default is now somewhere between those extremes; to throw
-an explicit exception if the unthrown exception is not examined in
-some fashion before being thrown away.]
 
 You no longer have to get caught up in endless debate as to whether the
 exception-catching:
@@ -713,8 +659,6 @@ match" operator.
 
 So he did. It's called C<=~>.
 
-[Update: Now called C<~~> instead.]
-
 Yes, the humble Perl 5 "match a string against a regex" operator is
 promoted in Perl 6 to a "smart-match an I<anything> against an
 I<anything>" operator. So now:
@@ -740,9 +684,6 @@ hashes and lists:
     if $value =~ ('a',/\s/,7) {...} # true if $value is eq to 'a'
                                     #   or if $value contains whitespace
                                     #   or if $value is == to 7
-
-[Update: lists are no longer automatically smart matched distributively.
-You can always use C<any(...)> for that, or the C<|> junctional operator.]
 
 That final example illustrates some of the extra intelligence that Perl
 6's C<=~> has: When one of its arguments is a list (I<not> an array),
@@ -810,8 +751,6 @@ outside the C<&Wherever::whatever> subroutine produces a compile-time
 error. It's still a package variable, but now you can't use it anywhere
 but in the nominated lexical scope.
 
-[Update: We now use C<state> variables for that.]
-
 Apart from the benefit of replacing an ugly hack with a clean explicit
 marker on the variable, the real advantage is that Perl 6 private
 variables can be also be initialized:
@@ -826,16 +765,6 @@ That initialization is performed the first time the variable
 declaration is encountered during execution (because that's the only
 time its value is C<undef>, so that's the only time the C<//=> operator
 has any effect).
-
-[Update: That's now just
-
-    sub whatever {
-        state $count = 1;
-        say "whatever called $count times";
-        $count++;
-    }
-
-The C<=> automatically happens only the first time through.]
 
 In our example program we use that facility to do a one-time-only
 initialization of a private package hash. That hash will then be used
@@ -882,10 +811,6 @@ differently:
                                                  # statement is reached.
                                                  # Thereafter constant
                                                  # within subroutine
-
-[Update: The behavior of C<=> now always DWYMs from the declarator,
-whether it's C<constant> (compile time), C<state> (first time), C<has>
-(object initialization time), or C<our> or C<my> (execution time).]
 
 =head1 Let's Split!
 
@@ -1027,9 +952,6 @@ Note that C<map> and C<reduce> can do that too in Perl 6:
     # process @xs_and_ys two-at-a-time...
     @list_of_powers = map { $^x ** $^y } @xs_and_ys;
 
-[Update: A block parameter must now be followed by comma if there are 
-more arguments.]
-
     # reduce list three-at-a-time   
     $sum_of_powers  = reduce { $^partial_sum + $^x ** $^y } 0, @xs_and_ys;
 
@@ -1095,8 +1017,6 @@ inferrable C<< -> >> can be omitted in Perl 5).
 Note too that we used the flattening operator (C<*>) on C<@args>,
 because the closure returned by C<%operator{$token}> expects two
 scalar arguments, not one array.
-
-[Update: That would be the C<[,]> operator now.]
 
 The second C<when> simply exits the loop if it finds an
 "end-of-expression" token. In this example, the argument of the C<when>
@@ -1198,12 +1118,6 @@ passes outward -- to the end of the C<loop> block. But then the C<loop>
 reiterates, sending control back into C<getnum_or_die> for another
 attempt.
 
-[Update: Resumptive exception handling can be done in Perl 6, but only
-with the cooperation of the code throwing the error.  If the exception
-object contains a resumption continuation, that continuation may be
-called to resume after the call to the throw.  In fact, some warnings are
-simply exceptions that are printed and resumed by default.]
-
 =head1 Catch as Catch Can
 
 Within the C<CATCH> block, the example uses the standard Perl 6
@@ -1228,9 +1142,6 @@ are (almost) equivalent to:
     elsif $!.isa(NoData)        { push @stack, 0 }
 
 except far more readable.
-
-[Update: Actually, smartmatch calls C<.does> rather than C<.isa> now since
-that is defined to work for any type, not just classes.]
 
 The first C<when> statement simply passes the exception object to
 C<warn>. Since C<warn> takes a string as its argument, the exception
@@ -1311,9 +1222,6 @@ or even just:
             unless .status('covert');
     }
 
-[Update: This is no longer the case unless you declare the invocant with
-the name C<$_>.  Otherwise you have to say C<self.rank> or C<$.rank>.]
-
 Yet another use of unary dot is as a way of abbreviating multiple
 accesses to hash or array elements. That is, C<given> also implements
 the oft-coveted C<with> statement. If many elements of a hash or array
@@ -1337,9 +1245,6 @@ by making it the topic and using unary dot:
         $limit = max(.{limit}, .{rate} * .{count});
         $count = $limit / .{max_per_count};
     }
-
-[Update: Would now be C<< .<name> >> etc., since C<.{...}> no longer
-autoquotes.]
 
 =head1 Onward and Backward
 
@@ -1426,8 +1331,6 @@ then calling C<&ignition> at the end of the countdown.
 C<LAST> statements are also extremely useful in nonlooping blocks, as a
 way of giving the block a "destructor" with which it can clean up its
 state regardless of how it is exited:
-
-[Update: This would now be a C<LEAVE> block.]
 
     sub handler ($value, $was_handled is rw) {
         given $value {
@@ -1543,9 +1446,6 @@ which now generates a (compile-time) error:
     Can't ascribe a compile-time property to the run-time value of $x.
     (Did you mean "$x but true" or "$x =~ true"?)
 
-[Update: The true value is now C<True>, short for C<Bool::True>.
-This avoids confusion with the unary true() operator.]
-
 =head1 The Forever Loop
 
 Once the C<Calc> module has all its functionality defined, all that's
@@ -1651,13 +1551,6 @@ and values):
         print "Element $index is $next\n";
     }
 
-[Update: Most of the syntax in this section is bogus.  There is
-no semicolon separator in argument lists.  Instead the mapping is
-controlled by the function around the argument list, such as each(),
-zip(), and so on.  These functions might use semicolon to separate
-separate dimensions, but would normally hide those inside parens to
-prevent confusion with statement ending semicolons.]
-
 =head1 Read or Die
 
 Having prompted for the next expression that the calculator will
@@ -1684,8 +1577,6 @@ is also the low-precedence version of C<//>. Its name is C<err>:
          INCLUSIVE OR             ||                     or
          EXCLUSIVE OR             ~~                    xor
           DEFINED OR              //                    err
-
-[Update: High precedence XOR is now ^^.]
 
 But why call it C<err>?
 

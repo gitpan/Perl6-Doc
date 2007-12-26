@@ -73,7 +73,7 @@ CONTENTS
     S28* Special Names
     S29* Functions
     
-    T01  Tutorial Perlintro
+    T01  Tutorial perlintro
 
 
 METHODS
@@ -90,16 +90,17 @@ SCRIBES
     
     * Herbert Breunung <lichtkind@cpan.org>
 
-COPYRIGHT
-    This Copyright applies only to the C<Perl6::Doc> Perl software
-    distribution, not the documents bundled within.
-
+SOURCES
     A couple of paragraphs from _Perl 6 Essentials_ were used for the
     overview. Most docs are from the official Perl development site. 
 
     http://dev.perl.org/perl6/
 
     All draft Synopses were taken out of the Pugs SVN repository.
+
+COPYRIGHT
+    This Copyright applies only to the C<Perl6::Doc> Perl software
+    distribution, not the documents bundled within.
 
     Copyright (c) 2005. Ingy döt Net, Herbert Breunung. All rights reserved.
 

@@ -1,6 +1,6 @@
 =head1 NAME
 
-Exegesis_7 - Formats
+Exegesis_07 - Formats
 
 =head1 AUTHOR
 
@@ -8,19 +8,11 @@ Damian Conway <damian@conway.org>
 
 =head1 VERSION
 
-  Maintainer: Larry Wall <larry@wall.org>
+  Maintainer: Allison Randal <allison@perl.org>
   Date: 26 Feb 2004
-  Last Modified: 29 May 2006
+  Last Modified: 26 Feb 2004
   Number: 7
-  Version: 2
-
-[Update: Please note that this was written a couple of years ago, and
-a number of things have changed since then.  Rather than changing
-the original document, we'll be inserting "Update" notes like this
-one to tell you where the design has since evolved.  (For the better,
-we hope).  In any event, for the latest Perl 6 design (or to figure out
-any cryptic remarks below) you should read the Synopses, which are kept
-very much more up-to-date than either the Apocalypses or Exegeses.]
+  Version: 1
 
 =over
 
