@@ -1,6 +1,6 @@
 =encoding utf8
 
-=head1 TITLE
+=head1 NAME
 
 Synopsis_03 - Summary of Perl 6 Operators
 
@@ -465,3 +465,4 @@ Perl 6 has 22 precedence levels (which is fewer than Perl 5):
     loose or		or xor err
     expr terminator	; {} as control block, statement modifiers
 
+=cut

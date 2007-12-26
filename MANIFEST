@@ -16,6 +16,7 @@ lib/Perl6/Doc/Bible/A04.pod
 lib/Perl6/Doc/Bible/A05.pod
 lib/Perl6/Doc/Bible/A06.pod
 lib/Perl6/Doc/Bible/A12.pod
+lib/Perl6/Doc/Bible/A20.pod
 lib/Perl6/Doc/Bible/E02.pod
 lib/Perl6/Doc/Bible/E03.pod
 lib/Perl6/Doc/Bible/E04.pod
@@ -48,3 +49,4 @@ p6doc
 README
 t/compile.t
 t/getraw.t
+t/params.t

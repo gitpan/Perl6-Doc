@@ -1,5 +1,5 @@
 version: 0.32_4
-date: Sun Dec 25 2007
+date: Sun Dec 26 2007
 changes:
 - added params.t parameter checking for nondoc text outputs
 - made SOURCES chapter in the module docs
