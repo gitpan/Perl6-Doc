@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Apocalypse_06 - Subroutines
+Apocalypse_06 -  Subroutines
 
 =head1 AUTHOR
 
@@ -12,9 +12,9 @@ Larry Wall <larry@wall.org>
 
   Maintainer: Larry Wall <larry@wall.org>
   Date: 7 Mar 2003
-  Last Modified: 4 Dec 2004
+  Last Modified: 25 May 2006
   Number: 6
-  Version: 5
+  Version: 6
 
 This is the Apocalypse on Subroutines.  In Perl culture the term
 "subroutine" conveys the general notion of calling something that
@@ -225,6 +225,9 @@ Although we say the C<sub> keyword is now optional on a closure, the
 C<return> keyword only works with an explicit C<sub>.  (There are
 other ways to return values from a block.)
 
+[Update: This is slightly inaccurate; C<return> works from any C<Routine>.
+See below.]
+
 =head2 Subroutine Declarations
 
 You may still declare a sub just as you did in Perl 5, in which case
@@ -292,6 +295,8 @@ There are actually several syntactic forms of trait:
 	| returns <type>
     }
 
+[Update: the C<:w> is no longer needed on a rule.]
+
 (We're specifying the syntax here using Perl 6 regexes.  If you don't
 know about those, go back and read Apocalypse 5.)
 
@@ -355,6 +360,11 @@ or unscoped:
 The non-lexically scoped declaration cannot specify a return type
 in front.  The return type can only be specified as a trait in that case.
 
+[Update: These days the return type may be specified as part of the
+signature after a C<< --> >>.  It's also possible to use a declarator
+in front of a declaration that introduces no name.  And again, the C<:w>
+is no longer used in rules.]
+
 As in Perl 5, the difference between a package sub and an anonymous
 sub depends on whether you specify the C<< <subname> >>.  If omitted,
 the declaration (which is not really a declaration in that case)
@@ -383,12 +393,17 @@ for the current class only.  A C<multi> is a multimethod, that is,
 a method that is called like a subroutine or operator, but is
 dispatched based on the types of one or more of its arguments.
 
-[Update: These days C<multi> is just a modifier on C<sub> or C<method>.]
+[Update: These days C<multi> is just a modifier on C<sub> or C<method>, but
+if you say C<multi> the C<sub> may be omitted since it's the default.]
 
 Another variant is the regex C<rule>, which is really a special kind
 of method; but in actuality rules probably get their own set of parse
 rules, since the body of a rule is a regex.  I just put "rule" into
 <subintro> as a placeholder of sorts, because I'm lazy.
+
+[Update: Rules are now split up into C<regex>, C<token>, and C<rule>
+declarations.  These differ in backtracking policy and whitespace matching.
+See S05.]
 
 A C<macro> is a subroutine that is called immediately upon completion
 of parsing.  It has a default means of parsing arguments, or it may
@@ -417,6 +432,8 @@ is useful.  Some apparently C<Bare> blocks are actually C<Parametric>
 if they refer to C<$_> internally, even implicitly.  And a C<Bare>
 block is just a C<Parametric> block with a signature of C<()>.
 More later.)
+
+[Update: There's no longer a Bare/Parametric distinction.]
 
 A C<< <psignature> >> is a parenthesized signature:
 
@@ -679,6 +696,9 @@ which might really mean:
 
 or some such.
 
+[Update: Type parameters are now written with square brackets, and
+we now distinguish the C<of> property from the C<returns> property.]
+
 I suppose you could also write that as:
 
     my Array of Array of Hash of Array of Cat %pet;
@@ -704,6 +724,8 @@ This is also legal:
 
     my @litter returns Cat;
 
+[Update: Not any more.]
+
 But the "C<returns>" keyword is mostly for use by functions:
 
     my Cat sub find_cat($name) {...}
@@ -726,6 +748,8 @@ of non-C<my> article to introduce a type unambiguously:
 Presumably "C<a>" or "C<an>" is short for "anonymous".  Which is more or
 less what the indefinite article means in English.
 
+[Update: You can just use C<my> there and leave the name out.]
+
 However, we need C<returns> anyway in cases where the return value
 is complicated, so that you'd rather list it later (for end-weight
 reasons):
@@ -736,6 +760,14 @@ Note that the return type is a signature much like the parameter types,
 though of course there are no formal parameter names on a return value.
 (Though there could be, I suppose.)  We're calling such nameless
 signatures "siglets".
+
+[Update: It turns out that the C<returns> property just constrains
+the return type as seen by the routine, and not the return type
+seen by the rest of the world.  Use the type prefix or arrow form
+to declare a return type that is seen by the rest of the world, and
+in particular any type inferencing engine.  We call that the C<of>
+type to distinguish it from the C<where> type that is specified by
+the C<returns> property.]
 
 =head2 Stub declarations
 
@@ -783,6 +815,13 @@ confusing for historical reasons, so we disallow it instead, and you
 have to say:
 
     sub foo {...}
+
+[Update: Perl 6 also allows you to defer declaring your subroutine
+till later in the file, but only if the delayed declaration declares
+the sub to be parsed consistent with how a list operator would be
+parsed.  Basically, any unrecognized "bareword" is assumed to be a
+provisional list operator that must be declared by the end of the
+current compilation unit.]
 
 =head2 Scope of subroutine names
 
@@ -910,6 +949,12 @@ of parameter won't win a beauty contest, but might look like this:
 
     method x ($me: $req, ?$opt, +$namedopt, *%named, *@list) {...}
 
+[Update: that currently looks like this:
+
+    method x ($me: $req, $opt?, :$namedopt, *%named, *@list) {...}
+
+]
+
 Of course, you'd rarely write all of those in one declaration.
 Most declarations only use one or two of them.  Or three or four...
 Or five or six...
@@ -1004,6 +1049,9 @@ until something overrides the current topic.  (You can always get at
 the invocant with the C<self> built-in, however.  If you don't like
 "self", you can change it with a macro.  See below.)
 
+[Update: The topic is not set now unless you explicitly name the
+invocant "C<$_>".]
+
 Ordinary subs never have an invocant.  If you want to declare a
 non-method subroutine that behaves as a method, you should declare
 a submethod instead.
@@ -1013,8 +1061,13 @@ of invocants, so if there is no colon, all parameters are considered
 invocants.  Only invocants participate in multimethod dispatch.
 Only the first invocant is bound to C<$_>.
 
+[Update: Again, only if you actually name that parameter "C<$_>".]
+
 Macros are considered methods on the current parse state object,
 so they have an invocant.
+
+[Update: The current parse state object is now called C<$?PARSER>, so
+macros are now more like subroutines.]
 
 =head4 Required parameters
 
@@ -1055,6 +1108,12 @@ you violating either constraint.  So the declaration:
 says that C<substr> can be called with anywhere from 1 to 4 scalar
 parameters.
 
+[Update: Now written:
+
+    sub *substr ($string, $offset?, $length?, $repl?) {...}
+
+because the C<?> is often replaced by a default.]
+
 =head3 Variadic parameters
 
 Following the positional parameters, three kinds of variadic parameters
@@ -1078,12 +1137,15 @@ of a slurpy array depends slightly on whether you declare it first
 or last).
 
 [Update: The behavior of a slurpy array is the same now regardless of
-whether there are any C<+> parameters in front of it.]
+whether there are any named parameters in front of it.  And named
+parameters are now marked with C<:> rather than C<+>.]
 
 =head4 Named-only parameters
 
 Parameters marked with a C<+> zone marker are named-only parameters.
 Such a parameter may never be passed positionally, but only by name.
+
+[Update: Now using C<:> instead.]
 
 =head4 The slurpy hash
 
@@ -1264,6 +1326,10 @@ a reference, you may use it to modify the referenced object (if the
 object lets you), but you can't assign to it and change the original
 variable passed to the routine.
 
+[Update: This is now the C<readonly> trait.  We now prefer to reserve
+the term "constant" to refer only to compile-time constants, and
+parameters naturally tend to vary at run time.  Or so we hope.]
+
 =head4 C<is rw>
 
 The C<rw> trait is how you tell the compiler to ask for an lvalue
@@ -1395,6 +1461,10 @@ would never be used because the argument always exists.  So semantic
 analysis will complain about it.  (And I'd rather not say that adding
 a default implies it's optional without the C<?> zone marker.)
 
+[Update: By moving the C<?> to the end, it now may be omitted as
+redundant if there is a default.  That is, C<$x?> is really short for
+" C<$x = undef>".]
+
 =head3 Formal parameter types
 
 Formal parameters may have any type that any other variable may
@@ -1414,6 +1484,9 @@ for methods the formal type will often indicate a base class of the
 actual's derived class.  People coming from C++ must remember that all
 methods are "virtual" in Perl.
 
+[Update: Beyond that, most of the types specified in signatures are
+not even classes, but just roles used to name an interface.  See S12.]
+
 Closure parameters are typically declared with C<&>:
 
     sub mygrep (&block, *@list is rw) {...}
@@ -1431,7 +1504,7 @@ You may, however, supply a signature if you like:
 	block(foo => $bar);
     }
 
-[Update: That can be written C<< &block<$foo> >> now.]
+[Update: That can be written C<< &block:($foo) >> now.]
 
 With an explicit signature, it would be error to bind a block to
 C<&block> that is not compatible.  We're leaving "compatible" undefined
@@ -1456,6 +1529,9 @@ for argumentless calls to methods such as attribute accessors.
 Parentheses are optional on multimethod and macro calls because they
 always parse like list operators.  A rule may be called like a method
 but is normally invoked within a regex via the C<< <rule> >> syntax.
+
+[Update: Parentheses are optional on "postdeclared" subroutines as well,
+provided the post-declaration is consistent with listop syntax.]
 
 As in Perl 5, within the list there may be an implicit transition
 from scalar to list context.  For example, the declaration of the
@@ -1529,6 +1605,8 @@ to occur before the list arguments for efficiency--otherwise the
 implementation would have to scan the entire list for named arguments,
 and some lists are monstrous huge.
 
+[Update: These are now viewed as suggestions rather than hard rules.]
+
 We'd call these three parts "zones" as well, but then people
 would get them confused with our six declarative zones.  In fact,
 extending the zoning metaphor a bit, our three parts are more like
@@ -1570,6 +1648,9 @@ positional parameters.  However, as soon as the first named argument is
 seen (that cannot be mapped to an explicitly typed C<Pair> or C<Hash>
 parameter) this mapping stops, and any subsequent positional parameters
 may only be bound by name.
+
+[Update: Named arguments are now distinguished syntactically from C<Pair>
+arguments, so it's not necessary to do type matching.]
 
 =head4 The named arguments
 
@@ -1769,8 +1850,8 @@ wants more positional arguments, they are assumed to come from the
 generated list, as if the list had been specified literally in the
 program at that point as comma-separated values.
 
-[Update: Splat is now a unary operator even in list context.
-Use parens to make it flatten an entire list.]
+[Update: This is now done using the C<[,]> reduce operator.  For C<*>
+and "splat" below read C<[,]> instead.]
 
 With splat lists, some of the argument processing may have to be
 deferred from compile time to runtime, so in general such a call may
@@ -1890,6 +1971,8 @@ The "eager splat" is also available as a unary operator to
 attempt eager flattening on the rvalue side:
 
     @foo = **1..Inf;  # Test our "out of memory" handler...
+
+[Update: this is now just done with the C<eager> listop.]
 
 =head3 Sublist formals
 
@@ -2369,6 +2452,9 @@ for a placeholder.  These continue to see the outer scope's C<$_>,
 just as they would any other lexically scoped variable declared in
 the outer scope.
 
+[Update: Methods and subs no longer bind their first argument to $_ by
+default.]
+
 =head3 Dynamic context
 
 On the flipside, C<$_> is no longer visible in the dynamic context.
@@ -2408,8 +2494,8 @@ C<&_> produces a reference to your current C<Routine>, though in the
 signature above we have to use C<&CALLER::_> to get at the caller's
 C<&_>.
 
-[Update: Since the caller's sub is now named C<&?SUB>, that'd presumably
-default to C<&?CALLER::SUB> instead.]
+[Update: Since the caller's sub is now named C<&?ROUTINE>, that'd presumably
+be C<< CALLER::<&?ROUTINE> >> instead.]
 
 Note that use of C<caller> can prevent certain kinds of optimizations,
 such as tail recursion elimination.
@@ -2500,6 +2586,10 @@ on them, but on the arrays to which they are bound.  The bound array manages its
 hidden generators on your behalf to "harden" the abstract list into concrete
 array values on demand.
 
+[Update: List contexts are no longer required to keep track of how
+many arguments they want.  The only meaningful values are 0, 1, and
+infinity.]
+
 =head4 The C<CALLER::> pseudopackage
 
 Just as the C<SUPER::> pseudopackage lets you name a method somewhere
@@ -2512,7 +2602,7 @@ caller's lexical scope, namely C<$_>.  Your caller's current topic
 is named C<$CALLER::_>.  Your caller's current C<Routine> reference
 is named C<&CALLER::_>.
 
-[Update: The latter is now C<&?CALLER::SUB>.]
+[Update: The latter is now C<< CALLER::<&?ROUTINE> >>.]
 
 Note again that, as a form of C<caller>, use of C<CALLER::> can
 prevent certain kinds of optimizations.  However, if your signature
@@ -2575,6 +2665,14 @@ a sub argument with a signature of C<()>, it may optimize it down
 to ordinary lexical scoping, and if it has a signature of C<($)>,
 it can assume it doesn't need the default.  A signature of C<(?$)>
 means all bets are off again.
+
+[Update: the C<CALLER::> mechanism has been refined into the C<ENV::> variable
+system.  Only variables declared with the C<env> declarator are visible to
+callees, but implicitly declared variables like C<$_> and C<$/> are included
+in this category.  C<CALLER::> still works the same, but C<ENV::> searches
+all the way up the dynamic call stack for a lexically scoped variable of that
+name that has been declared with C<env>.  Just as C<$*foo> is shorthand for
+C<< GLOBAL::<$foo> >>, so too C<$+foo> is shorthand for C<< ENV::<$foo> >>.]
 
 =head4 Where C<return>/C<leave> returns to
 
@@ -2657,6 +2755,9 @@ modify the parameters, supply a new argument list to C<call>:
     })
 
 You need to be careful not to preflatten those generators, though.
+
+[Update: Not-yet-bound arguments and return values are now represented
+by a C<Capture> object.]
 
 The C<$id> is useful for removing a particular wrapper:
 
@@ -2782,14 +2883,14 @@ In the absence of an explicit <is parsed> trait, a macro's arguments
 are parsed with whatever C<macro> rule is in effect, by default the
 standard C<Perl::macro>.
 
-[Update: The default parse rule probably turns out to be dependent
-on the grammatical category of the macro.  A term macro wants a list
-by default, while an infix macro just wants a scalar expression
-for the right argument.  Macros for things like rule modifiers
-probably want to parse like trait verbs.  On the other hand, an
-infix_circumfix_meta_operator like C<»«> probably just wants to parse
-its argument as /.*?/.  Or maybe there should be no default for
-such abstruse categories.]
+[Update: The default parse rule probably turns out to be dependent on
+the grammatical category of the macro.  A prefix macro wants a list by
+default, while an infix macro just wants a scalar expression for the
+right argument.  A term probably wants no argument at all.  Macros for
+things like rule modifiers probably want to parse like trait verbs.
+On the other hand, an infix_circumfix_meta_operator like C<» «>
+just wants to recognize certain strings inside that also happen to
+be valid infix operators.]
 
 =head4 C<is cloned("BEGIN")>
 
@@ -2854,8 +2955,6 @@ declared as:
 
     multi *print (*@list) {...}
 
-[Update: That'd be "C<multi sub>" these days.  No bare "multis" anymore.]
-
 Just declare your own sub:
 
     sub print (*@list) {...}
@@ -2897,7 +2996,7 @@ Operator names start with one of four names followed by a colon:
 
     prefix:	a unary prefix operator
     infix:	a binary infix operator
-    postfix:	a binary suffix operator
+    postfix:	a unary suffix operator
     circumfix:	a bracketing operator
 
 Everything after the colon and up to the next whitespace or left
@@ -3033,12 +3132,7 @@ user-defined ternary operators are discouraged, and partly because
 I haven't actually bothered to figure out the details yet.  This
 Apocalypse is already late enough.
 
-[Update: I suppose it could now be solved by feeding a slice to the
-infix category:
-
-    our sub infix:<?? ::> ($a, $b, $c) {...}
-
-But maybe not...]
+[Update: Ternary operator is now C<??!!>, actually...]
 
 Also please note that it's perfectly permissible (but not extremely
 expeditious) to rapidly reduce the Perl grammar to a steaming pile
@@ -3450,6 +3544,8 @@ a redefinition, in fact, any definition of C<system()> could be
 considered a redefinition.  We could require "C<is redefined>" or
 some such on all such redefinitions.
 
+[Update: "C<is instead>" is the currently approved incantation.]
+
 The "C<lock>" situation arises when we add a new built-in, however.
 Do we want to force people to add in an "C<is redefined>" where they
 didn't have to before?  Worse, if their definition of "C<lock>" is
@@ -3514,6 +3610,9 @@ as a list operator.  After all, we don't know when someone will be
 adding more multimethods.  I currently think this is a feature, but
 I could be sadly mistaken.  It has happened once or twice in the past.
 
+[Update: Post-declared subs are now always assumed to parse the same as
+as listops.]
+
 =head4 RFC 57: Subroutine prototypes and parameters
 
 We ended up with something like this proposal, though with some
@@ -3526,11 +3625,17 @@ not to be interested in named arguments.
 Also, as the RFC points out, use of C<=> would be incompatible with
 lvalue subs, which we're supporting.
 
+[Update: we now recognize the C<:ident($arg)> and C<< ident => $arg >>
+forms as named parameters, and other uses of C<< => >> are assumed
+to be pair constructors.]
+
 The RFC allows for mixing of positional and named parameters, both
 in declaration and in invocation.  I think such a feature would
 provide far more confusion than functionality, so we won't allow it.
 You can always process your own argument list if you want to.  You
 could even install your own signature handler in place of Perl's.
+
+[Update: we now allow it, but discourage it.]
 
 The RFC suggests treating the first parameter with a default as the
 first optional parameter.  I think I'd rather mark optional parameters
@@ -3815,7 +3920,7 @@ a particular signature, in essence, doing method dispatch without
 actually dispatching at the end.)
 
 [Update: Such an individual multimethod is named with the argument
-types in angles: C<< &foo<Bar,Baz> >>.
+types in a siglet postfix: C<&foo:(Bar,Baz)>.
 
 My gut feeling is that C<$_[-1]> is a bad place to keep the return
 value.  With the C<call> interface we're proposing, you just harvest
@@ -4019,6 +4124,8 @@ pair internally, because we have to be able to use it indirectly:
     @args = (\@foo, '*@' => (1,2,3));
     stuff *@args;
 
+[Update: Instead of a "special pair", we now have Capture objects.]
+
 But if we're going to have a special operator to switch explicitly to
 the list part, it really needs to earn its keep, and do more work.
 A special operator could also force scalar context on the left and
@@ -4081,9 +4188,6 @@ would really do something more like appending a named argument:
 
 or however we decide to mark the beginning of the "real" list within
 a larger list.
-
-[Update: It's just the null key, not C<*@>.  (And the null key on
-a closure argument binds to the slurpy block parameter instead.)]
 
 But I do rather like the looks of:
 
@@ -4451,6 +4555,8 @@ should probably be an error.  It's equivalent to saying:
     push @foo, '*@'=>(1,2,3), 1..0;
 
 or some such.  We try to catch that in our pseudocode above.
+
+[Update: We now allow multiple lists as a kind of multidimensional slice.]
 
 When you bind a lazy list to an array name such as C<@_> or C<@list>,
 by default it's going to try to give the appearance that the array is

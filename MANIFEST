@@ -41,6 +41,14 @@ lib/Perl6/Doc/Bible/S26.pod
 lib/Perl6/Doc/Bible/S27.pod
 lib/Perl6/Doc/Bible/S28.pod
 lib/Perl6/Doc/Bible/S29.pod
+lib/Perl6/Doc/Docs/Capture.pod
+lib/Perl6/Doc/Docs/Data.pod
+lib/Perl6/Doc/Docs/File.pod 
+lib/Perl6/Doc/Docs/Object.pod
+lib/Perl6/Doc/Docs/Operator.pod
+lib/Perl6/Doc/Docs/Smartmatch.pod
+lib/Perl6/Doc/Docs/Subroutine.pod
+lib/Perl6/Doc/Docs/Variable.pod
 lib/Perl6/Doc/Tutorial/perlintro.pod
 Makefile.PL
 MANIFEST			This list of files
@@ -49,4 +57,3 @@ p6doc
 README
 t/compile.t
 t/getraw.t
-t/params.t

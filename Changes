@@ -1,3 +1,11 @@
+version: 0.32_6
+date: Sun Dec 27 2007
+changes:
+- remove new tests (module didn't worg)
+- added Overview docs: Subroutine.pod, Variable.pod, Data.pod, File.pod
+  Object.pod, Operator.pod, Smartmatch.pod, Variable.pod, Capture.pod
+- updated all of Bible
+---
 version: 0.32_4
 date: Sun Dec 26 2007
 changes:

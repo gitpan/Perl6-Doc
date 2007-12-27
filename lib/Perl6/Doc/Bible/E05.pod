@@ -1,6 +1,6 @@
 =head1 NAME
 
-Exegesis_05 - Pattern Matching
+Exegesis_05 -  Pattern Matching
 
 =head1 AUTHOR
 
@@ -8,11 +8,19 @@ Damian Conway <damian@conway.org>
 
 =head1 VERSION
 
-  Maintainer: Allison Randal <al@shadowed.net>
+  Maintainer: Larry Wall <larry@wall.org>
   Date: 22 Aug 2002
-  Last Modified: 25 Aug 2002
+  Last Modified: 29 May 2006
   Number: 5
-  Version: 1
+  Version: 2
+
+[Update: Please note that this was written several years ago, and
+a number of things have changed since then.  Rather than changing
+the original document, we'll be inserting "Update" notes like this
+one to tell you where the design has since evolved.  (For the better,
+we hope).  In any event, for the latest Perl 6 design (or to figure out
+any cryptic remarks below) you should read the Synopses, which are kept
+very much more up-to-date than either the Apocalypses or Exegeses.]
 
 =over
 
@@ -118,6 +126,9 @@ collectively would match any data conforming to that format:
         ]
       |
         (\N*) ::: { fail "Invalid diff hunk: $1" }
+
+[Update: Backrefs are now numbered starting at 0.]
+
     };
 
     $linerange = rx/ <$linenum> , <$linenum>
@@ -149,6 +160,10 @@ This statement creates a pattern object. Or, as it's known in Perl 6, a
 "regexes" too (and the keyword C<rx> reflects that), but Perl patterns
 long ago ceased being anything like "regular", so we'll try and avoid
 those terms.
+
+[Update: We've resurrected the term "regex" to refer to these patterns
+in general.  When we say "rule" now, we're specifically referring to the
+kind of regex that you would use in a grammar.  See S05.]
 
 In any case, the C<rx> constructor builds a new rule, which is then
 stored in the C<$file> variable.  The Perl 5 equivalent would be:
@@ -252,6 +267,9 @@ That's really handy in something like:
         my $target = <>;                  # Get literal string to search for
         $text =~ m/ $target* /;           # Search for them as literals
 
+[Update: C<< <> >> is no longer the input operator.  And C<=~> has been
+replaced by C<~~>.]
+
 which in Perl 5 we'd have to write as:
 
         # Perl 5
@@ -322,12 +340,18 @@ we could have used:
         rx<pattern>     # Alternative bracket-delimiter style
         rxE<laquo>formeE<raquo>      # D<eacute>limiteurs trE<egrave>s chic
         rx>pattern<     # Inverted bracketing is allowed too (!)
+
+[Update: Inverted brackets are no longer allowed.]
+
         rxE<raquo>MusterE<laquo>      # AnfE<uuml>hrungszeichen in richtiger Reihenfolge
         rx!pattern!     # Excited
         rx=pattern=     # Unusual
         rx?pattern?     # No special meaning in Perl 6
         rx#pattern#     # Careful with these: they disable internal comments
 
+[Update: C<#> is no longer allowed as the delimiter in any quote-like
+construct.  It is always a comment.  This is not a hardship in Perl 6--you
+have plenty of Unicode characters to choose from.] 
 
 =head1 Modified modifiers
 
@@ -335,6 +359,9 @@ In fact, the only characters not permitted as C<rx> delimiters are
 C<':'> and C<'('>. That's because C<':'> is the character used to
 introduce pattern modifiers in Perl 6, and C<'('> is the character used
 to delimit any arguments that might be passed to those pattern modifiers.
+
+[Update: C<:> and C<#> are never permitted, but C<(> is now permitted
+if there is whitespace before it.]
 
 In Perl 6 pattern modifiers are placed I<before> the pattern, rather
 than after it. That makes life easier for the parser, since it doesn't
@@ -357,6 +384,8 @@ The name was changed because "each" is shorter and clearer in intent
 than "globally". And because the C<:each> modifier can be combined with
 other modifiers (see below) in such a way that it's no longer "global"
 in its effect.
+
+[Update: Switched back to C<:g> now.]
 
 
 =item C<:x($count)>
@@ -436,6 +465,8 @@ a regular expression in Perl 5 syntax. This is mainly provided as a
 transitional aid for porting Perl 5 code. And to mollify the
 curmudgeonly.
 
+[Update: Now C<:P5> or C<:Perl5> to avoid confusion with C<:p>.]
+
 =item C<:w> or C<:word>
 
 This modifier causes whitespace appearing in the pattern to match optional
@@ -464,6 +495,9 @@ rather than:
 So it won't accidentally match strings like C<"asymmetric ally"> or 
 C<"asymmetrically">.
 
+[Update: This is now the C<:s>/C<:sigspace> modifier, and is implicit
+in C<rule> declarations.]
+
 =item C<:any>
 
 This modifier causes the rule to match a given string in every possible
@@ -474,6 +508,7 @@ way, simultaneously, and then return all the possible matches. For example:
         @matches =  $str =~ m/ah*/;         # returns "ahhh"
         @matches =  $str =~ m:any/ah*/;     # returns "ahhh", "ahh", "ah", "a"
 
+[Update: This split into two modifiers, C<:overlap> and C<:exhaustive>.]
 
 =item C<:u0>, C<:u1>, C<:u2>, C<:u3>
 
@@ -490,6 +525,8 @@ It's okay to ignore this modifier if you're not using Unicode (and maybe even
 if you are). As usual, Perl will try very hard to Do The Right Thing.
 To that end, the default behaviour of rules is C<:u2>, unless an
 overriding pragma (e.g. C<use bytes>) is in effect.
+
+[Update: Now C<:bytes>, C<:codes>, C<:graphs>, and C<:langs>.]
 
 =back
 
@@ -515,6 +552,15 @@ becomes just:
         # Perl 6
         s/(\w+)/$( get_val_for($1) )/;
 
+[Update: This is now written:
+
+        s/(\w+)/{ get_val_for($0) }/;
+
+or
+
+        s/ \w+ /{ get_val_for($()) }/;
+
+]
 
 =head1 Take no prisoners
 
@@ -553,6 +599,10 @@ the "difference" operator. So we could also create:
         # Perl 6
         / < <alpha> - [A-Za-z] >+ /   # All alphabetics except A-Z or a-z
                                       # (i.e. the accented alphabetics)
+
+[Update: Would now need to be C<< <+<alpha> - [A-Za-z]> >> to avoid ambiguity
+with "Texas quotes", and because we want to reserve whitespace as the first
+character inside the angles for other uses.]
 
 Explicit character classes were deliberately made a little less
 convenient in Perl 6, because they're generally a bad idea in a
@@ -697,6 +747,8 @@ call to C<fail> causes the match to fail at that point, and sets an
 associated error message that would subsequently appear in the C<$!>
 error variable (and which would also be accessible as part of C<$0>).
 
+[Update: The old C<$0> variable has been renamed C<$/>.]
+
 Note the use of the triple colon after the repetition. It's needed
 because the C<fail> in the block will cause the pattern match to
 backtrack, but there's no point backing up one character and trying
@@ -762,6 +814,8 @@ Or we could have used the quotemeta metasyntax (C<\Q[...]>):
 Note that Perl 5's C<\Q...\E> construct is replaced in Perl 6 by 
 just the C<\Q> marker, which now takes a group after it. 
 
+[Update: There is no longer any \Q (or \L or \U for that matter).]
+
 We could also have used a single-letter character class:
 
         $deleteline = rx/^^ <[<]> <sp> (\N* \n) /
@@ -812,6 +866,8 @@ which matches any sequence of whitespace (i.e. it's a more elegant
 synonym for C<\s+>). Optional whitespace is, therefore, specified
 as C<< <ws>? >> or C<< <ws>* >> (Perl 6 will accept either);
 
+[Update: C<< <ws> >> is now the optional sigspace rule for the current
+grammar.]
 
 =item C<< <alpha> >>
 
@@ -1061,6 +1117,9 @@ is just that a C<rule> can have a name and must use C<{...}> as its
 delimiters, whereas an C<rx> doesn't have a name and can use
 any allowed delimiters.
 
+[Update: Wherever this document uses the C<rule> keyword, that is now
+the C<regex> keyword.  There are keywords for C<token> and C<rule> but
+they do something different now.]
 
 =head1 Bad line! No match!
 
@@ -1192,6 +1251,10 @@ capture (i.e. the digits), whilst the array element 2
 zero of any result object is assigned the complete string that the pattern
 matched.
 
+[Update: This has all changed.  C<$/[0]> is the first result, same as C<$0>.
+The entire result is extracted from a result object by casting to scalar,
+with C<$()> returning the scalar value of C<$($/)>.]
+
 There are also abbreviations for each of the array elements of C<$0>.
 C<$0[1]> can also be referred to as...surprise, surprise...C<$1>,
 C<$0[2]> can also be referred to as C<$2>, C<$0[3]> as C<$3>, etc. 
@@ -1208,6 +1271,9 @@ So, for example, when the pattern:
 matches, the result object's hash entry for the key C<'out_marker'> (i.e.
 C<$0{out_marker}>) will contain the result object returned by the successful
 nested match of the C<out_marker> subrule.
+
+[Update: Curly subscripts no longer autoquote, so that's now
+C<< $/<outmarker> >>, or C<< $<outmarker> >> for short.]
 
 
 =head1 A hypothetical solution to a very real problem
@@ -1326,6 +1392,11 @@ Instead, it is treated as a hypothetical variable, and bound to the
 result of the next component of the rule (in the above examples,
 to the result of the C<< <linenum> >> subrule match). 
 
+[Update: Any variable can be "hypotheticalized" via C<let>, so we
+no longer call these hypotheticals.  You bind to C<< $<from> >> to
+capture a named field now, and may bind to C<$from> only if that is
+an externally predeclared variable.]
+
 You can also use hypothetical arrays and hashes, binding them to
 a component that captures repeatedly. For example, we might choose
 to name our set of hunks:
@@ -1335,6 +1406,8 @@ to name our set of hunks:
 collecting all the C<< <hunk> >> matches into a single array
 (which would then be available after the match as C<$0{'@adonises'}>. Note that
 the sigil is included in the key in this case).
+
+[Update: Now you bind to @<adonises>, and the sigil is not included.]
 
 Or we might choose to bind a hypothetical hash:
 
@@ -1356,6 +1429,7 @@ its associated value. The hypothetical C<%init> hash is also available
 through the rule's result object, as C<$0{'%init'}> (again, with the
 sigil as part of the key).
 
+[Update: The current rules for all these bindings are detailed in S05.
 
 =head1 The nesting instinct
 
@@ -1402,6 +1476,8 @@ individual C<< <hunk> >> match.
 So, for example, we could access the "from" digits of the line range of
 the third hunk as: C<$0{hunk}[2]{linerange}{from}>.
 
+[Update: C<< $<hunk>[2]<linerange><from> >> now.
+
 
 =head1 Extracting the insertions
 
@@ -1418,8 +1494,11 @@ a "change" hunk. Like so:
         }
     }
 
+[Update: The C<@{...}> construct is not C<@(...)>.  A C<.each> would
+probably be more readable though.]
+
 Here, the C<if> statement attempts to match the text against the pattern
-for a diff file. If it suceeds, the C<for> loop grabs the C<< <hunk>* >>
+for a diff file. If it succeeds, the C<for> loop grabs the C<< <hunk>* >>
 result object, treats it as an array, and then iterates each hunk match
 object in turn into C<$hunk>. The array of append lines for each hunk
 match is then printed (if there is in fact a reference to that array in
@@ -1466,9 +1545,19 @@ The following code does exactly that:
               --- \n
               <appendline>+
               { @$appendline =~ s/<in_marker>/</;
+
+[Update: Smartmatch is now C<~~>.]
+
                 @$deleteline =~ s/<out_marker>/>/;
                 let $0 := "${to}c${from}\n"
+
+[Update: That C<${to}> syntax is very, very dead now.  Use {$to} instead.]
+
                         _ join("", @$appendline)
+
+[Update: String concatenation is now C<~>.  And just say C<$appendline.join>
+to join with null strings.]
+
                         _ "---\n"
                         _ join("", @$deleteline);
               }
@@ -1509,6 +1598,8 @@ To do that work, we have to extend each of the three main alternatives
 of that rule, adding to each a closure that changes the result object
 it returns.
 
+[Update: Now you can just return the new scalar result object with a
+C<return> from the closure.]
 
 =head1 Smarter alternatives
 
@@ -1587,6 +1678,8 @@ It might have come as a surprise that we were allowed to bind
 the pattern's C<$0> result object directly, but there's nothing magical
 about it. C<$0> turns out to be just another hypothetical variable...the
 one that happens to be returned when the match is complete.
+
+[Update: For C<$0> read C<$/> here.]
 
 Likewise, C<$1>, C<$2>, C<$3>, etc. are all hypotheticals, and can also be
 explicitly bound in a rule. That's very handy for ensuring that the
@@ -1679,6 +1772,7 @@ information out of the result object's hash attribute:
         my ($varname, $methodname, $arglist) =
                 $0{method_call}{"varname","methodname","arglist"}
 
+[Update: Make that C<< $<method_call><varname methodname arglist> >> now.]
 
 =head1 Deriving a benefit
 
@@ -1776,6 +1870,10 @@ that, like so:
 
         rule fileinfo {
                 <out_marker><3> $oldfile:=(\S+) $olddate:=[\h* (\N+?) \h*?] \n
+
+[Update: The generalized repetition is now C<**{$n..$m}>, so the C<< <3> >>
+would now be written C<**{3}>.]
+
                 <in_marker><3>  $newfile:=(\S+) $newdate:=[\h* (\N+?) \h*?] \n
         }
 
@@ -1890,6 +1988,8 @@ all ported to equivalent Perl 6 rules:
         # Perl 6
         $str =~ m{ /\* .*? \*/ };
 
+[Update: Use C<~~> now.]
+
 
 =item Remove leading qualifiers from a Perl identifier
 
@@ -1911,6 +2011,12 @@ all ported to equivalent Perl 6 rules:
         warn "Thar she blows!: $0"
                 if $str =~ m/\N<81,>/;
 
+[Update: 
+
+        warn "Thar she blows!: $()"
+                if $str ~~ m/\N**{81,}/;
+
+]
 
 =item Match a Roman numeral
 
@@ -1919,6 +2025,8 @@ all ported to equivalent Perl 6 rules:
 
         # Perl 6
         $str =~ m:i/ ^ m* [d?c<0,3>|c<[dm]>] [l?x<0,3>|x<[lc]>] [v?i<0,3>|i<[vx]>] $ /;
+
+[Update: C<**{0..3}> now.]
 
 
 
@@ -1953,14 +2061,20 @@ all ported to equivalent Perl 6 rules:
         # Perl 6
         rule quad {  (\d<1,3>) :: { fail unless $1 < 256 }  }
 
-        $str =~ m/ <quad> <dot> <quad> <dot> <quad> <dot> <quad> /x;
+        $str =~ m/ <quad> <dot> <quad> <dot> <quad> <dot> <quad> /;
 
 
         # Perl 6 (same great approach, now less syntax)
         rule quad {  (\d<1,3>) :: <($1 < 256)>  }
 
-        $str =~ m/ <quad> <dot> <quad> <dot> <quad> <dot> <quad> /x;
+        $str =~ m/ <quad> <dot> <quad> <dot> <quad> <dot> <quad> /;
 
+[Update: Now written:
+
+        token quad {  (\d**{1..3}) <?{ $1 < 256 }>  }
+        $str ~~ m/ <quad> <dot> <quad> <dot> <quad> <dot> <quad> /;
+
+]
 
 =item Match a floating-point number, returning components:
 

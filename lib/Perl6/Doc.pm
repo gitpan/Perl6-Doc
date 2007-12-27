@@ -86,8 +86,16 @@ sub perldoc {
     my $document = __PACKAGE__ ;
     if (@_){
         my $file_name = $self->normalize_name( shift );
-        if ($file_name eq 'T01'){
+        if ($file_name eq 'T01' or $file_name 'Perlintro'){
             $document .= '::Tutorial::perlintro';
+        } elsif ($file_name eq 'F01') { $document .= '::Doc::Capture';
+        } elsif ($file_name eq 'O03') { $document .= '::Doc::Operator';
+        } elsif ($file_name eq 'O04') { $document .= '::Doc::Smartmatch';
+        } elsif ($file_name eq 'O06') { $document .= '::Doc::Subroutine';
+        } elsif ($file_name eq 'O08') { $document .= '::Doc::Variable';
+        } elsif ($file_name eq 'O09') { $document .= '::Doc::Data';
+        } elsif ($file_name eq 'O12') { $document .= '::Doc::Object';
+        } elsif ($file_name eq 'O16') { $document .= '::Doc::File';
         } else {
             $document .= '::Bible::' . $file_name;
         }
@@ -118,6 +126,8 @@ Possible values for document-id are:
   A01 - A33  (Perl 6 Apocalypses)
   E01 - E33  (Perl 6 Exegeses)
   S01 - S33  (Perl 6 Synopses)
+  F01        (Perl 6 FAQ)
+  O01 - O33  (Perl 6 Overview)
   T01        (Perl 6 Tutorial)
 
 Valid options:
@@ -189,29 +199,39 @@ the Perl 6 Design Team.
 
 =head2 Contents
 
-  S01  The Ugly, the Bad, and the Good   (A01)
-  S02  Bits and Pieces                   (A02) (E02)
-  S03  Operators                         (A03) (E03)
-  S04  Syntax                            (A04) (E04)
-  S05  Pattern Matching                  (A05) (E05)
-  S06  Subroutines                       (A06) (E06)
-       Formats                                 (E07)
-  S09  Data Structures
-  S10  Packages
-  S11  Modules
-  S12  Objects                           (A12)
-  S13  Overloading
-  S16* IPC / IO / Signals  
-  S17* Concurrency
-  S22* CPAN
-       Portable Perl
-  S26* Perl Documentation
-  S27* Perl Culture
-  S28* Special Names
-  S29* Functions
-  
-  T01  Tutorial perlintro
+    S01  The Ugly, the Bad, and the Good   (A01)
+    S02  Bits and Pieces                   (A02) (E02)
+    S03  Operators                         (A03) (E03)
+    S04  Syntax                            (A04) (E04)
+    S05  Pattern Matching                  (A05) (E05)
+    S06  Subroutines                       (A06) (E06)
+         Formats                                 (E07)
+    S09  Data Structures
+    S10  Packages
+    S11  Modules
+    S12  Objects                           (A12)
+    S13  Overloading
+    S16* IPC / IO / Signals  
+    S17* Concurrency
+         Debugging                         (A20*)
+    S22* CPAN
+         Portable Perl
+    S26* Perl Documentation
+    S27* Perl Culture
+    S28* Special Names
+    S29* Functions
 
+    F01  FAQ::Captures
+
+    O03  Overview::Operator
+    O04  Overview::Smartmatch
+    O06  Overview::Subroutine
+    O08  Overview::Variable
+    O09  Overview::Data
+    O12  Overview::Object
+    O16  Overview::File
+    
+    T01  Tutorial perlintro
 
 =head1 NOTES
 
@@ -282,6 +302,12 @@ Perl6::Doc provides a class method to get the raw text of a document:
 
 * Herbert Breunung <lichtkind@cpan.org>
 
+* Kirrily "Skud" Robert <skud@cpan.org>
+
+* Moritz Lenz <moritz@fau2ik3.org>
+
+* David Koenig <karhu@u.washington.edu>
+
 =head1 SOURCES
 
 A couple of paragraphs from _Perl 6 Essentials_ were used for the
@@ -290,6 +316,10 @@ overview. Most docs are from the official Perl development site.
 http://dev.perl.org/perl6/
 
 All draft Synopses were taken out of the Pugs SVN repository.
+
+=head1 PACKAGING
+
+Collection of docs is currently done by: Herbert Breunung <lichtkind@cpan.org>
 
 =head1 COPYRIGHT
 

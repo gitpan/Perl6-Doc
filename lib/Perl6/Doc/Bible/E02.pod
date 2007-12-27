@@ -1,6 +1,6 @@
 =head1 NAME
 
-Exegesis_02 - Bits and Pieces
+Exegesis_02 -  Bits and Pieces
 
 =head1 AUTHOR
 
@@ -8,11 +8,19 @@ Damian Conway <damian@conway.org>
 
 =head1 VERSION
 
-  Maintainer: Allison Randal <al@shadowed.net>
+  Maintainer: Larry Wall <larry@wall.org>
   Date: 15 May 2001
-  Last Modified: unknown
+  Last Modified: 29 May 2006
   Number: 2
-  Version: 1
+  Version: 2
+
+[Update: Please note that this was written several years ago, and
+a number of things have changed since then.  Rather than changing
+the original document, we'll be inserting "Update" notes like this
+one to tell you where the design has since evolved.  (For the better,
+we hope).  In any event, for the latest Perl 6 design (or to figure out
+any cryptic remarks below) you should read the Synopses, which are kept
+very much more up-to-date than either the Apocalypses or Exegeses.]
 
 I<exegesis: n. an interpretation and explanation of a text, esp. Holy
 Writ>
@@ -29,31 +37,62 @@ So, without further ado, let's write some Perl 6:
         # adapted from "Perl Cookbook", Recipe 11.15
         use strict;
         use warnings;
+
+[Update: These are now the default.]
+
         my ($root, $n);
         while ($n++ < 20) { insert($root, int rand 1000) }
         my int ($pre, $in, $post) is constant = (0..2);
+
+[Update: Now "C<is readonly>". or use the "C<constant>" declarator.]
+
         print "Pre order:  "; show($root,$pre);  print "\n";
         print "In order:   "; show($root,$in);   print "\n";
         print "Post order: "; show($root,$post); print "\n";
         $*ARGS is chomped;
+
+[Update: Filehandles now autochomp by default.]
+
         $ARGS prompts("Search? ");
+
+[Update: And the syntax for mixing in properties has changed to "C<but>".]
+
         while (<$ARGS>) {
+
+[Update: The C<< <...> >> syntax has been stolen by C<qw//> and related constant
+slice subscripts.  These days you can say "C<for @$ARGS {...}>" instead.]
+
             if (my $node = search($root, $_)) {
                 print "Found $_ at $node: $node{VALUE}\n";
                 print "(again!)\n" if $node{VALUE}.Found > 1;
             }
             else {
                 print "No $_ in tree\n";
+
+[Update: Most of these C<print> statements that end with newline are now
+done with C<say> instead.]
+
             }
         }
         exit;
         #########################################
         sub insert (HASH $tree is rw, int $val) {
+
+[Update: C<HASH> is now spelled C<Hash>.]
+
             unless ($tree) {
+
+[Update: The parentheses are now optional on most conditionals.]
+
                 my %node;
                 %node{LEFT}   = undef;
                 %node{RIGHT}  = undef;
                 %node{VALUE}  = $val is Found(0);
+
+[Update: Hash subscripts no longer autoquote.  Use C<< %node<LEFT> >> for a
+constant subscript instead.  And the property would be C<$val but Found(0)>
+now.]
+
                 $tree = %node;
                 return;
             }
@@ -103,6 +142,9 @@ and C<$n> above, but they can also be much more sophisticated:
 
         my int ($pre, $in, $post) is constant = (0..2);
 
+[Update: The parens on the right side are now optional with list assignment.
+And the property is now "C<readonly>".]
+
 Here we declare three variables that share a common type (C<int>) and a
 common property (C<constant>). Typed lexicals are a feature of Perl 5
 too, but having names for Perl's built-in types is new.
@@ -125,6 +167,8 @@ written:
 in which case we'd get three less-optimized, but fully-functional, Perl
 scalars.
 
+[Update: That's C<Int> now.]
+
 In this particular case, the C<int>/C<INT> distinction makes very
 little practical difference. However, there's a significant advantage
 to writing:
@@ -137,6 +181,8 @@ compared to:
 
 and thereby replacing nearly a million chunky scalars with svelte raw
 integers.
+
+[Update: The dimensioning syntax is now "C<my int @hit_count[^100;^366;^24]>".]
 
 =head1 La propriE<eacute>tE<eacute> c'est le vol
 
@@ -165,12 +211,17 @@ as:
 
         my int ($pre, $in, $post) are constant = (0..2);
 
+[Update: Er, no.  We don't actually encourage list declarations.]
+
 An important feature of the C<is> operator that we'll make use of
 shortly, is that it returns its I<left> operand. So:
 
         $submarine is Colour('yellow')
 
 evaluates to C<$submarine>, not C<'yellow'>.
+
+[Update: Now the C<does> or C<but> operator instead, depending on whether
+it's an in-place or copied mixin.]
 
 =head1 More of the same
 
@@ -203,11 +254,16 @@ other global punctuation variables, C<$/> has been banished from Perl
 6, so the trailing character sequence to be chomped is specified by the
 handle's own C<insep> (B<in>put B<sep>arator) property instead.
 
+[Update: Rather, the C<newline> property.]
+
 The asterisk in C<$*ARGS> indicates that the variable is the one from
 the special global namespace. If the asterisk is omitted, it's probably
 I<still> the one from the special global namespace -- unless you
 declared a lexical or package variable of the same name. You can
 pronounce C<*> as "standard", if that helps.
+
+[Update: The C<*> is not optional unless you import C<$ARGS> from C<GLOBAL>
+or use "C<no strict>".]
 
 By the way, it's called C<$*ARGS> because it lets us access the files
 passed as a Perl 6 program's I<arguments> (just as the Perl 5 C<ARGV>
@@ -231,6 +287,9 @@ The first thing you'll notice is that reports of the diamond operator's
 death have been greatly exaggerated. Yes, even though the Second
 Apocalypse foretold its demise, Rule #2 has since been applied and the
 angle brackets live!
+
+[Update: Rule #2 has been applied repeatedly since then, and
+C<< <$ARGS> >> is very dead.  But it gave its life in a good cause.]
 
 Of course, they're slightly different in Perl 6, in that they
 I<require> a handle object inside them (normally stored in a variable),
@@ -273,6 +332,12 @@ Technically, that should of course be:
 but that grates unbearably. Fortunately the C<is> is optional in
 contexts -- such as this one -- where it can be inferred.
 
+[Update: Nowadays that might just be:
+
+    $*ARGS.prompt = "Search? ";
+
+]
+
 Note that, because the C<is> operation returns its C<left> operand
 (even when the C<is> is invisible!), we could also use the rather
 elegant:
@@ -310,6 +375,8 @@ Perl 6 C<< -> >> is spelled C<.>). But since C<$node{VALUE}> is just a
 regular unblessed int, there is no C<Found> method to call. So Perl
 treats the request as a property query instead and returns (an alias
 to) the corresponding property.
+
+[Update: This has all been unified, so C<Found> would be a real method.)
 
 =head1 Take that! And that!
 
@@ -429,6 +496,8 @@ dicing of multidimensional arrays. But that's for a future Apocalypse.
 For the time being, it's enough to know that, if you put a single
 scalar in the square brackets, you get a single element look-up; if you
 put a list in the brackets, you get a slice.
+
+[Update: Lvalue slices now require parens around then whole left side.]
 
 =head1 Haven't we met before? (part 2)
 
@@ -576,6 +645,9 @@ subroutine is vanilla Perl 5:
 And that, we believe, will be the normal experience when moving from 5
 to 6: Perl will still be Perl...only slightly more so.
 
+[Update: Well, it has to be a little more so now that curlies don't
+autoquote.]
+
 Of course, the C<show> subroutine is moderately funky Perl anyway, so
 if symmetrically guarded repetitions of the left- and right- subtree
 traversals aren't your maintenance dream, this would also be the ideal
@@ -672,6 +744,9 @@ By the way, in Apocalypse 2, Larry waggishly referred to the C<prop>
 meta-property as C<btw>, but with the help of modern therapeutic
 techniques, he's now gotten over the idea.
 
+[Update: Got over the C<prop> idea as well.  Properties really are just
+methods now.]
+
 =head1 Coda on an earlier theme
 
 This article has illustrated several important new features that Perl 6
@@ -737,3 +812,5 @@ the start of array element look-ups.
 
 98% backwards compatibility even without an automatic p52p6
 translator...pretty slick!
+
+[Update: Well, it's not I<quite> that backward compatible anymore.]

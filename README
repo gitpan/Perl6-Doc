@@ -66,12 +66,23 @@ CONTENTS
     S13  Overloading
     S16* IPC / IO / Signals  
     S17* Concurrency
+         Debugging                         (A20*)
     S22* CPAN
          Portable Perl
     S26* Perl Documentation
     S27* Perl Culture
     S28* Special Names
     S29* Functions
+
+    F01  FAQ::Captures
+
+    O03  Overview::Operator
+    O04  Overview::Smartmatch
+    O06  Overview::Subroutine
+    O08  Overview::Variable
+    O09  Overview::Data
+    O12  Overview::Object
+    O16  Overview::File
     
     T01  Tutorial perlintro
 
@@ -89,6 +100,17 @@ SCRIBES
     * Audrey Tang <autrijus@cpan.org>
     
     * Herbert Breunung <lichtkind@cpan.org>
+    
+    * Kirrily "Skud" Robert <skud@cpan.org>
+    
+    * Moritz Lenz <moritz@fau2ik3.org>
+    
+    * David Koenig <karhu@u.washington.edu>
+
+PACKAGING
+
+    Collection of docs is currently done by: 
+    Herbert Breunung <lichtkind@cpan.org>
 
 SOURCES
     A couple of paragraphs from _Perl 6 Essentials_ were used for the

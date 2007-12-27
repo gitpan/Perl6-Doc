@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Apocalypse_01 - The Ugly, the Bad, and the Good
+Apocalypse_01 -  The Ugly, the Bad, and the Good
 
 =head1 AUTHOR
 
@@ -12,9 +12,9 @@ Larry Wall <larry@wall.org>
 
 	Maintainer: Larry Wall <larry@wall.org>
 	Date: 2 Apr 2001
-	Last Modified: 27 Sep 2004
+	Last Modified: 18 May 2006
 	Number: 1
-	Version: 2
+	Version: 3
 
 People get scared when they hear the word Apocalypse, but here I mean
 it in the good sense: a Revealing. An Apocalypse is supposed to reveal
@@ -288,9 +288,8 @@ form without the C<use> which would default to not being strict:
     $x = 1; # global is legal
 
 (Without the C<v6> it would default to Perl 5.)  Scripts supplied
-with a C<-e> would also not be strict.  It's possible we can allow
-argumentless C<-e> as the last thing on the shebang line to suppress
-strict in the code below.  Of course, there's always "C<no strict>".]
+with a C<-e> would also not be strict.  Of course, there's always
+"C<no strict>".]
 
 =head2 RFC 73: All Perl core functions should return objects
 
