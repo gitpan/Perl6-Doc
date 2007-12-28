@@ -281,6 +281,12 @@ Damian Conway's Exegeses are extensions of each Apocalypse.  Each
 Exegesis is built around a practical code example that applies and
 explains the new ideas.
 
+=head2 Overview and FAQ
+
+These are shorter summaries about a smaller specific topic. They are
+written mostly by the crazy Pugs people and replacing some of the
+outdated Synopses that are still marked as [Draft].
+
 =head2 Tutorial (building up)
 
 This is an community driven effort to translate the Perl 5 manpages into

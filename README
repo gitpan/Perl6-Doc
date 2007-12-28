@@ -45,6 +45,15 @@ DESCRIPTION
     In other words, they may change slightly or radically. But the
     expectation is that they are "very close" to the final shape of Perl 6.
 
+  Overview and FAQ
+    These are shorter summaries about a smaller specific topic. They are
+    written mostly by the crazy Pugs people and replacing some of the
+    outdated Synopses that are still marked as [Draft].
+
+  Tutorial (building up)
+    This is an community driven effort to translate the Perl 5 manpages into
+    the shiny Perl 6 world. There are still are half way through the intro.
+
 CONTENTS
     This is the list of documents that are currently available; a number in
     the column indicates the document is currently available. An asterisk
