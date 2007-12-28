@@ -28,7 +28,7 @@ context, but closures all work the same on the inside.
 
 Blocks are delimited by curlies, or by the beginning and end of the
 current compilation unit (either the current file or the current
-C<eval> string).  Unlike in PerlÂ 5, there are (by policy) no implicit
+C<eval> string).  Unlike in Perl 5, there are (by policy) no implicit
 blocks around standard control structures.  (You could write a macro
 that violates this, but resist the urge.)  Variables that mediate
 between an outer statement and an inner block (such as loop variables)
@@ -55,7 +55,7 @@ the enclosing block.  Period.  Lexicals may not "leak" from a block to any
 other external scope (at least, not without some explicit aliasing
 action on the part of the block, such as exportation of a symbol
 from a module).  The "point of declaration" is the moment the compiler
-sees "C<my $foo>", not the end of the statement as in PerlÂ 5, so
+sees "C<my $foo>", not the end of the statement as in Perl 5, so
 
     my $x = $x;
 
@@ -91,7 +91,7 @@ be detected because it is hidden in an eval, then it is erroneous, since
 the C<eval()> compiler might bind to either C<$OUTER::x> or the subsequently
 declared "C<my $x>".
 
-As in PerlÂ 5, "C<our $foo>" introduces a lexically scoped alias for
+As in Perl 5, "C<our $foo>" introduces a lexically scoped alias for
 a variable in the current package.
 
 The new C<constant> declarator introduces a lexically scoped name
@@ -109,13 +109,13 @@ life of the closure, so that it keeps its value from the end of one
 call to the beginning of the next.  Separate clones of the closure
 get separate state variables.
 
-PerlÂ 5's "C<local>" function has been renamed to C<temp> to better
+Perl 5's "C<local>" function has been renamed to C<temp> to better
 reflect what it does.  There is also a C<let> function that sets a
 hypothetical value.  It works exactly like C<temp>, except that the
 value will be restored only if the current block exits unsuccessfully.
 (See Definition of Success below for more.)  C<temp> and C<let> temporize
 or hypotheticalize the value or the variable depending on whether you
-do assignment or binding.  One other difference from PerlÂ 5 is that
+do assignment or binding.  One other difference from Perl 5 is that
 the default is not to undefine a variable.  So
 
     temp $x;
@@ -124,7 +124,7 @@ causes C<$x> to start with its current value.  Use
 
     temp undefine $x;
 
-to get the PerlÂ 5 behavior.
+to get the Perl 5 behavior.
 
 Note that temporizations that are undone upon scope exit must be
 prepared to be redone if a continuation within that scope is taken.
@@ -132,7 +132,7 @@ prepared to be redone if a continuation within that scope is taken.
 =head1 The Relationship of Blocks and Statements
 
 The return value of a block is the value of its final statement.
-(This is subtly different from PerlÂ 5's behavior, which was to return
+(This is subtly different from Perl 5's behavior, which was to return
 the value of the last expression evaluated, even if that expression
 was just a conditional.)
 
@@ -187,7 +187,7 @@ terminator:
 =head1 Conditional statements
 
 The C<if> and C<unless> statements work much as they do in
-PerlÂ 5.  However, you may omit the parentheses on the conditional:
+Perl 5.  However, you may omit the parentheses on the conditional:
 
     if $foo == 123 {
         ...
@@ -203,7 +203,7 @@ If the final statement is a conditional which does not execute any
 branch, the return value is C<undef> in item context and C<()> in
 list context.
 
-The C<unless> statement does not allow an C<elsif> or C<else> in PerlÂ 6.
+The C<unless> statement does not allow an C<elsif> or C<else> in Perl 6.
 
 The value of the conditional expression may be optionally bound to
 a closure parameter:
@@ -240,7 +240,7 @@ where each call to the block would bind a new invocant for the
 C<.waste> method, each of which is likely different from the original
 invocant to the C<.haste> method.)
 
-Conditional statement modifiers work as in PerlÂ 5.  So do the
+Conditional statement modifiers work as in Perl 5.  So do the
 implicit conditionals implied by short-circuit operators.  Note though that
 the first expression within parens or brackets is parsed as a statement,
 so you can say:
@@ -253,13 +253,13 @@ and that is equivalent to:
 
 =head1 Loop statements
 
-Looping statement modifiers are the same as in PerlÂ 5 except that,
+Looping statement modifiers are the same as in Perl 5 except that,
 for ease of writing list comprehensions, a looping statement modifier
 is allowed to contain a single conditional statement modifier:
 
     @evens = ($_ * 2 if .odd for 0..100);
 
-Loop modifiers C<next>, C<last>, and C<redo> also work as in PerlÂ 5.
+Loop modifiers C<next>, C<last>, and C<redo> also work as in Perl 5.
 However, the labelled forms use method call syntax: C<LABEL.next>, etc.
 The C<.next> and C<.last> methods take an optional argument giving
 the final value of that loop iteration.  So the old C<next LINE>
@@ -298,7 +298,7 @@ a return type of C<Void>.
 
 =head2 The C<while> and C<until> statements
 
-The C<while> and C<until> statements work as in PerlÂ 5, except that you
+The C<while> and C<until> statements work as in Perl 5, except that you
 may leave out the parentheses around the conditional:
 
     while $bar < 100 {
@@ -323,7 +323,7 @@ In particular, we now generally use C<for> to iterate filehandles.
 
 =head2 The C<repeat> statement
 
-Unlike in PerlÂ 5, applying a statement modifier to a C<do> block is
+Unlike in Perl 5, applying a statement modifier to a C<do> block is
 specifically disallowed:
 
 
@@ -343,7 +343,7 @@ or equivalently:
         ...
     } until $x >= 10;
 
-Unlike PerlÂ 5's C<do-while> loop, this is a real loop block now, so
+Unlike Perl 5's C<do-while> loop, this is a real loop block now, so
 C<next>, C<last>, and C<redo> work as expected.  The loop conditional
 on a repeat block is required, so it will be recognized even if you
 put it on a line by its own:
@@ -410,7 +410,7 @@ is equivalent to the Cish idiom:
 =head2 The C<for> statement
 
 There is no C<foreach> statement any more. It's always spelled C<for>
-in PerlÂ 6, so it always takes a list as an argument:
+in Perl 6, so it always takes a list as an argument:
 
     for @foo { .print }
 
@@ -431,11 +431,11 @@ list that can be bound to the corresponding number of parameters:
     for @a Z @b -> $a, $b { print "[$a, $b]\n" }        # same thing
 
 The list is evaluated lazily by default, so instead of using a C<while>
-to read a file a line at a time as you would in PerlÂ 5:
+to read a file a line at a time as you would in Perl 5:
 
     while (my $line = <STDIN>) {...}
 
-in PerlÂ 6 you should use a C<for> (plus a unary C<=> "iterate the
+in Perl 6 you should use a C<for> (plus a unary C<=> "iterate the
 iterator" operator) instead:
 
     for =$*IN -> $line {...}
@@ -447,11 +447,11 @@ no implicit block scopes.)  It is also possible to write
 
     while =$*IN -> $line {...}
 
-Note also that PerlÂ 5's special rule causing
+Note also that Perl 5's special rule causing
 
     while (<>) {...}
 
-to automatically assign to C<$_> is not carried over to PerlÂ 6.  That
+to automatically assign to C<$_> is not carried over to Perl 6.  That
 should now be written:
 
     for =<> {...}
@@ -497,7 +497,7 @@ left side.  But it's what people expect of a pronoun like "it".)
 
 =head2 The do-once loop
 
-In PerlÂ 5, a bare block is deemed to be a do-once loop.  In PerlÂ 6,
+In Perl 5, a bare block is deemed to be a do-once loop.  In Perl 6,
 the bare block is not a do-once.  Instead C<do {...}> is the do-once
 loop (which is another reason you can't put a statement
 modifier on it; use C<repeat> for a test-at-the-end loop).
@@ -534,7 +534,7 @@ useful for the do-once block, since it is offically a loop and can take
 therefore loop control statements.
 
 Although a bare block is no longer a do-once loop, it still executes
-immediately as in PerlÂ 5, as if it were immediately dereferenced with
+immediately as in Perl 5, as if it were immediately dereferenced with
 a C<.()> postfix, so within such a block C<CALLER::> refers to the
 scope surrounding the block.  If you wish to return a closure from a
 function, you must use an explicit prefix such as C<return> or C<sub>
@@ -720,12 +720,12 @@ labelled block functioning as a switch:
 
 =head1 Exception handlers
 
-Unlike many other languages, PerlÂ 6 specifies exception handlers by
+Unlike many other languages, Perl 6 specifies exception handlers by
 placing a C<CATCH> block I<within> that block that is having its exceptions
 handled.
 
-The PerlÂ 6 equivalent to PerlÂ 5's C<eval {...}> is C<try {...}>.
-(PerlÂ 6's C<eval> function only evaluates strings, not blocks.)
+The Perl 6 equivalent to Perl 5's C<eval {...}> is C<try {...}>.
+(Perl 6's C<eval> function only evaluates strings, not blocks.)
 A C<try> block by default has a C<CATCH> block that handles all
 exceptions by ignoring them.  If you define a C<CATCH> block within
 the C<try>, it replaces the default C<CATCH>.  It also makes the C<try>
@@ -839,19 +839,19 @@ it first tries this form:
 
 If there is no such lexically scoped outer loop in the current subroutine,
 then a fallback search is made outward through the dynamic scopes in
-the same way PerlÂ 5 does.  (The difference between PerlÂ 5 and PerlÂ 6
-in this respect arises only because PerlÂ 5 didn't have user-defined
+the same way Perl 5 does.  (The difference between Perl 5 and Perl 6
+in this respect arises only because Perl 5 didn't have user-defined
 control structures, hence the sub's lexical scope was I<always>
 the innermost dynamic scope, so the preference to the lexical scope
-in the current sub was implicit.  For PerlÂ 6 we have to make this
+in the current sub was implicit.  For Perl 6 we have to make this
 preference explicit.)  So this fallback is more like the C<context>
 form we saw earlier.
 
-Warnings are produced in PerlÂ 6 by throwing a resumable control
+Warnings are produced in Perl 6 by throwing a resumable control
 exception to the outermost scope, which by default prints the
 warning and resumes the exception by extracting a resume continuation
 from the exception, which must be supplied by the warn() function
-(or equivalent).  Exceptions are not resumable in PerlÂ 6 unless
+(or equivalent).  Exceptions are not resumable in Perl 6 unless
 the exception object does the C<Resumable> role.  (Note that fatal
 exception types can do the C<Resumable> role even if thrown via
 C<fail()>--when uncaught they just hit the outermost fatal handler
@@ -875,12 +875,12 @@ function most of the time.
 
 =head1 The goto statement
 
-In addition to C<next>, C<last>, and C<redo>, PerlÂ 6 also supports
+In addition to C<next>, C<last>, and C<redo>, Perl 6 also supports
 C<goto>.  As with ordinary loop controls, the label is searched for
 first lexically within the current subroutine, then dynamically outside
 of it.  Unlike with loop controls, however, scanning a scope includes
 a scan of any lexical scopes included within the current candidate
-scope.  As in PerlÂ 5, it is possible to C<goto> into a lexical scope,
+scope.  As in Perl 5, it is possible to C<goto> into a lexical scope,
 but only for lexical scopes that require no special initialization
 of parameters.  (Initialization of ordinary variables does not
 count--presumably the presence of a label will prevent code-movement
@@ -895,8 +895,8 @@ prohibition on bypassing formal binding.)
 
 =head1 Exceptions
 
-As in PerlÂ 5, many built-in functions simply return undef when you ask
-for a value out of range, or the function fails somehow.  PerlÂ 6 has
+As in Perl 5, many built-in functions simply return undef when you ask
+for a value out of range, or the function fails somehow.  Perl 6 has
 C<Failure> objects, any of which refers to an unthrown C<Exception> object in
 C<$!> and knows whether it has been handled or not.
 
@@ -1048,7 +1048,7 @@ In this statement:
 parentheses aren't necessary around C<EXPR> because the whitespace
 between C<EXPR> and the block forces the block to be considered a
 block rather than a subscript.  This works for all control structures,
-not just the new ones in PerlÂ 6.  A top-level bare block
+not just the new ones in Perl 6.  A top-level bare block
 is always considered a statement block if there's space
 before it:
 
@@ -1204,7 +1204,7 @@ to false in a boolean context.)  A list can have a defined length
 even if it contains undefined scalar values.  A list is of undefined
 length only if it contains an undefined generator, which, happily, is
 what is returned by the C<fail> function when used in list context.
-So any PerlÂ 6 function can say
+So any Perl 6 function can say
 
     fail "message";
 
@@ -1214,7 +1214,7 @@ context.  To return an explicit scalar undef, you can always say
     return undef;
 
 Then in list context, you're returning a list of length 1, which is
-defined (much like in PerlÂ 5).  But generally you should be using
+defined (much like in Perl 5).  But generally you should be using
 C<fail> in such a case to return an exception object.
 In any case, returning an unthrown exception is considered failure
 from the standpoint of C<let>.  Backtracking over a closure in a regex
@@ -1224,7 +1224,7 @@ within a regex closure initiates backtracking of the regex.)
 
 =head1 When is a closure not a closure
 
-Everything is conceptually a closure in PerlÂ 6, but the optimizer
+Everything is conceptually a closure in Perl 6, but the optimizer
 is free to turn unreferenced closures into mere blocks of code.
 It is also free to turn referenced closures into mere anonymous
 subroutines if the block does not refer to any external lexicals that

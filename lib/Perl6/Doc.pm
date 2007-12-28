@@ -86,9 +86,10 @@ sub perldoc {
     my $document = __PACKAGE__ ;
     if (@_){
         my $file_name = $self->normalize_name( shift );
-        if ($file_name eq 'T01' or $file_name 'Perlintro'){
+        if ($file_name eq 'T01' or $file_name eq 'Perlintro'){
             $document .= '::Tutorial::perlintro';
         } elsif ($file_name eq 'F01') { $document .= '::Doc::Capture';
+        } elsif ($file_name eq 'F02') { $document .= '::Doc::FUD';
         } elsif ($file_name eq 'O03') { $document .= '::Doc::Operator';
         } elsif ($file_name eq 'O04') { $document .= '::Doc::Smartmatch';
         } elsif ($file_name eq 'O06') { $document .= '::Doc::Subroutine';
@@ -100,7 +101,6 @@ sub perldoc {
             $document .= '::Bible::' . $file_name;
         }
     }
-print "docname $document\n";
     my $options = join ' ', grep { defined $args->{$_} } qw(-t -u -m -T);
     $options ||= '';
     my $command = "perldoc $options $document";
@@ -126,7 +126,7 @@ Possible values for document-id are:
   A01 - A33  (Perl 6 Apocalypses)
   E01 - E33  (Perl 6 Exegeses)
   S01 - S33  (Perl 6 Synopses)
-  F01        (Perl 6 FAQ)
+  F01 - F33  (Perl 6 FAQ)
   O01 - O33  (Perl 6 Overview)
   T01        (Perl 6 Tutorial)
 
@@ -222,6 +222,7 @@ the Perl 6 Design Team.
     S29* Functions
 
     F01  FAQ::Captures
+    F02  FAQ::FUD
 
     O03  Overview::Operator
     O04  Overview::Smartmatch

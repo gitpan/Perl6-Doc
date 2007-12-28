@@ -23,8 +23,8 @@ despite never having been written.
 
 =head1 Packages
 
-As in PerlÂ 5, packages are the basis of modules and classes.  Unlike in
-PerlÂ 5, modules and classes are declared with separate keywords,
+As in Perl 5, packages are the basis of modules and classes.  Unlike in
+Perl 5, modules and classes are declared with separate keywords,
 but they're still just packages with extra behaviors.
 
 An ordinary package is declared with the C<package> keyword.  It can
@@ -37,16 +37,16 @@ named subroutine declarations.
 
 As a special exception, if a braceless C<package> declaration occurs
 as the first executable statement in a file, then it's taken to mean that the rest of
-the file is PerlÂ 5 code.
+the file is Perl 5 code.
 
     package Foo;        # the entire file is Perl 5
     ...
 
-This form is illegal in the middle of a PerlÂ 6 file.
+This form is illegal in the middle of a Perl 6 file.
 
-Since there are no barewords in PerlÂ 6, package names must be predeclared,
+Since there are no barewords in Perl 6, package names must be predeclared,
 or use the sigil-like C<::PackageName> syntax.  The C<::> prefix does not
-imply top-levelness as it does in PerlÂ 5.  (Use C<::*> for that.)
+imply top-levelness as it does in Perl 5.  (Use C<::*> for that.)
 
 A bare C<package> declarator declares an C<our> package within the
 current package (or module, or class, or role, or...).  Use C<*>
@@ -55,16 +55,16 @@ or C<GLOBAL::> to declare a global package name.
 To declare a lexically scoped package, use C<my package>.
 Package names are always searched for from innermost scopes to outermost.
 As with an initial C<::>, the presence of a C<::> within the name
-does not imply globalness (unlike in PerlÂ 5).  True globals are always
+does not imply globalness (unlike in Perl 5).  True globals are always
 in the C<GLOBAL::> namespace, which has the shortcut C<*> where that
 is not ambiguous with "real" operators.
 
 The C<*> namespace is not "main".  The default namespace for the main
-program is C<*Main> in PerlÂ 6.  All files start out being parsed in the C<*>
+program is C<*Main> in Perl 6.  All files start out being parsed in the C<*>
 package, but switch to some other package scope depending on the first
 declaration.  If that first declaration is not a package variant, then
-the parsing switches to the "C<*main>" package for PerlÂ 5 code and the
-"C<*Main>" package for PerlÂ 6 code.
+the parsing switches to the "C<*main>" package for Perl 5 code and the
+"C<*Main>" package for Perl 6 code.
 
 Package traits are set using C<is>:
 
@@ -84,7 +84,7 @@ the key is not parsed for C<::>.  It's just a hash lookup.
 =head1 Autoloading
 
 A package (or any other similar namespace) can control autoloading.
-However, PerlÂ 5's C<AUTOLOAD> is being superseded by MMD autoloaders
+However, Perl 5's C<AUTOLOAD> is being superseded by MMD autoloaders
 that distinguish declaration from definition, but are not restricted
 to declaring subs.  A run-time declarator multisub is declared as:
 
@@ -109,7 +109,7 @@ The package itself is just passed as the first argument, since it's
 the container object.  Subsequent arguments identify the desired type
 of the inner container and the "name" or "key" by which the object is
 to be looked up in the outer container.  Such a name does not include
-its container name, unlike PerlÂ 5's magical C<$AUTOLOAD> variable.
+its container name, unlike Perl 5's magical C<$AUTOLOAD> variable.
 Nor does it include the type information of a Code object's "long
 name"; this information comes in via the type parameter, and may be
 matched against using ordinary subsignature matching:
@@ -117,7 +117,7 @@ matched against using ordinary subsignature matching:
     multi CANDO ( MyPackage, &:($), $name, *%args --> Container)     # 1 arg
     multi CANDO ( MyPackage, &:($,$), $name, *%args --> Container)   # 2 args
 
-The slurpy C<%args> hash is likely to be empty in standard PerlÂ 6
+The slurpy C<%args> hash is likely to be empty in standard Perl 6
 usage, but it's possible that some dialects of Perl will desire
 a mechanism to pass in additional contextual information, so this
 parameter is reserved for such purposes.

@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Synopsis_03 -  PerlÂ 6 Operators
+Synopsis_03 -  Perl 6 Operators
 
 =head1 AUTHOR
 
@@ -18,11 +18,11 @@ Luke Palmer <luke@luqui.org>
 
 =head1 Overview
 
-For a summary of the changes from PerlÂ 5, see L</Changes to PerlÂ 5 operators>.
+For a summary of the changes from Perl 5, see L</Changes to Perl 5 operators>.
 
 =head1 Operator precedence
 
-Not counting terms and terminators, PerlÂ 6 has 23 operator precedence
+Not counting terms and terminators, Perl 6 has 23 operator precedence
 levels (same as Perl 5, but differently arranged).  Here we list the
 levels from "tightest" to "loosest", along with a few examples of
 each level:
@@ -237,7 +237,7 @@ Listop (leftward)
 
     4,3, sort 2,1       # 4,3,1,2
 
-As in PerlÂ 5, a list operator looks like a term to the expression on
+As in Perl 5, a list operator looks like a term to the expression on
 its left, so it binds tighter than comma on the left but looser than
 comma on the right--see List operator precedence below.
 
@@ -279,7 +279,7 @@ Class-qualified method call
     $obj.::Class::meth
     $obj.Class::meth    # same thing, assuming Class is predeclared
 
-As in PerlÂ 5, tells the dispatcher which class to start searching from,
+As in Perl 5, tells the dispatcher which class to start searching from,
 not the exact method to call.
 
 =item *
@@ -331,7 +331,7 @@ There is specifically no C<< infix:<.> >> operator, so
 
 will always result in a compile-time error indicating the user should
 use C<< infix:<~> >> instead.  This is to catch an error likely to
-be made by PerlÂ 5 programmers learning PerlÂ 6.
+be made by Perl 5 programmers learning Perl 6.
 
 =back
 
@@ -344,7 +344,7 @@ to a single mutating object in the same expression may result in undefined
 behavior unless some explicit sequencing operator is interposed.
 See L</Sequence points>.
 
-As with all postfix operators in PerlÂ 6, no space is allowed between
+As with all postfix operators in Perl 6, no space is allowed between
 a term and its postfix.  See S02 for why, and for how to work around the
 restriction with an "unspace".
 
@@ -358,9 +358,9 @@ support the common idiom:
     say $x unless %seen{$x}++;
 
 Increment of a C<Str> (in a suitable container) works similarly to
-PerlÂ 5, but is generalized slightly.
+Perl 5, but is generalized slightly.
 A scan is made for the final alphanumeric sequence in
-the string that is not preceded by a '.' character.  Unlike in PerlÂ 5, this
+the string that is not preceded by a '.' character.  Unlike in Perl 5, this
 alphanumeric sequence need not be anchored to the beginning of the
 string, nor does it need to begin with an alphabetic character;
 the final sequence in the string matching C<< <!after '.'> <rangechar>+ >>
@@ -399,7 +399,7 @@ in such a range, it wraps to the first character of the range and
 sends a "carry" to the position left of it, and that position is
 then incremented in its own range.  If and only if the leftmost
 position is exhausted in its range, an additional character of the
-same range is inserted to hold the carry in the same fashion as PerlÂ 5,
+same range is inserted to hold the carry in the same fashion as Perl 5,
 so incrementing '(zz99)' turns into '(aaa00)' and incrementing
 '(99zz)' turns into '(100aa)'.
 
@@ -450,7 +450,7 @@ which portion of the string to increment.  Note also that all character
 increments can be handled by lookup in a single table of successors
 since we've defined our ranges not to include overlapping cycles.)
 
-PerlÂ 6 also supports C<Str> decrement with similar semantics, simply by
+Perl 6 also supports C<Str> decrement with similar semantics, simply by
 running the cycles the other direction.  However, leftmost characters
 are never removed, and the decrement fails when you reach a string like
 "aaa" or "000".
@@ -546,8 +546,8 @@ C<< prefix:<+> >>, numeric context
 
     +$x
 
-Unlike in PerlÂ 5, where C<+> is a no-op, this operator coerces
-to numeric context in PerlÂ 6.  (It coerces only the value, not the
+Unlike in Perl 5, where C<+> is a no-op, this operator coerces
+to numeric context in Perl 6.  (It coerces only the value, not the
 original variable.)  The narrowest appropriate type of C<Int>, C<Num>,
 or C<Complex> will be returned.  A string containing two integers
 separated by a C</> will be returned as a C<Rat>.  Exponential notation
@@ -847,7 +847,7 @@ string value the number of times specified by the right argument and
 returns the result as a single concatenated string regardless of context.
 
 If the count is less than 1, returns the null string.
-The count may not be C<*> because PerlÂ 6 does not support
+The count may not be C<*> because Perl 6 does not support
 infinite strings.  (At least, not yet...)  Note, however, that an
 infinite string may be emulated with C<cat($string xx *)>.
 
@@ -922,8 +922,8 @@ Functions of one argument
 
     rand sleep abs etc.
 
-Note that, unlike in PerlÂ 5, you must use the C<.meth> forms to default
-to C<$_> in PerlÂ 6.
+Note that, unlike in Perl 5, you must use the C<.meth> forms to default
+to C<$_> in Perl 6.
 
 =back
 
@@ -983,7 +983,7 @@ C<< infix:<==> >> etc.
 
     == != < <= > >=
 
-As in PerlÂ 5, converts to C<Num> before comparison.  C<!=> is short for C<!==>.
+As in Perl 5, converts to C<Num> before comparison.  C<!=> is short for C<!==>.
 
 =item *
 
@@ -991,7 +991,7 @@ C<< infix:<eq> >> etc.
 
     eq ne lt le gt ge
 
-As in PerlÂ 5, converts to C<Str> before comparison. C<ne> is short for C<!eq>.
+As in Perl 5, converts to C<Str> before comparison. C<ne> is short for C<!eq>.
 
 =item *
 
@@ -1006,10 +1006,10 @@ Smart match
 
     $obj ~~ $pattern
 
-PerlÂ 5's C<=~> becomes the "smart match" operator C<~~>, with an
+Perl 5's C<=~> becomes the "smart match" operator C<~~>, with an
 extended set of semantics.  See L</Smart matching> for details.
 
-To catch "brainos", the PerlÂ 6 parser defines an C<< infix:<=~> >>
+To catch "brainos", the Perl 6 parser defines an C<< infix:<=~> >>
 operator which always fails at compile time with a message directing
 the user to use C<~~> or C<~=> (string append) instead if they meant
 it as a single operator, or to put a space between if they really
@@ -1045,7 +1045,7 @@ Canonical equivalence
 Compares two objects for canonical equivalence.  For value types compares
 the values.  For object types, compares current contents according to some
 scheme of canonicalization.  These semantics are those used by hashes
-that allow only values for keys (such as PerlÂ 5 string-key hashes).
+that allow only values for keys (such as Perl 5 string-key hashes).
 See also L</Comparison semantics>.
 
 =item *
@@ -1210,7 +1210,7 @@ The best don't-repeat-yourself solution is simply:
 C<< infix:<?> >>
 
 To catch likely errors by people familiar with C-derived languages
-(including PerlÂ 5), a bare question mark in infix position will
+(including Perl 5), a bare question mark in infix position will
 produce an error suggesting that the user use C<?? !!> instead.
 
 =item *
@@ -1252,7 +1252,7 @@ C<< infix:<:=> >>, run-time binding
 
     $signature := $capture
 
-A new form of assignment is present in PerlÂ 6, called I<binding>, used in
+A new form of assignment is present in Perl 6, called I<binding>, used in
 place of typeglob assignment.  It is performed with the C<:=> operator.
 Instead of replacing the value in a container like normal assignment, it
 replaces the container itself.  For instance:
@@ -1261,7 +1261,7 @@ replaces the container itself.  For instance:
     my $y := $x;
     $y = 'Perl Hacker';
 
-After this, both C<$x> and C<$y> contain the string C<"PerlÂ Hacker">,
+After this, both C<$x> and C<$y> contain the string C<"Perl Hacker">,
 since they are really just two different names for the same variable.
 
 There is also an identity test, C<=:=>, which tests whether two names
@@ -1302,7 +1302,7 @@ a C<Pair> object that can, among other things, be used to pass named
 arguments to functions.  It provides item context to both sides.
 It does not actually do an assignment except in a notional sense;
 however its precedence is now equivalent to assignment, and it is
-also right associative.  Note that, unlike in PerlÂ 5, C<< => >>
+also right associative.  Note that, unlike in Perl 5, C<< => >>
 binds tighter than comma.
 
 =item *
@@ -1343,7 +1343,7 @@ C<< infix:<,> >>, the argument separator
 
     1, 2, 3, @many
 
-Unlike in PerlÂ 5, comma operator never returns the last value.  (In item
+Unlike in Perl 5, comma operator never returns the last value.  (In item
 context it returns a list instead.)
 
 =back
@@ -1568,7 +1568,7 @@ The C<item> contextualizer
 
     item foo()
 
-The new name for PerlÂ 5's C<scalar> contextualizer.  Equivalent to C<$()>.
+The new name for Perl 5's C<scalar> contextualizer.  Equivalent to C<$()>.
 We still call the values scalars, and talk about "scalar operators", but
 scalar operators are those that put their arguments into item context.
 
@@ -1593,7 +1593,7 @@ The C<slice> contextualizer
     slice foo()
 
 Forces the subsequent expression to be evaluated in slice context.
-(Slices are considered to be potentially multidimensional in PerlÂ 6.)
+(Slices are considered to be potentially multidimensional in Perl 6.)
 A list of C<Capture>s will be transformed into a list of lists.
 Equivalent to C<@@()>.
 
@@ -1789,7 +1789,7 @@ followed by the comma operator.
 
 =back
 
-=head1 Changes to PerlÂ 5 operators
+=head1 Changes to Perl 5 operators
 
 Several operators have been given new names to increase clarity and better
 Huffman-code the language, while others have changed precedence.
@@ -1798,18 +1798,18 @@ Huffman-code the language, while others have changed precedence.
 
 =item *
 
-PerlÂ 5's C<${...}>, C<@{...}>, C<%{...}>, etc. dereferencing
+Perl 5's C<${...}>, C<@{...}>, C<%{...}>, etc. dereferencing
 forms are now C<$(...)>, C<@(...)>, C<%(...)>, etc. instead.
 Listop-like forms use the bare sigil following by whitespace.
-Use of the PerlÂ 5 curly forms will result in an error message
+Use of the Perl 5 curly forms will result in an error message
 pointing the user to the new forms.
 
 =item *
 
 C<< -> >> becomes C<.>, like the rest of the world uses.  There is
 a pseudo C<< postfix:{'->'} >> operator that produces a compile-time
-error reminding PerlÂ 5 users to use dot instead.  (The "pointy block"
-use of C<< -> >> in PerlÂ 5 requires preceding whitespace when the arrow
+error reminding Perl 5 users to use dot instead.  (The "pointy block"
+use of C<< -> >> in Perl 5 requires preceding whitespace when the arrow
 could be confused with a postfix, that is when an infix is expected.
 Preceding whitespace is not required in term position.)
 
@@ -1863,7 +1863,7 @@ though that's a silly example since you could just write:
 But that demonstrates the other advantage of the method form, which is
 that it allows the "unary dot" syntax to test the current topic.
 
-Unlike in earlier versions of PerlÂ 6, these filetests do not return
+Unlike in earlier versions of Perl 6, these filetests do not return
 stat buffers, but simple scalars of type C<Bool>, C<Int>, or C<Num>.
 
 In general, the user need not worry about caching the stat buffer
@@ -1881,7 +1881,7 @@ C<.file> attempts to return C<.io.file>.
 Note that C<:s> still returns the filesize, but C<:!s> is true
 only if the file is of size 0.
 
-(Inadvertent use of the PerlÂ 5 forms will normally result in treatment
+(Inadvertent use of the Perl 5 forms will normally result in treatment
 as a negated postdeclared subroutine, which is likely to produce an
 error message at the end of compilation.)
 
@@ -1903,20 +1903,20 @@ because of the quotes will not be confused lexically with C<$fh.=new>.
 
 Unary C<~> now imposes a string (C<Str>) context on its
 argument, and C<+> imposes a numeric (C<Num>) context (as opposed
-to being a no-op in PerlÂ 5).  Along the same lines, C<?> imposes
+to being a no-op in Perl 5).  Along the same lines, C<?> imposes
 a boolean (C<Bool>) context, and the C<|> unary operator imposes
 a function-arguments (C<Capture>) context on its argument.
 Unary sigils impose the container context implied by their sigil.
-As with PerlÂ 5, however, C<$$foo[bar]> parses as C<( $($foo) )[bar]>,
+As with Perl 5, however, C<$$foo[bar]> parses as C<( $($foo) )[bar]>,
 so you need C<$($foo[bar])> to mean the other way.
 
 =item *
 
 Bitwise operators get a data type prefix: C<+>, C<~>, or C<?>.
-For example, PerlÂ 5's C<|> becomes either C<+|> or C<~|> or C<?|>,
+For example, Perl 5's C<|> becomes either C<+|> or C<~|> or C<?|>,
 depending on whether the operands are to be treated as numbers,
-strings, or boolean values.  PerlÂ 5's left shift C< << > becomes
-C< +< >, and correspondingly with right shift. PerlÂ 5's unary C<~>
+strings, or boolean values.  Perl 5's left shift C< << > becomes
+C< +< >, and correspondingly with right shift. Perl 5's unary C<~>
 (one's complement) becomes either C<+^> or C<~^> or C<?^>, since a
 bitwise NOT is like an exclusive-or against solid ones.  Note that
 C<?^> is functionally identical to C<!>, but conceptually coerces to
@@ -1985,7 +1985,7 @@ The old C<..> flipflop operator is now done with
 C<ff> operator.  (C<..> now always produces a C<Range> object
 even in item context.)  The C<ff> operator may take a caret on
 either end to exclude either the beginning or ending.  There is
-also a corresponding C<fff> operator with PerlÂ 5's C<...> semantics.
+also a corresponding C<fff> operator with Perl 5's C<...> semantics.
 You may say
 
     /foo/ ff *
@@ -2017,7 +2017,7 @@ The scalar assignment operator still parses as it did before, so
     loop ($a = 1, $b = 2; ; $a++, $b++) {...}
 
 still works fine.  The syntactic distinction between scalar and list
-assignment is similar to the way PerlÂ 5 defines it, but has to be a
+assignment is similar to the way Perl 5 defines it, but has to be a
 little different because we can no longer decide on the basis of
 the sigil.  The following forms are parsed as "simple lvalues",
 and imply scalar assignment:
@@ -2045,7 +2045,7 @@ plus the following forms:
 
 Note that circumfix parens are considered simple only when used as
 part of a subscript.  Putting parens around the entire lvalue still
-implies list context as in PerlÂ 5.
+implies list context as in Perl 5.
 
 We also include:
 
@@ -2127,9 +2127,9 @@ syntax.
 
 =item *
 
-List operators are all parsed consistently.  As in PerlÂ 5,
+List operators are all parsed consistently.  As in Perl 5,
 to the left a list operator look like term, while to the right it looks like
-an operator that is looser than comma.  Unlike in PerlÂ 5, the difference
+an operator that is looser than comma.  Unlike in Perl 5, the difference
 between the list operator form and the function form is consistently
 indicated via whitespace between the list operator and the first
 argument.  If there is whitespace, it is always a list operator,
@@ -2202,7 +2202,7 @@ Examples:
     say foo <$bar+1>,$baz               say(foo(<$bar+1>, $baz));
     say foo .<$bar+1>,$baz              say(foo($_.<$bar+1>, $baz));
 
-Note that PerlÂ 6 is making a consistent three-way distinction between
+Note that Perl 6 is making a consistent three-way distinction between
 term vs postfix vs infix, and will interpret an overloaded character
 like C<< < >> accordingly:
 
@@ -2211,9 +2211,9 @@ like C<< < >> accordingly:
     any() < $x                  (any) < $x              # infix
     any<a b c>                  ILLEGAL                 # stealth postfix
 
-This will seem unfamiliar and "undwimmy" to PerlÂ 5 programmers, who
+This will seem unfamiliar and "undwimmy" to Perl 5 programmers, who
 are used to a grammar that sloppily hardwires a few postfix operators
-at the price of extensibility.  PerlÂ 6 chooses instead to mandate a
+at the price of extensibility.  Perl 6 chooses instead to mandate a
 whitespace dependency in order to gain a completely extensible class
 of postfix operators.
 
@@ -2262,7 +2262,7 @@ is guaranteed to insert exactly one boolean value into C<@foo>.
 =head1 Junctive operators
 
 C<|>, C<&>, and C<^> are no longer bitwise operators (see
-L</Changes to PerlÂ 5 operators>) but now serve a much higher cause:
+L</Changes to Perl 5 operators>) but now serve a much higher cause:
 they are now the junction constructors.
 
 A junction is a single value that is equivalent to multiple values. They
@@ -2326,7 +2326,7 @@ explicit C<.pairs>) to make a junction of pairs.
 
 =item *
 
-PerlÂ 5's comparison operators are basically unchanged, except that they
+Perl 5's comparison operators are basically unchanged, except that they
 can be chained because their precedence is unified.
 
 =item *
@@ -2371,7 +2371,7 @@ If that's not enough flexibility, there is also an C<eqv()> function
 that can be passed additional information specifying how you want
 canonical values to be generated before comparison.  This gives
 C<eqv()> the same kind of expressive power as a sort signature.
-(And indeed, the C<cmp> operator from PerlÂ 5 also has a functional
+(And indeed, the C<cmp> operator from Perl 5 also has a functional
 analog, C<cmp()>, that takes additional instructions on how to
 do 3-way comparisons of the kind that a sorting algorithm wants.)
 In particular, a signature passed to C<eqv()> will be bound to the
@@ -2385,7 +2385,7 @@ reverts to standard C<eqv> comparison.  (Likewise for C<cmp()>.)
 =item *
 
 Binary C<cmp> is no longer the comparison operator that
-forces stringification.  Use the C<leg> operator for the old PerlÂ 5
+forces stringification.  Use the C<leg> operator for the old Perl 5
 C<cmp> semantics.  The C<cmp> is just like the C<eqv> above except that
 instead of returning C<Bool::False> or C<Bool::True> values it always
 returns C<Order::Increase>, C<Order::Same>, or C<Order::Decrease>
@@ -2553,7 +2553,7 @@ Think of log scaling, for instance.
 
 =head1 Chained comparisons
 
-PerlÂ 6 supports the natural extension to the comparison operators,
+Perl 6 supports the natural extension to the comparison operators,
 allowing multiple operands:
 
     if 1 < $a < 100 { say "Good, you picked a number *between* 1 and 100." }
@@ -2575,7 +2575,7 @@ in front of it, or it will be interpreted as a hash subscript instead.
 
 =head1 Smart matching
 
-Here is the table of smart matches for standard PerlÂ 6
+Here is the table of smart matches for standard Perl 6
 (that is, the dialect of Perl in effect at the start of your
 compilation unit).  Smart matching is generally done on the current
 "topic", that is, on C<$_>.  In the table below, C<$_> represents the
@@ -2723,7 +2723,7 @@ Matching against a C<Grammar> object will call the C<TOP> method
 defined in the grammar.  The C<TOP> method may either be a rule
 itself, or may call the actual top rule automatically.  How the
 C<Grammar> determines the top rule is up to the grammar, but normal
-PerlÂ 6 grammars will default to setting top to the first rule in the
+Perl 6 grammars will default to setting top to the first rule in the
 original base grammar.  Derived grammars then inherit this idea of
 the top rule.  This may be overridden in either the base grammar or a
 derived grammar by explicitly naming a rule C<TOP>, or defining your
@@ -2849,7 +2849,7 @@ The primary use of the C<~~> operator is to return a boolean value in
 a boolean context.  However, for certain operands such as regular
 expressions, use of the operator within item or list context transfers
 the context to that operand, so that, for instance, a regular expression
-can return a list of matched substrings, as in PerlÂ 5.  This is done
+can return a list of matched substrings, as in Perl 5.  This is done
 by returning an object that can return a list in list context, or that
 can return a boolean in a boolean context.  In the case regex matching
 the C<Match> object is a kind of C<Capture>, which has these capabilities.
@@ -2895,7 +2895,7 @@ unless you are searching a C<Str> or C<Cat>.
 =head1 Invocant marker
 
 An appended C<:> marks the invocant when using the indirect-object
-syntax for PerlÂ 6 method calls.  The following two statements are
+syntax for Perl 6 method calls.  The following two statements are
 equivalent:
 
     $hacker.feed('Pizza and cola');
@@ -2954,7 +2954,7 @@ more of the (less-than-obvious) details on these two operators.
 
 =head1 Meta operators
 
-PerlÂ 6's operators have been greatly regularized, for instance, by
+Perl 6's operators have been greatly regularized, for instance, by
 consistently prefixing numeric, stringwise, and boolean operators
 with C<+>, C<~> and C<?> respectively to indicate whether the bitwise
 operation is done on a number, a string, or a single bit.
@@ -2963,7 +2963,7 @@ bitwise C<Â¬> operator, you'd have to add the C<+Â¬>, C<~Â¬>, and C<?Â¬>
 operators yourself.  Similarly, the carets that exclude the endpoints
 on ranges are there by convention only.
 
-In contrast to that, PerlÂ 6 has five standard metaoperators for
+In contrast to that, Perl 6 has five standard metaoperators for
 turning a given existing operator into a related operator that is
 more powerful (or at least differently powerful).  These differ from a
 mere naming convention in that Perl automatically generates these new
@@ -3072,7 +3072,7 @@ be underdimensioned, you can dwim on both sides:
     foo Â«*Â»
 
 then you shouldn't worry about it, because unlike previous versions,
-PerlÂ 6 never guesses whether the next thing is a term or operator.
+Perl 6 never guesses whether the next thing is a term or operator.
 In this case it is always expecting a term unless C<foo> is predeclared
 to be a 0-ary sub.]
 
@@ -3210,7 +3210,7 @@ hash value with the same set of keys as the original hash.
 
 =head2 Reduction operators
 
-The fourth metaoperator in PerlÂ 6 is the reduction operator.  Any
+The fourth metaoperator in Perl 6 is the reduction operator.  Any
 infix operator (except for non-associating operators)
 can be surrounded by square brackets in term position to
 create a list operator that reduces using that operation:
@@ -3665,8 +3665,8 @@ These all have their uses and are explained in subsequent Synopses.
 
 =head1 Argument List Interpolating
 
-PerlÂ 5 forced interpolation of a function's argument list by use of
-the C<&> prefix.  That option is no longer available in PerlÂ 6, so
+Perl 5 forced interpolation of a function's argument list by use of
+the C<&> prefix.  That option is no longer available in Perl 6, so
 instead the C<|> prefix operator serves as an
 interpolator, by casting its operand to a C<Capture> object
 and inserting the capture's parts into the current argument list.
@@ -3737,7 +3737,7 @@ as well as the C<< <> >>, C<< .<> >>, C<Â«Â»>, and C<.Â«Â»> constant and
 interpolating slice subscripting forms.
 
 The C<|> operator interpolates lazily for C<Array> and C<Range> objects.
-To get an immediate interpolation like PerlÂ 5 does, add the C<eager> list
+To get an immediate interpolation like Perl 5 does, add the C<eager> list
 operator:
 
     func(|(1..Inf));       # works fine
@@ -3767,7 +3767,7 @@ its bits at once using the C<< prefix:<|> >> operator:
 
 =head1 Traversing arrays in parallel
 
-In order to support parallel iteration over multiple arrays, PerlÂ 6
+In order to support parallel iteration over multiple arrays, Perl 6
 has a C<zip> function that builds a list of C<Seq> objects from the
 elements of two or more arrays.  In ordinary list context this behaves
 as a list of C<Captures> and automatically flattens.

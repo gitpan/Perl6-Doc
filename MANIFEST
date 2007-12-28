@@ -44,6 +44,7 @@ lib/Perl6/Doc/Bible/S29.pod
 lib/Perl6/Doc/Docs/Capture.pod
 lib/Perl6/Doc/Docs/Data.pod
 lib/Perl6/Doc/Docs/File.pod 
+lib/Perl6/Doc/Docs/FUD.pod 
 lib/Perl6/Doc/Docs/Object.pod
 lib/Perl6/Doc/Docs/Operator.pod
 lib/Perl6/Doc/Docs/Smartmatch.pod
