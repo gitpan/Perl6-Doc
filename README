@@ -123,12 +123,17 @@ PACKAGING
     Herbert Breunung <lichtkind@cpan.org>
 
 SOURCES
+
     A couple of paragraphs from _Perl 6 Essentials_ were used for the
-    overview. Most docs are from the official Perl development site. 
+    overview. Most of the Bible docs (Apocalypses, Exegeses, Synopses)
+    are from the official Perl development site. 
 
     http://dev.perl.org/perl6/
 
-    All draft Synopses were taken out of the Pugs SVN repository.
+    All draft Synopses, Overview, FAQ and Tutorial pages were taken out 
+    of the Pugs SVN repository.
+
+    http://svn.pugscode.org/pugs/docs/Perl6/
 
 COPYRIGHT
     This Copyright applies only to the C<Perl6::Doc> Perl software

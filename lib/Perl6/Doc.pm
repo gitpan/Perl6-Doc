@@ -282,7 +282,7 @@ Damian Conway's Exegeses are extensions of each Apocalypse.  Each
 Exegesis is built around a practical code example that applies and
 explains the new ideas.
 
-=head2 Overview and FAQ
+=head2 Docs: Overview and FAQ
 
 These are shorter summaries about a smaller specific topic. They are
 written mostly by the crazy Pugs people and replacing some of the
@@ -318,11 +318,15 @@ Perl6::Doc provides a class method to get the raw text of a document:
 =head1 SOURCES
 
 A couple of paragraphs from _Perl 6 Essentials_ were used for the
-overview. Most docs are from the official Perl development site. 
+overview. Most of the Bible docs (Apocalypses, Exegeses, Synopses)
+are from the official Perl development site. 
 
 http://dev.perl.org/perl6/
 
-All draft Synopses were taken out of the Pugs SVN repository.
+All draft Synopses, Overview, FAQ and Tutorial pages were taken out 
+of the Pugs SVN repository.
+
+http://svn.pugscode.org/pugs/docs/Perl6/
 
 =head1 PACKAGING
 
