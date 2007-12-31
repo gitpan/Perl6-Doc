@@ -1,3 +1,8 @@
+version: 0.33
+date: Sun Dec 21 2007
+changes:
+- updated S05 S26
+---
 version: 0.32_9
 date: Sun Dec 29 2007
 changes:

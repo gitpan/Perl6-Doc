@@ -120,15 +120,16 @@ sub help {
     print <<_;
 
 Usage: p6doc [options] [document-id]
-View the Perl 6 Canon.
 
 Possible values for document-id are:
   A01 - A33  (Perl 6 Apocalypses)
   E01 - E33  (Perl 6 Exegeses)
   S01 - S33  (Perl 6 Synopses)
-  F01 - F33  (Perl 6 FAQ)
   O01 - O33  (Perl 6 Overview)
+  F01 - F33  (Perl 6 FAQ)
   T01        (Perl 6 Tutorial)
+  P00 - P09  (Perl 6 Tables)
+  M01 - M09  (Mazine Articles)
 
 Valid options:
   -h,  --help       Print this help screen
@@ -216,7 +217,7 @@ the Perl 6 Design Team.
          Debugging                         (A20*)
     S22* CPAN
          Portable Perl
-    S26* Perl Documentation
+    S26  Perl Documentation
     S27* Perl Culture
     S28* Special Names
     S29* Functions
