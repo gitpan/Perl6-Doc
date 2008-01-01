@@ -85,18 +85,31 @@ sub perldoc {
     my $args = shift;
     my $document = __PACKAGE__ ;
     if (@_){
-        my $file_name = $self->normalize_name( shift );
-        if ($file_name eq 'T01' or $file_name eq 'Perlintro'){
+        my $file = $self->normalize_name( shift );
+        my $sigil = substr $file, 0, 1;
+        if ($file eq 'Perlintro'){
             $document .= '::Tutorial::perlintro';
-        } elsif ($file_name eq 'F01') { $document .= '::Doc::Capture';
-        } elsif ($file_name eq 'F02') { $document .= '::Doc::FUD';
-        } elsif ($file_name eq 'O03') { $document .= '::Doc::Operator';
-        } elsif ($file_name eq 'O04') { $document .= '::Doc::Smartmatch';
-        } elsif ($file_name eq 'O06') { $document .= '::Doc::Subroutine';
-        } elsif ($file_name eq 'O08') { $document .= '::Doc::Variable';
-        } elsif ($file_name eq 'O09') { $document .= '::Doc::Data';
-        } elsif ($file_name eq 'O12') { $document .= '::Doc::Object';
-        } elsif ($file_name eq 'O16') { $document .= '::Doc::File';
+        } elsif ($sigil eq 'T'){
+            $document .= '::Tutorial::';
+            if ($file eq 'T01') { $document .= 'perlintro' }
+            else                { $self->contents, return  }
+        } elsif ($file eq 'F01') { $document .= '::Doc::Capture';
+        } elsif ($file eq 'F02') { $document .= '::Doc::FUD';
+        } elsif ($sigil eq 'O') {
+            $document .= '::Docs::';
+            if    ($file eq 'O03') { $document .= 'Operator'  }
+            elsif ($file eq 'O04') { $document .= 'Smartmatch'}
+            elsif ($file eq 'O06') { $document .= 'Subroutine'}
+            elsif ($file eq 'O08') { $document .= 'Variable'  }
+            elsif ($file eq 'O09') { $document .= 'Data'      }
+            elsif ($file eq 'O12') { $document .= 'Object'    }
+            elsif ($file eq 'O16') { $document .= 'File'      } 
+            else                   { $self->contents, return }
+        } elsif ($sigil eq 'M') {
+            $document .= '::Magazine::';
+            if    ($file eq 'M01') { $document .= 'perl.com::EverydayPerl6'}
+            elsif ($file eq 'M02') { $document .= 'perl.com::Perl6Parameter'}
+            else                   { $self->contents, return }
         } else {
             $document .= '::Bible::' . $file_name;
         }
@@ -128,8 +141,8 @@ Possible values for document-id are:
   O01 - O33  (Perl 6 Overview)
   F01 - F33  (Perl 6 FAQ)
   T01        (Perl 6 Tutorial)
-  P00 - P09  (Perl 6 Tables)
-  M01 - M09  (Mazine Articles)
+  P00 - P09  (Perl(6)Tables)
+  M01 - M11  (Mazine Articles)
 
 Valid options:
   -h,  --help       Print this help screen
@@ -193,7 +206,7 @@ This Perl module distribution contains all the latest Perl 6
 documentation and a utility called C<p6doc> for viewing it.
 
 Below is the list of documents that are currently available; a number
-in the column indicates the document is currently available. An
+in the column indicates the document is currently available. An 
 asterisk next to a number means that the document is an unofficial
 draft written by a member of the Perl community but not approved by
 the Perl 6 Design Team.
@@ -234,6 +247,9 @@ the Perl 6 Design Team.
     O16  Overview::File
     
     T01  Tutorial perlintro
+
+    M01  Everyday Perl 6
+    M02  The Beauty of Perl 6 Parameter Passing
 
 =head1 NOTES
 
@@ -291,8 +307,18 @@ outdated Synopses that are still marked as [Draft].
 
 =head2 Tutorial (building up)
 
-This is an community driven effort to translate the Perl 5 manpages into
-the shiny Perl 6 world. There are still are half way through the intro.
+This is an community driven effort to translate the Perl 5 manpages
+into the shiny Perl 6 world. There are still are half way through the
+intro.
+
+=head2 Perl Tables
+
+Reference styled set of wiki pages made by myself.
+
+=head2 Magazine articles
+
+helpful articles from L<perl.com|http://www.perl.com> and L<$foo magazine|http://www.perl-magazin.de/> from various 
+authors (see SCRIBES section). Taken with their permission :).
 
 =head1 METHODS
 
@@ -315,6 +341,10 @@ Perl6::Doc provides a class method to get the raw text of a document:
 * Moritz Lenz <moritz@fau2ik3.org>
 
 * David Koenig <karhu@u.washington.edu>
+
+* Jonathan Scott Duff <duff@pobox.com>
+
+* Phil Crow <philcrow2000@yahoo.com>
 
 =head1 SOURCES
 

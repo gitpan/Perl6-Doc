@@ -54,6 +54,13 @@ DESCRIPTION
     This is an community driven effort to translate the Perl 5 manpages into
     the shiny Perl 6 world. There are still are half way through the intro.
 
+  Perl Tables
+    Reference styled set of wiki pages made by myself.
+
+  Magazine articles
+    helpful articles from perl.com and $foo magazine from various 
+    authors (see SCRIBES section). Taken with their permission :).
+
 CONTENTS
     This is the list of documents that are currently available; a number in
     the column indicates the document is currently available. An asterisk
@@ -95,6 +102,9 @@ CONTENTS
     O16  Overview::File
     
     T01  Tutorial perlintro
+    
+    M01  Everyday Perl 6
+    M02  The Beauty of Perl 6 Parameter Passing
 
 
 METHODS
@@ -104,22 +114,27 @@ METHODS
 
 SCRIBES
     * Ingy döt Net <ingy@cpan.org>
-    
+
     * Sam Vilain <samv@cpan.org>
-    
+
     * Audrey Tang <autrijus@cpan.org>
     
     * Herbert Breunung <lichtkind@cpan.org>
-    
+
     * Kirrily "Skud" Robert <skud@cpan.org>
-    
+
     * Moritz Lenz <moritz@fau2ik3.org>
-    
+
     * David Koenig <karhu@u.washington.edu>
+
+    * Jonathan Scott Duff <duff@pobox.com>
+
+    * Phil Crow <philcrow2000@yahoo.com>
 
 PACKAGING
 
-    Collection of docs is currently done by: 
+    Collecting, cleaning and updating of the docs:
+
     Herbert Breunung <lichtkind@cpan.org>
 
 SOURCES

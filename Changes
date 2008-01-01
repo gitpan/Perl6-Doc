@@ -1,7 +1,12 @@
 version: 0.33
-date: Sun Dec 21 2007
+date: Sun Dec 31 2007
 changes:
 - updated S05 S26
+- add documentation for perl.com articles
+- added "everyday perl 6" => EverydayPerl6.pod
+- added "The Beauty of Perl 6 Parameter Passing" => Perl6Parameter.pod
+- enhaced doc selection logic
+- redirect to table of content when doc not found
 ---
 version: 0.32_9
 date: Sun Dec 29 2007
