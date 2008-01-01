@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Everyday Perl 6
+Magazine_Article_02 - Everyday Perl 6
 
 =head1 AUTHOR
 
@@ -187,7 +187,7 @@ bracket.
         multi-line comment
         that ends here ----&gt;  ]
 
-See L<Whitespace and Comments in Synopsis 02|http://dev.perl.org/perl6/doc/design/syn/S02.html#Whitespace_and_Comments> for more information.
+See L<<a href="http://dev.perl.org/perl6/doc/design/syn/S02.html#Whitespace_and_Comments">Whitespace and Comments in Synopsis 02</a>> for more information.
 
 =head3 switch Statement
 
@@ -219,7 +219,7 @@ niche as Perl 5's C<do>-C<while> pseudoloop. The big difference is that
 unlike C<do>-C<while>, C<repeat> is a real loop and as such, you are free
 to use C<next>, C<last>, C<redo> and it does the right thing.
 
-For more information see L<Synopsis 04|http://dev.perl.org/perl6/doc/design/syn/S04.html>.
+For more information see L<<a href="http://dev.perl.org/perl6/doc/design/syn/S04.html">Synopsis 04</a>>.
 
 =head3 Parameterized Blocks
 
@@ -265,8 +265,8 @@ which parameters are positional, which are named, what the default
 values are for unpassed parameters, which parameters copy the value
 that is passed, which parameters alias the variable, etc.
 
-For more information on subroutines in Perl 6, see L<Synopsis 06|http://dev.perl.org/perl6/doc/design/syn/S06.html> and
-Phil Crow's recent article L<The Beauty of Perl 6 Parameter Passing|http://www.perl.com/pub/a/2007/03/01/perl-6-parameter-passing.html">. 
+For more information on subroutines in Perl 6, see L<<a href="http://dev.perl.org/perl6/doc/design/syn/S06.html">Synopsis 06</a>> and
+Phil Crow's recent article L<<a href="http://www.perl.com/pub/a/2007/03/01/perl-6-parameter-passing.html">The Beauty of Perl 6 Parameter Passing</a>>. 
 
 =head3 Variable Typing
 
@@ -320,7 +320,7 @@ to decide which one to actually invoke.
 I hope this introduction gives you a feel for some of the changes in Perl 6
 and shows how these changes are good and useful.
 
-A prototype implementation of Perl 6 called L<pugs|http://www.pugscode.org/>
+A prototype implementation of Perl 6 called L<<a href="http://www.pugscode.org/">pugs</a>>
 should be able to execute all of the examples I've given in this article. 
 If not, get on the freenode IRC network, join #perl6, ask for a commit bit,
 and submit a test to the Pugs repository, and one of the pugs Developers will

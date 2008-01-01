@@ -58,8 +58,8 @@ DESCRIPTION
     Reference styled set of wiki pages made by myself.
 
   Magazine articles
-    helpful articles from perl.com and $foo magazine from various 
-    authors (see SCRIBES section). Taken with their permission :).
+    Helpful articles from L<<a href="http://www.perl.com">perl.com</a>> and L<<a href="http://www.perl-magazin.de/">$foo magazine</a>> from various 
+    authors (see SCRIBES section). Special Thanks for their contribution.
 
 CONTENTS
     This is the list of documents that are currently available; a number in
@@ -103,8 +103,9 @@ CONTENTS
     
     T01  Tutorial perlintro
     
-    M01  Everyday Perl 6
-    M02  The Beauty of Perl 6 Parameter Passing
+    M01  What is Perl 6 ?
+    M02  Everyday Perl 6
+    M03  The Beauty of Perl 6 Parameter Passing
 
 
 METHODS
@@ -131,6 +132,8 @@ SCRIBES
 
     * Phil Crow <philcrow2000@yahoo.com>
 
+    * chromatic <chromatic@oreilly.com>
+
 PACKAGING
 
     Collecting, cleaning and updating of the docs:
@@ -154,7 +157,7 @@ COPYRIGHT
     This Copyright applies only to the C<Perl6::Doc> Perl software
     distribution, not the documents bundled within.
 
-    Copyright (c) 2005. Ingy döt Net, Herbert Breunung. All rights reserved.
+    Copyright (c) 2007. Ingy döt Net, Herbert Breunung. All rights reserved.
 
     This program is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.

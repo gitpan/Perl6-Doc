@@ -49,6 +49,9 @@ lib/Perl6/Doc/Docs/Object.pod
 lib/Perl6/Doc/Docs/Operator.pod
 lib/Perl6/Doc/Docs/Smartmatch.pod
 lib/Perl6/Doc/Docs/Subroutine.pod
+lib/Perl6/Doc/Magazine/perl.com/EverydayPerl6.pod
+lib/Perl6/Doc/Magazine/perl.com/Perl6Parameter.pod
+lib/Perl6/Doc/Magazine/perl.com/WhatisPerl6.pod
 lib/Perl6/Doc/Docs/Variable.pod
 lib/Perl6/Doc/Tutorial/perlintro.pod
 Makefile.PL

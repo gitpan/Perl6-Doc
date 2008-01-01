@@ -107,8 +107,9 @@ sub perldoc {
             else                   { $self->contents, return }
         } elsif ($sigil eq 'M') {
             $document .= '::Magazine::';
-            if    ($file eq 'M01') { $document .= 'perl.com::EverydayPerl6'}
-            elsif ($file eq 'M02') { $document .= 'perl.com::Perl6Parameter'}
+            if    ($file eq 'M01') { $document .= 'perl.com::WhatisPerl6'}
+            elsif ($file eq 'M02') { $document .= 'perl.com::EverydayPerl6'}
+            elsif ($file eq 'M03') { $document .= 'perl.com::Perl6Parameter'}
             else                   { $self->contents, return }
         } else {
             $document .= '::Bible::' . $file_name;
@@ -142,7 +143,7 @@ Possible values for document-id are:
   F01 - F33  (Perl 6 FAQ)
   T01        (Perl 6 Tutorial)
   P00 - P09  (Perl(6)Tables)
-  M01 - M11  (Mazine Articles)
+  M01 - M03  (Mazine Articles)
 
 Valid options:
   -h,  --help       Print this help screen
@@ -155,7 +156,7 @@ _
 
 sub version {
     print <<_;
-This is Perl 6 Documentation as of December 24, 2007
+This is Perl 6 Documentation as of January 1, 2008
 (bundled in Perl6-Doc-$VERSION)
 _
 }
@@ -248,8 +249,9 @@ the Perl 6 Design Team.
     
     T01  Tutorial perlintro
 
-    M01  Everyday Perl 6
-    M02  The Beauty of Perl 6 Parameter Passing
+    M01  What is Perl 6 ?
+    M02  Everyday Perl 6
+    M03  The Beauty of Perl 6 Parameter Passing
 
 =head1 NOTES
 
@@ -317,8 +319,8 @@ Reference styled set of wiki pages made by myself.
 
 =head2 Magazine articles
 
-helpful articles from L<perl.com|http://www.perl.com> and L<$foo magazine|http://www.perl-magazin.de/> from various 
-authors (see SCRIBES section). Taken with their permission :).
+Helpful articles from L<perl.com|http://www.perl.com> and L<$foo magazine|http://www.perl-magazin.de/> from various 
+authors (see SCRIBES section). Special Thanks for their contribution.
 
 =head1 METHODS
 
@@ -345,6 +347,8 @@ Perl6::Doc provides a class method to get the raw text of a document:
 * Jonathan Scott Duff <duff@pobox.com>
 
 * Phil Crow <philcrow2000@yahoo.com>
+
+* chromatic <chromatic@oreilly.com>
 
 =head1 SOURCES
 
