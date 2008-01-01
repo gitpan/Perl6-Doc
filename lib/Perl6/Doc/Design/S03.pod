@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Synopsis_03 -  Perl 6 Operators
+Synopsis_03 -  Perl 6 Operators
 
 =head1 AUTHOR
 
@@ -12,9 +12,9 @@ Luke Palmer <luke@luqui.org>
 
   Maintainer: Larry Wall <larry@wall.org>
   Date: 8 Mar 2004
-  Last Modified: 26 Oct 2007
+  Last Modified: 31 Dec 2007
   Number: 3
-  Version: 124
+  Version: 125
 
 =head1 Overview
 
@@ -30,7 +30,7 @@ each level:
     Level               Examples
     =====               ========
     Terms               42 3.14 "eek" qq["foo"] $x :!verbose @$array
-    Method postfix      .meth .+ .? .* .() .[] .{} .<> .Â«Â» .:: .= .^ .:
+    Method postfix      .meth .+ .? .* .() .[] .{} .<> .«» .:: .= .^ .:
     Autoincrement       ++ --
     Exponentiation      **
     Symbolic unary      ! + - ~ ? | +^ ~^ ?^ \ ^ =
@@ -307,7 +307,7 @@ Method-like postcircumfixes
     $array.[]
     $hash.{}
     $hash.<>
-    $hash.Â«Â»
+    $hash.«»
 
 The dotless forms of these have exactly the same precedences.
 
@@ -1700,7 +1700,7 @@ is equivalent to
 
     test1() orelse -> $! { test2() }
 
-(The low-precedence C<//> operator is similar, but does not set C<$!> or
+(The high-precedence C<//> operator is similar, but does not set C<$!> or
 treat blocks specially.)
 
 =back
@@ -1956,7 +1956,7 @@ C<< infix:<?> >>, catches migratory brainos at compile time.
 =item *
 
 C<qw{ ... }> gets a synonym: C<< < ... > >>, and an interpolating
-variant, C<Â«...Â»>.
+variant, C<«...»>.
 For those still living without the blessings of Unicode, that can also be
 written: C<<< << ... >> >>>.
 
@@ -2627,9 +2627,9 @@ as a default because the more specific types listed above it didn't match.
     Hash      Set       hash keys same set      $_.keys === X
     Any       Set       force set comparison    Set($_) === X
 
-    Array     Array     arrays are comparable   $_ Â«===Â» X (dwims * wildcards!)
+    Array     Array     arrays are comparable   $_ «===» X (dwims * wildcards!)
     Set       Array     array equiv to set      $_ === Set(X)
-    Any       Array     lists are comparable    @$_ Â«===Â» X
+    Any       Array     lists are comparable    @$_ «===» X
 
     Hash      Hash      hash keys same set      $_.keys === X.keys
     Set       Hash      hash keys same set      $_ === X.keys
@@ -2959,7 +2959,7 @@ consistently prefixing numeric, stringwise, and boolean operators
 with C<+>, C<~> and C<?> respectively to indicate whether the bitwise
 operation is done on a number, a string, or a single bit.
 But that's just a naming convention, and if you wanted to add a new
-bitwise C<Â¬> operator, you'd have to add the C<+Â¬>, C<~Â¬>, and C<?Â¬>
+bitwise C<¬> operator, you'd have to add the C<+¬>, C<~¬>, and C<?¬>
 operators yourself.  Similarly, the carets that exclude the endpoints
 on ranges are there by convention only.
 
@@ -3023,7 +3023,7 @@ The precedence of any negated operator is the same as the base operator.
 
 =head2 Hyper operators
 
-The Unicode characters C<Â»> (C<\x[BB]>) and C<Â«> (C<\x[AB]>) and
+The Unicode characters C<»> (C<\x[BB]>) and C<«> (C<\x[AB]>) and
 their ASCII digraphs C<<< >> >>> and C<<< << >>> are used to denote a
 "list operation" that operates on each element of its list (or array)
 argument (or arguments) and returns a single list (or array) of
@@ -3037,8 +3037,8 @@ Likewise the precedence of any hyperoperator is the same as its
 base operator.  This means that you must parenthesize your comma
 lists for most operators.  For example:
 
-     -Â« (1,2,3);                   # (-1, -2, -3)
-     (1,1,2,3,5) Â»+Â« (1,2,3,5,8);  # (2,3,5,8,13)
+     -« (1,2,3);                   # (-1, -2, -3)
+     (1,1,2,3,5) »+« (1,2,3,5,8);  # (2,3,5,8,13)
 
 A unary hyper operator (either prefix or postfix) has only one
 hyper marker, located on its argument side, while an infix operator
@@ -3054,7 +3054,7 @@ dimensioned, Perl "upgrades" it, but only if you point the "sharp" end
 of the hypermarker at it.
 
      (3,8,2,9,3,8) >>->> 1;          # (2,7,1,8,2,7)
-     @array Â»+=Â» 42;                 # add 42 to each element
+     @array »+=» 42;                 # add 42 to each element
 
 In fact, an upgraded scalar is the only thing that will work for an
 unordered type such as a C<Bag>:
@@ -3065,11 +3065,11 @@ In other words, pointing the small end at an argument tells the hyperoperator
 to "dwim" on that side.  If you don't know whether one side or the other will
 be underdimensioned, you can dwim on both sides:
 
-    $left Â«*Â» $right
+    $left «*» $right
 
 [Note: if you are worried about Perl getting confused by something like this:
 
-    foo Â«*Â»
+    foo «*»
 
 then you shouldn't worry about it, because unlike previous versions,
 Perl 6 never guesses whether the next thing is a term or operator.
@@ -3078,12 +3078,12 @@ to be a 0-ary sub.]
 
 The upgrade never happens on the "blunt" end of a hyper.  If you write
 
-    $bigger Â«*Â« $smaller
-    $smaller Â»*Â» $bigger
+    $bigger «*« $smaller
+    $smaller »*» $bigger
 
 an exception is thrown, and if you write
 
-    $foo Â»*Â« $bar
+    $foo »*« $bar
 
 you are requiring the shapes to be identical, or an exception will be thrown.
 By default this dwimmery only upgrades whole dimensions, not short lists.
@@ -3101,29 +3101,29 @@ non-list arguments.
 When using a unary operator, you always aim the blunt end at the
 single operand, because no dwimmery ever happens:
 
-     @negatives = -Â« @positives;
+     @negatives = -« @positives;
 
-     @positionsÂ»++;            # Increment all positions
+     @positions»++;            # Increment all positions
 
-     @positions.Â»++;           # Same thing, dot form
-     @positionsÂ».++;           # Same thing, dot form
-     @positions.Â».++;          # Same thing, dot form
-     @positions\  .Â»\  .++;    # Same thing, unspace form
+     @positions.»++;           # Same thing, dot form
+     @positions».++;           # Same thing, dot form
+     @positions.».++;          # Same thing, dot form
+     @positions\  .»\  .++;    # Same thing, unspace form
 
-     @objects.Â».run();
+     @objects.».run();
      ("f","oo","bar").>>.chars;   # (1,2,3)
 
 Note that method calls are really postfix operators, not infix, so you
-shouldn't put a C<Â«> after the dot.
+shouldn't put a C<«> after the dot.
 
 Hyper operators are defined recursively on shaped arrays, so:
 
-    -Â« [[1, 2], 3]               #    [-Â«[1, 2], -Â«3]
+    -« [[1, 2], 3]               #    [-«[1, 2], -«3]
                                  # == [[-1, -2], -3]
 
 Likewise the dwimminess of dwimmy infixes propagates:
 
-    [[1, 2], 3] Â«+Â» [4, [5, 6]]  #    [[1,2] Â«+Â» 4, 3 Â«+Â» [5, 6]]
+    [[1, 2], 3] «+» [4, [5, 6]]  #    [[1,2] «+» 4, 3 «+» [5, 6]]
                                  # == [[5, 6], [8, 9]]
 
 More generally, a dwimmy hyper operator works recursively for any object
@@ -3135,13 +3135,13 @@ the operator in question:
 
 In particular, tree node types with C<Each> semantics enable visitation:
 
-    $tree.Â».foo;        # short for $tree.foo, $tree.each: { .Â».foo }
+    $tree.».foo;        # short for $tree.foo, $tree.each: { .».foo }
 
 If not all nodes support the operation, you need a form of it that
 specifies the call is optional:
 
-    $tree.Â».?foo;       # short for $tree.?foo, $tree.each: { .Â».?foo }
-    $tree.Â».*foo;       # short for $tree.*foo, $tree.each: { .Â».*foo }
+    $tree.».?foo;       # short for $tree.?foo, $tree.each: { .».?foo }
+    $tree.».*foo;       # short for $tree.*foo, $tree.each: { .».*foo }
 
 You are not allowed to define your own hyper operators, because they
 are supposed to have consistent semantics derivable entirely from
@@ -3185,21 +3185,21 @@ Hypers may be applied to hashes as well as to lists.  In this case
 in the other hash, while "non-dwimminess" says to use all keys that are
 in either hash.  That is,
 
-    %foo Â«+Â» %bar;
+    %foo «+» %bar;
 
 gives you the intersection of the keys, while
 
-    %foo Â»+Â« %bar;
+    %foo »+« %bar;
 
 gives you the union of the keys.  Asymmetrical hypers are also useful;
 for instance, if you say:
 
-    %outer Â»+Â» %inner;
+    %outer »+» %inner;
 
 only the %inner keys that already exist in %outer will occur in the result.
 Note, however, that you want
 
-    %outer Â»+=Â« %inner;
+    %outer »+=« %inner;
 
 in order to pass accumulated statistics up a tree, assuming you want %outer
 to have the union of keys.
@@ -3463,7 +3463,7 @@ The string concatenating form is:
 
 The C<X~X> operator desugars to something like:
 
-    [~]Â«( <a b> X,X <1 2> )  #  'a1', 'a2', 'b1', 'b2'
+    [~]«( <a b> X,X <1 2> )  #  'a1', 'a2', 'b1', 'b2'
 
 The list concatenating form, C<X,X>, when used like this:
 
@@ -3512,8 +3512,8 @@ compiler pregenerates various metaforms based on existing operators.
 Unfortunately, with nesting metaoperators there are an infinite number
 of metaforms, so we arbitrarily say that no metacircumfix form is
 pregenerated that uses the same grammatical category more than once.
-Therefore forms like C<[+=]> and C<Â»!===Â«> and C<X*X=> are generated,
-but not forms like C<Â»X*XÂ«> or C<XÂ«*Â»X> or C<<< <<+=>>= >>>.
+Therefore forms like C<[+=]> and C<»!===«> and C<X*X=> are generated,
+but not forms like C<»X*X«> or C<X«*»X> or C<<< <<+=>>= >>>.
 You do get C<[X*X]>,
 though, because reduction is prefix_circumfix_meta_operator while
 cross operators are infix_circumfix_meta_operator.
@@ -3523,7 +3523,7 @@ you can define your own infix operators.  Suppose you say
 
     &infix:<xp> ::= &infix:<X*X>;
 
-After this you can use C<XxpX>, C<[xp]>, and C<[Â«xpÂ»=]Â«> as if C<xp>
+After this you can use C<XxpX>, C<[xp]>, and C<[«xp»=]«> as if C<xp>
 were a built-in.  Not that any of those necessarily make sense...
 
 The compiler is not actually required to pregenerate the metaform
@@ -3733,7 +3733,7 @@ and remember the C<@> at the front until you get to the C<=>.
 The empty C<[]> and C<.[]> postfix operators are interpreted as a
 zero-dimensional slice returning the entire array, not as a one-dimensional
 null slice returning no elements.  Likewise for C<{}> and C<.{}> on hashes,
-as well as the C<< <> >>, C<< .<> >>, C<Â«Â»>, and C<.Â«Â»> constant and
+as well as the C<< <> >>, C<< .<> >>, C<«»>, and C<.«»> constant and
 interpolating slice subscripting forms.
 
 The C<|> operator interpolates lazily for C<Array> and C<Range> objects.

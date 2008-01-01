@@ -64,7 +64,7 @@ sub get_raw {
       or die "Missing argument for get_raw";
     my $document = $self->normalize_name($id);
     $document .= '.pod';
-    $document = File::Spec->catfile('Perl6', 'Doc', 'Bible', $document);
+    $document = File::Spec->catfile('Perl6', 'Doc', 'Design', $document);
     my $document_path = '';
     for my $path (@INC) {
         my $file_path = File::Spec->catfile($path, $document);
@@ -107,12 +107,14 @@ sub perldoc {
             else                   { $self->contents, return }
         } elsif ($sigil eq 'M') {
             $document .= '::Magazine::';
-            if    ($file eq 'M01') { $document .= 'perl.com::WhatisPerl6'}
-            elsif ($file eq 'M02') { $document .= 'perl.com::EverydayPerl6'}
-            elsif ($file eq 'M03') { $document .= 'perl.com::Perl6Parameter'}
+            if    ($file eq 'M01') { $document .= 'perl-6-announcement'}
+            elsif ($file eq 'M02') { $document .= 'what-is-perl-6'}
+            elsif ($file eq 'M03') { $document .= 'pugs-interview'}
+            elsif ($file eq 'M04') { $document .= 'everyday-perl-6'}
+            elsif ($file eq 'M05') { $document .= 'perl-6-parameter-passing'}
             else                   { $self->contents, return }
         } else {
-            $document .= '::Bible::' . $file_name;
+            $document .= '::Design::' . $file_name;
         }
     }
     my $options = join ' ', grep { defined $args->{$_} } qw(-t -u -m -T);
@@ -136,14 +138,14 @@ sub help {
 Usage: p6doc [options] [document-id]
 
 Possible values for document-id are:
-  A01 - A33  (Perl 6 Apocalypses)
-  E01 - E33  (Perl 6 Exegeses)
-  S01 - S33  (Perl 6 Synopses)
-  O01 - O33  (Perl 6 Overview)
-  F01 - F33  (Perl 6 FAQ)
+  A01 - A20  (Perl 6 Apocalypses)
+  E02 - E07  (Perl 6 Exegeses)
+  S01 - S29  (Perl 6 Synopses)
+  O01 - O16  (Perl 6 Overview)
+  F01 - F02  (Perl 6 FAQ)
   T01        (Perl 6 Tutorial)
   P00 - P09  (Perl(6)Tables)
-  M01 - M03  (Mazine Articles)
+  M01 - M05  (Mazine Articles)
 
 Valid options:
   -h,  --help       Print this help screen
@@ -249,9 +251,11 @@ the Perl 6 Design Team.
     
     T01  Tutorial perlintro
 
-    M01  What is Perl 6 ?
-    M02  Everyday Perl 6
-    M03  The Beauty of Perl 6 Parameter Passing
+    M01  Report on the Perl 6 Announcement
+    M02  What is Perl 6 ?
+    M03  A Plan for Pugs
+    M04  Everyday Perl 6
+    M05  The Beauty of Perl 6 Parameter Passing
 
 =head1 NOTES
 
@@ -269,7 +273,7 @@ The document codes C<S01 - S33> refer to the Perl 6 Synopses.
 
 The Synopsis documents are to be taken as the formal specification for
 Perl 6 implementations, while still being reference documentation for
-Perl 6, like _Programming Perl_ is for Perl 5.
+Perl 6, like I<Programming Perl> is for Perl 5.
 
 Note that while these documents are considered "formal specifications",
 they are still being subjected to the rigours of cross-examination
@@ -280,12 +284,12 @@ expectation is that they are "very close" to the final shape of Perl 6.
 
 =head2 Apocalypses (outdated)
 
-The document codes C<A01 - A33> refer to the Perl 6 Apocalypses.
+The document codes C<A01 - A20> refer to the Perl 6 Apocalypses.
 
 Larry Wall started the Apocalypse series as a systematic way of
 answering the RFCs (Request For Comments) that started the design
 process for Perl 6.  Each Apocalypse corresponds to a chapter in the
-book _Programming Perl_, 3rd edition, and addresses the features
+book I<Programming Perl>, 3rd edition, and addresses the features
 relating to that chapter in the book that are likely to change.
 
 Larry addresses each relevant RFC, and gives reasons why he accepted
@@ -295,7 +299,7 @@ problems identified in the RFCs.
 
 =head2 Exegeses (outdated)
 
-The document codes C<E01 - E33> refer to the Perl 6 Exegeses.
+The document codes C<E02 - E07> refer to the Perl 6 Exegeses.
 
 Damian Conway's Exegeses are extensions of each Apocalypse.  Each
 Exegesis is built around a practical code example that applies and
@@ -319,8 +323,9 @@ Reference styled set of wiki pages made by myself.
 
 =head2 Magazine articles
 
-Helpful articles from L<perl.com|http://www.perl.com> and L<$foo magazine|http://www.perl-magazin.de/> from various 
-authors (see SCRIBES section). Special Thanks for their contribution.
+Helpful articles from perl.com (L<http://www.perl.com>) and $foo
+(L<http://www.perl-magazin.de/>). See the authors name in the 
+section L</SCRIBES>, right below.
 
 =head1 METHODS
 
@@ -330,13 +335,14 @@ Perl6::Doc provides a class method to get the raw text of a document:
 
 =head1 SCRIBES
 
+These are the authors of the included docs, named in the order their work 
+was added :
+
 * Ingy döt Net <ingy@cpan.org>
 
 * Sam Vilain <samv@cpan.org>
 
 * Audrey Tang <autrijus@cpan.org>
-
-* Herbert Breunung <lichtkind@cpan.org>
 
 * Kirrily "Skud" Robert <skud@cpan.org>
 
@@ -350,9 +356,13 @@ Perl6::Doc provides a class method to get the raw text of a document:
 
 * chromatic <chromatic@oreilly.com>
 
+* Mark-Jason Dominus <mjd@songline.com>
+
+* Herbert Breunung <lichtkind@cpan.org>
+
 =head1 SOURCES
 
-A couple of paragraphs from _Perl 6 Essentials_ were used for the
+A couple of paragraphs from I<Perl 6 Essentials> were used for the
 overview. Most of the Bible docs (Apocalypses, Exegeses, Synopses)
 are from the official Perl development site. 
 

@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Magazine_Article_03 - The Beauty of Perl 6 Parameter Passing
+Magazine_Article_05 - The Beauty of Perl 6 Parameter Passing
 
 =head1 AUTHOR
 
@@ -18,9 +18,10 @@ http://www.perl.com/pub/a/2007/03/01/perl-6-parameter-passing.html
 =head1 ARTICLE
 
 Perl 6 is not finished, but you can already play with it. I hope this 
-article will encourage you to try it. Begin by installing L<<a href="http://search.cpan.org/perldoc?pugs">Pugs</a>>,
-a Perl 6 compiler implemented in Haskell. Note that you will also need 
-Haskell (see directions in the Pugs I<INSTALL> file for how to get it). 
+article will encourage you to try it. Begin by installing Pugs
+(L<http://search.cpan.org/perldoc?pugs>), a Perl 6 compiler implemented
+in Haskell. Note that you will also need Haskell (see directions in the
+Pugs I<INSTALL> file for how to get it). 
 
 Of course, Pugs is not finished. It couldn't be. The Perl 6 design is still 
 in progress. However, Pugs still has many key features that are going to turn 

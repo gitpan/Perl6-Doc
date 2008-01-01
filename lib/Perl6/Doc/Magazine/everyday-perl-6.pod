@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Magazine_Article_02 - Everyday Perl 6
+Magazine_Article_04 - Everyday Perl 6
 
 =head1 AUTHOR
 
@@ -47,7 +47,7 @@ to denote the type of thing you get back, the sigil remains the same.
 For example, in both Perl 5 and Perl 6 you can create and initialize aggregates:
 
     my @array = (1,3,5,12,37,42);
-    my %hash  = ( alpha =&gt; 4, beta =&gt; 6 );
+    my %hash  = ( alpha => 4, beta => 6 );
 
 How you access the individual elements of those aggregates looks just a
 little different:
@@ -76,11 +76,11 @@ and you really want Perl to execute that subroutine.
 In Perl 6, a syntactic shortcut for accessing hash elements takes advantage
 of a name change of the "quote word" operator:
 
-  # Perl 6                              # Perl 5
-    my @array = &lt;foo bar baz&gt;;      my @array = qw(foo bar baz);
-    my %hash  = &lt;a b c d e f g h&gt;;  my %hash = qw(a b c d e f g h);
-    my $queue = %hash&lt;q&gt;;           my $queue = $hash{'q'};
-    my @vows  = %hash&lt;c a g e&gt;;     my @vows = @hash{qw(c a g e)};
+    # Perl 6                        # Perl 5
+    my @array = <foo bar baz>;      my @array = qw(foo bar baz);
+    my %hash  = <a b c d e f g h>;  my %hash = qw(a b c d e f g h);
+    my $queue = %hash<q>;           my $queue = $hash{'q'};
+    my @vows  = %hash<c a g e>;     my @vows = @hash{qw(c a g e)};
 
 Also, just as double-quoted strings interpolate while single-quoted
 strings do not, double-bracketed "quote word" constructs also
@@ -88,7 +88,7 @@ interpolate:
 
     my $foo  = "This is";
     my $bar  = "the end";
-    my @blah = &lt;&lt; $foo $bar &gt;&gt;;     # ('This','is','the','end');
+    my @blah = << $foo $bar >>;     # ('This','is','the','end');
 
 Note that the interpolation happens I<before> the "quote word" aspect of
 this operator.
@@ -100,7 +100,7 @@ has the side benefit of eliminating the ambiguity of whether you meant
 interpolation if you happen to include (for instance) an email address
 in your double-quoted string.
 
-    my @items = &lt;names addresses email&gt;;
+    my @items = <names addresses email>;
     say "Send @items[] to test@foo.com";
     # Send names addresses email to test@foo.com
 
@@ -135,8 +135,8 @@ different in Perl 6. In particular, the standard idiom for reading
 lines from a file involves a C<for> loop rather than a C<while> loop:
 
     # Perl 6                        # Perl 5
-    for =$fh { ... }                while (&lt;$fh&gt;) { ... }
-    for =&lt;&gt;  { ... }          while (&lt;&gt;)    { ... }
+    for =$fh { ... }                while (<$fh>) { ... }
+    for =<>  { ... }                while (<>)    { ... }
 
 The Perl 5 programmers are probably thinking, "but doesn't that put
 the part that reads the filehandle in list context, causing the entire
@@ -159,7 +159,7 @@ changes make the overall language more regular so that it's easier to
 parse, but most importantly so that it's easier for humans to remember:
 
     # Perl 6                        # Perl 5
-    $object.method(@args);          $obj-&gt;method(@args);
+    $object.method(@args);          $obj->method(@args);
     $x = $cond ?? $true !! $false;  $x = $cond ? $true : $false;
     $s = "con" ~ "cat" ~ "enate";   $s = "con" . "cat" . "enate";
     $str ~~ /$pattern/;             $str =~ /$pattern/;
@@ -185,9 +185,9 @@ bracket.
 
     #[  This is a
         multi-line comment
-        that ends here ----&gt;  ]
+        that ends here ---->  ]
 
-See L<<a href="http://dev.perl.org/perl6/doc/design/syn/S02.html#Whitespace_and_Comments">Whitespace and Comments in Synopsis 02</a>> for more information.
+See "Whitespace and Comments" in Synopsis 02 for more information.
 
 =head3 switch Statement
 
@@ -219,7 +219,7 @@ niche as Perl 5's C<do>-C<while> pseudoloop. The big difference is that
 unlike C<do>-C<while>, C<repeat> is a real loop and as such, you are free
 to use C<next>, C<last>, C<redo> and it does the right thing.
 
-For more information see L<<a href="http://dev.perl.org/perl6/doc/design/syn/S04.html">Synopsis 04</a>>.
+For more information see Synopsis 04.
 
 =head3 Parameterized Blocks
 
@@ -229,15 +229,15 @@ such as the body of a C<for> loop. But any block may be parameterized. This
 is especially useful for doing things that aren't easy in Perl 5 but should
 be -- like examining values three at a time with C<map>:
 
-    my @trimults = map -&gt; $a,$b,$c { $a * $b * $c }, @numbers;
+    my @trimults = map -> $a,$b,$c { $a * $b * $c }, @numbers;
 
 Here is an example where Perl 6 co-opts the arrow notation for a
 higher purpose. The arrow now introduces parameters to a block. You are
 most likely to see this in C<for> loops:
 
-    # Perl 6                           # Perl 5
-    for @array -&gt; $a     { ... }    for my $a (@array) { ... }
-    for @array -&gt; $a, $b { ... }    # too complex :)
+    # Perl 6                        # Perl 5
+    for @array -> $a     { ... }    for my $a (@array) { ... }
+    for @array -> $a, $b { ... }    # too complex :)
 
 The second C<for> loop will take items from C<@array> two at a time and 
 lexically assign them to C<$a> and C<$b> for the duration of the block. 
@@ -265,8 +265,8 @@ which parameters are positional, which are named, what the default
 values are for unpassed parameters, which parameters copy the value
 that is passed, which parameters alias the variable, etc.
 
-For more information on subroutines in Perl 6, see L<<a href="http://dev.perl.org/perl6/doc/design/syn/S06.html">Synopsis 06</a>> and
-Phil Crow's recent article L<<a href="http://www.perl.com/pub/a/2007/03/01/perl-6-parameter-passing.html">The Beauty of Perl 6 Parameter Passing</a>>. 
+For more information on subroutines in Perl 6, see Synopsis 06 and
+Phil Crow's recent article "The Beauty of Perl 6 Parameter Passing". 
 
 =head3 Variable Typing
 
@@ -320,7 +320,7 @@ to decide which one to actually invoke.
 I hope this introduction gives you a feel for some of the changes in Perl 6
 and shows how these changes are good and useful.
 
-A prototype implementation of Perl 6 called L<<a href="http://www.pugscode.org/">pugs</a>>
+A prototype implementation of Perl 6 called pugs (L<http://www.pugscode.org/>)
 should be able to execute all of the examples I've given in this article. 
 If not, get on the freenode IRC network, join #perl6, ask for a commit bit,
 and submit a test to the Pugs repository, and one of the pugs Developers will

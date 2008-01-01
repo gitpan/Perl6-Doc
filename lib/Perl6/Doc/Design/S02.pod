@@ -12,9 +12,9 @@ Larry Wall <larry@wall.org>
 
   Maintainer: Larry Wall <larry@wall.org>
   Date: 10 Aug 2004
-  Last Modified: 5 Dec 2007
+  Last Modified: 1 Jan 2008
   Number: 2
-  Version: 121
+  Version: 122
 
 This document summarizes Apocalypse 2, which covers small-scale
 lexical items and typological issues.  (These Synopses also contain
@@ -198,7 +198,7 @@ less visual need for a C<#> on every line.
 =item *
 
 For all quoting constructs that use user-selected brackets, you can open
-with multiple identical bracket characters, which must by closed by the
+with multiple identical bracket characters, which must be closed by the
 same number of closing brackets.  Counting of nested brackets applies only
 to pairs of brackets of the same length as the opening brackets:
 
@@ -208,7 +208,7 @@ to pairs of brackets of the same length as the opening brackets:
     }} q<< <<woot>> >>   # says " <<woot>> "
 
 Note however that bare circumfix or postcircumfix C<<< <<...>> >>> is
-not a user-selected bracket, but the ASCII variant of the C<< Â«...Â» >>
+not a user-selected bracket, but the ASCII variant of the C<< «...» >>
 interpolating word list.  Only C<#> and the C<q>-style quoters (including
 C<m>, C<s>, C<tr>, and C<rx>) enable subsequent user-selected brackets.
 
@@ -790,7 +790,8 @@ in the absence of explicit initialization, native floating-point types
 default to NaN, while integer types (including C<bit>) default to 0.
 The complex type defaults to NaN + NaN.i.  A buf type of known size
 defaults to a sequence of 0 values.  If any native type is explicitly
-initialized to C<*> (the C<Whatever> type), it is left uninitialized.
+initialized to C<*> (the C<Whatever> type), no initialization is attempted
+and you'll get whatever was already there when the memory was allocated.
 
 If a buf type is initialized with a Unicode string value, the string
 is decomposed into Unicode codepoints, and each codepoint shoved into
@@ -2005,7 +2006,7 @@ So we write those as
 
     :2<1.1*2**10>               1536
     :2<1.1*10**10>              15,000,000,000
-    :2Â«1.1*:2<10>**:2<10>Â»      6
+    :2«1.1*:2<10>**:2<10>»      6
 
 The generic string-to-number converter will recognize all of these
 forms (including the * form, since constant folding is not available
@@ -2097,12 +2098,12 @@ you should use C<< ['a'] >> for clarity as well as correctness.
 
 Much like the relationship between single quotes and double quotes, single
 angles do not interpolate while double angles do.  The double angles may
-be written either with French quotes, C<Â«$foo @bar[]Â»>, or
+be written either with French quotes, C<«$foo @bar[]»>, or
 with "Texas" quotes, C<<< <<$foo @bar[]>> >>>, as the ASCII workaround.
 The implicit split is done after interpolation, but respects quotes
-in a shell-like fashion, so that C<Â«'$foo' "@bar[]"Â»> is guaranteed to
+in a shell-like fashion, so that C<«'$foo' "@bar[]"»> is guaranteed to
 produce a list of two "words" equivalent to C<< ('$foo', "@bar[]") >>.
-C<Pair> notation is also recognized inside C<Â«...Â»> and such "words" are
+C<Pair> notation is also recognized inside C<«...»> and such "words" are
 returned as C<Pair> objects.
 
 Colon pairs (but not arrow pairs) are recognized within double angles.
@@ -2127,7 +2128,7 @@ following table shows the correspondence to the "fatarrow" notation:
     a => $x             :a($x)
     a => 'foo'          :a<foo>         :a(<foo>)
     a => <foo bar>      :a<foo bar>     :a(<foo bar>)
-    a => Â«$foo @barÂ»    :aÂ«$foo @barÂ»   :a(Â«$foo @barÂ»)
+    a => «$foo @bar»    :a«$foo @bar»   :a(«$foo @bar»)
     a => {...}          :a{...}         :a({...})
     a => [...]          :a[...]         :a([...])
     a => $a             :$a
@@ -2271,7 +2272,7 @@ If you want to abbreviate further, just define a macro:
 
     macro qx { 'qq:x ' }          # equivalent to P5's qx//
     macro qTO { 'qq:x:w:to ' }    # qq:x:w:to//
-    macro circumfix:<â° â±> ($expr) { q:code{ $expr.quoteharder } }
+    macro quote:<â° â±> ($text) { q:code{ $text.quoteharder } }
 
 All the uppercase adverbs are reserved for user-defined quotes.
 All Unicode delimiters above Latin-1 are reserved for user-defined quotes.
@@ -2288,7 +2289,7 @@ or
 
 to interpolate items into a C<qw>.  Conveniently, arrays and hashes
 interpolate with only whitespace separators by default, so the subsequent
-split on whitespace still works out.  (But the built-in C<Â«...Â»> quoter
+split on whitespace still works out.  (But the built-in C<«...»> quoter
 automatically does interpolation equivalent to C<qq:ww/.../>.  The
 built-in C<< <...> >> is equivalent to C<q:w/.../>.)
 
@@ -2299,7 +2300,7 @@ Whitespace is allowed between the "q" and its adverb: C<q :w /.../>.
 =item *
 
 For these "q" forms the choice of delimiters has no influence on the
-semantics.  That is, C<''>, C<"">, C<< <> >>, C<Â«Â»>, C<``>, C<()>,
+semantics.  That is, C<''>, C<"">, C<< <> >>, C<«»>, C<``>, C<()>,
 C<[]>, and C<{}> have no special significance when used in place of
 C<//> as delimiters.  There may be whitespace before the
 opening delimiter. (Which is mandatory for parens because C<q()> is
@@ -2694,7 +2695,7 @@ objects in a pinch.)
 
 There is no hash subscript autoquoting in Perl 6.  Use C<< %x<foo> >>
 for constant hash subscripts, or the old standby C<< %x{'foo'} >>.  (It
-also works to say C<%xÂ«fooÂ»> as long as you realized it's subject to
+also works to say C<%x«foo»> as long as you realized it's subject to
 interpolation.)
 
 But C<< => >> still autoquotes any bare identifier to its immediate
@@ -3053,7 +3054,7 @@ is one more than the previous key or pair's value.  This works nicely with
 the new C<qq:ww> form:
 
     %hash = enum <<:Mon(1) Tue Wed Thu Fri Sat Sun>>;
-    %hash = enum Â« :Mon(1) Tue Wed Thu Fri Sat Sun Â»;
+    %hash = enum « :Mon(1) Tue Wed Thu Fri Sat Sun »;
 
 are the same as:
 
@@ -3163,16 +3164,16 @@ Here are the current grammatical categories:
     category:<prefix>                           prefix:<+>
     circumfix:<[ ]>                             [ @x ]
     dotty:<.=>                                  $obj.=method
-    infix_circumfix_meta_operator:{'Â»','Â«'}     @a Â»+Â« @b
+    infix_circumfix_meta_operator:{'»','«'}     @a »+« @b
     infix_postfix_meta_operator:<=>             $x += 2;
     infix_prefix_meta_operator:<!>              $x !~~ 2;
     infix:<+>                                   $x + $y
     package_declarator:<role>                   role Foo;
     postcircumfix:<[ ]>                         $x[$y] or $x.[$y]
-    postfix_prefix_meta_operator:{'Â»'}          @array Â»++
+    postfix_prefix_meta_operator:{'»'}          @array »++
     postfix:<++>                                $x++
     prefix_circumfix_meta_operator:{'[',']'}    [*]
-    prefix_postfix_meta_operator:{'Â«'}          -Â« @magnitudes
+    prefix_postfix_meta_operator:{'«'}          -« @magnitudes
     prefix:<!>                                  !$x (and $x.'!')
     q_backslash:<\\>                            '\\'
     qq_backslash:<n>                            "\n"

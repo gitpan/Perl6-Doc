@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Magazine_Article_01 - What Is Perl 6 ?
+Magazine_Article_02 - What Is Perl 6 ?
 
 =head1 AUTHOR
 
@@ -34,12 +34,12 @@ things very well.
 
 =head3 What's Right with Perl 5
 
-As Adam Turoff explained once, L<<a href="Perl has two subtle advantages">http://use.perl.org/%7Eziggy/journal/26131></a>>
-I<manipulexity> and I<whipuptitude>. It's very important to be able to
-solve the problem at hand simply and easily without languages and tools
-and  syntax getting in your way. That's whipuptitude. Manipulexity is the
-ability to use simple tools and build a sufficiently complex solution to a
-complex problem.
+As Adam Turoff explained once, Perl has two subtle advantages: I<manipulexity> 
+and I<whipuptitude>(L<http://use.perl.org/%7Eziggy/journal/26131>). It's very 
+important to be able to solve the problem at hand simply and easily without 
+languages and tools and syntax getting in your way. That's whipuptitude. 
+Manipulexity is the ability to use simple tools and build a sufficiently 
+complex solution to a complex problem.
 
 Not everyone who starts learning Perl for whipuptitude needs manipulexity
 right away, if ever, but having a tool that supports both is amazingly useful.
@@ -168,11 +168,11 @@ In exchange for breaking backwards compatibility, at least at the language
 level, Perl 6 offers plenty of high-powered language concepts that Perl 5 
 didn't support, including: 
 
-    *L<<a href="http://c2.com/cgi-bin/wiki?MultiMethods">Multimethods</a>>
+    * Multimethods
 
-    *L<<a href="http://c2.com/cgi-bin/wiki?CoRoutine">Coroutines</a>>
+    * Coroutines
 
-    *L<<a href="http://en.wikipedia.org/wiki/Continuation">Continuations</a>>
+    * Continuations
 
     * Useful threading
 
@@ -188,7 +188,7 @@ didn't support, including:
 
     * Garbage collection
 
-    * Improved L<<a href="http://c2.com/cgi-bin/wiki?ForeignFunctionInterface">foreign function interface</a>>
+    * Improved foreign function interface
 
     * Module aliasing and versioning
 
@@ -198,8 +198,9 @@ didn't support, including:
 
 =head3 Better Internals
 
-The L<<a href="http://www.parrotcode.org/">Parrot project</a>>, led by designer Chip Salzenberg and pumpking Leo Toetsch, 
-is producing the new virtual machine for the official Perl 6 release.
+The Parrot project (L<http://www.parrotcode.org/">), led by designer Chip 
+Salzenberg and pumpking Leo Toetsch, is producing the new virtual machine 
+for the official Perl 6 release.
 
 Parrot is a new design and implementation not specifically tied to Perl 6. Its
 goal is to run almost any dynamic language efficiently. Because many of the
@@ -282,9 +283,9 @@ Larry announced the Perl 6 project at OSCON in 2000. Why is it taking so long?
 There are several reasons.
 
 First, Perl 5 isn't going anywhere. If anything, the rate of patches and
-changes to the code has increased. Cleanups from Ponie and the L<<a href="http://qa.perl.org/phalanx/">Phalanx project</a>>
-continue to improve the design and implementation, and new features from
-Perl 6 are making their way into Perl 5.
+changes to the code has increased. Cleanups from Ponie and the Phalanx project
+(L<http://qa.perl.org/phalanx/>) continue to improve the design and 
+implementation, and new features from Perl 6 are making their way into Perl 5.
 
 Second, the opportunity to do the right thing without fear of breaking backwards
 compatibility opened up a lot of possibilities for impressive new features.
@@ -310,52 +311,57 @@ designers, the mailing lists, and the source code repositories.
 
 =head3 Design Documents
 
-The L<<a href="http://dev.perl.org/perl6/">Perl 6 home</a>> page holds links to most of the design documents for the
-language. In particular, Larry's Perl 6 Apocalypses explore a subject area in
-depth, identifying the problem and outlining his thinking about what the
-solution might be. Damian Conway's Perl 6 Exegeses expand upon the idea, showing
-concrete examples written in actual Perl 6 code.
+The Perl 6 home (L<http://dev.perl.org/perl6/>) page holds links to most 
+of  the design documents for the language. In particular, Larry's Perl 6 
+Apocalypses explore a subject area in depth, identifying the problem and 
+outlining his thinking about what the solution might be. Damian Conway's 
+Perl 6 Exegeses expand upon the idea, showing concrete examples written in 
+actual Perl 6 code.
 
-In the past several months, the design team has started to update the 
-L<<a href="http://dev.perl.org/perl6/doc/synopsis.html">Perl 6 Synopses</a>> instead. Perl 6 pumpking Patrick Michaud keeps these fresh with
-the current design. The Apocalypses and Exegeses remain online as interesting
-historical documents that take too long to write and revise as changes occur.
+In the past several months, the design team has started to update the Perl 6 
+Synopses (L<"http://dev.perl.org/perl6/doc/synopsis.html">) instead. Perl 6 
+pumpking Patrick Michaud keeps these fresh with the current design. The 
+Apocalypses and Exegeses remain online as interesting historical documents 
+that take too long to write and revise as changes occur.
 
 =head3 Implementations
 
-L<<a href="http://www.parrotcode.org/">Parrot</a>> has monthly releases. The Parrot distribution includes the Parrot Grammar
-Engine (PGE), which is Patrick's implementation of rules and grammars, as well
-as several languages that target Parrot. The most complete implementation is for
-Tcl, though the Punie project (Perl 1 on Parrot) shows the entire suite of
-compiler tools.
+Parrot (L<http://www.parrotcode.org/>) has monthly releases. The Parrot 
+distribution includes the Parrot Grammar Engine (PGE), which is Patrick's 
+implementation of rules and grammars, as well as several languages that 
+target Parrot. The most complete implementation is for Tcl, though the Punie 
+project (Perl 1 on Parrot) shows the entire suite of compiler tools.
 
-Audrey (nee Autrijus) Tang's L<<a href="http://www.pugscode.org/">Pugs</a>> is an unofficial Perl 6 implementation,
-optimized for fun. As of the time of the writing, it supported much of Perl 6,
-including junctions, multimethods, and objects. It targets multiple back-ends,
-including Haskell, JavaScript, Perl 5, and Parrot, and moves very quickly. Pugs
-is a great project in which to participate--it's very easy to get a committer
-bit and start writing tests and fixing bugs. It's currently the main prototype
-and reference implementation. Time will tell what its role is in the final
-release.
+Audrey (nee Autrijus) Tang's Pugs (L<http://www.pugscode.org/>) is an 
+unofficial Perl 6 implementation, optimized for fun. As of the time of the 
+writing, it supported much of Perl 6, including junctions, multimethods, 
+and objects. It targets multiple back-ends, including Haskell, JavaScript,
+Perl 5, and Parrot, and moves very quickly. Pugs is a great project in which
+to participate--it's very easy to get a committer bit and start writing
+tests and fixing bugs. It's currently the main prototype and reference 
+implementation.  Time will tell what its role is in the final release.
 
-Ponie is a port of Perl 5 to Parrot. It's a huge refactoring project with little
-glory but a lot of potential usefulness. C hackers are more than welcome.
+Ponie is a port of Perl 5 to Parrot. It's a huge refactoring project with 
+little glory but a lot of potential usefulness. C hackers are more than 
+welcome.
 
 =head3 Discussion
 
 Most development discussion takes place on several Perl 6 mailing lists:
 
-    * L<<a href="mailto:perl6-language-subscribe@perl.org?subject=">perl6-language</a>> discusses Perl 6, the language and features.
-    * L<<a href="mailto:perl6-internals-subscribe@perl.org?subject=">perl6-internals</a>> discusses the design and implementation of Parrot
+    * perl6-language discusses Perl 6, the language and features.
+      L<mailto:perl6-language-subscribe@perl.org>
+    * perl6-internals discusses the design and implementation of Parrot
+      L<mailto:perl6-internals-subscribe@perl.org>
       and various languages targeting Parrot.
-    * L<<a href="mailto:perl6-compiler-subscribe@perl.org?subject=">perl6-compiler</a>> discusses PGE, Pugs, and the interaction of various
-      components of the compiler tools.
+    * perl6-compiler discusses PGE, Pugs, and the interaction of various 
+      components of the compiler tools. L<mailto:perl6-compiler-subscribe@perl.org> 
 
 The #perl6 IRC channel on irc.freenode.net talks about Pugs and Perl 6, while
 #parrot on irc.perl.org concentrates on Parrot. There is almost always someone
 around in #perl6 to answer questions about Pugs or Perl 6.
 
-L<<a href="http://planetsix.perl.org/">Planet Perl Six</a>> aggregates weblogs from several designers and developers of
-various related projects.
+Planet Perl Six (L<http://planetsix.perl.org/> aggregates weblogs from several 
+designers and developers of various related projects.
 
 =cut

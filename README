@@ -11,12 +11,12 @@ DESCRIPTION
     documentation and a utility called "p6doc" for viewing it.
 
   Apocalypses
-    The document codes "A01 - A33" refer to the Perl 6 Apocalypses.
+    The document codes "A01 - A20" refer to the Perl 6 Apocalypses.
 
     Larry Wall started the Apocalypse series as a systematic way of
     answering the RFCs (Request For Comments) that started the design
     process for Perl 6. Each Apocalypse corresponds to a chapter in the book
-    _Programming Perl_, 3rd edition, and addresses the features relating to
+    I<Programming Perl>, 3rd edition, and addresses the features relating to
     that chapter in the book that are likely to change.
 
     Larry addresses each relevant RFC, and gives reasons why he accepted or
@@ -25,18 +25,18 @@ DESCRIPTION
     identified in the RFCs.
 
   Exegeses
-    The document codes "E01 - E33" refer to the Perl 6 Exegeses.
+    The document codes "E02 - E07" refer to the Perl 6 Exegeses.
 
     Damian Conway's Exegeses are extensions of each Apocalypse. Each
     Exegesis is built around a practical code example that applies and
     explains the new ideas.
 
   Synopses
-    The document codes "S01 - S33" refer to the Perl 6 Synopses.
+    The document codes "S01 - S29" refer to the Perl 6 Synopses.
 
     The Synopsis documents are to be taken as the formal specification for
     Perl 6 implementations, while still being reference documentation for
-    Perl 6, like _Programming Perl_ is for Perl 5.
+    Perl 6, like I<Programming Perl> is for Perl 5.
 
     Note that while these documents are considered "formal specifications",
     they are still being subjected to the rigours of cross-examination
@@ -58,8 +58,9 @@ DESCRIPTION
     Reference styled set of wiki pages made by myself.
 
   Magazine articles
-    Helpful articles from L<<a href="http://www.perl.com">perl.com</a>> and L<<a href="http://www.perl-magazin.de/">$foo magazine</a>> from various 
-    authors (see SCRIBES section). Special Thanks for their contribution.
+    Helpful articles from perl.com (L<http://www.perl.com>) and $foo
+    (L<http://www.perl-magazin.de/>). See the authors name in the section 
+    L</SCRIBES>, right below.
 
 CONTENTS
     This is the list of documents that are currently available; a number in
@@ -103,10 +104,11 @@ CONTENTS
     
     T01  Tutorial perlintro
     
-    M01  What is Perl 6 ?
-    M02  Everyday Perl 6
-    M03  The Beauty of Perl 6 Parameter Passing
-
+    M01  Report on the Perl 6 Announcement
+    M02  What is Perl 6 ?
+    M03  A Plan for Pugs
+    M04  Everyday Perl 6
+    M05  The Beauty of Perl 6 Parameter Passing
 
 METHODS
     Perl6::Doc provides a class method to get the raw text of a document:
@@ -114,13 +116,15 @@ METHODS
         my $text = Perl6::Doc->get_raw('s01');
 
 SCRIBES
+
+    These are the authors of the included docs, named in the order their
+    work was added :
+
     * Ingy döt Net <ingy@cpan.org>
 
     * Sam Vilain <samv@cpan.org>
 
     * Audrey Tang <autrijus@cpan.org>
-    
-    * Herbert Breunung <lichtkind@cpan.org>
 
     * Kirrily "Skud" Robert <skud@cpan.org>
 
@@ -134,6 +138,10 @@ SCRIBES
 
     * chromatic <chromatic@oreilly.com>
 
+    * Mark-Jason Dominus <mjd@songline.com>
+
+    * Herbert Breunung <lichtkind@cpan.org>
+
 PACKAGING
 
     Collecting, cleaning and updating of the docs:
@@ -142,7 +150,7 @@ PACKAGING
 
 SOURCES
 
-    A couple of paragraphs from _Perl 6 Essentials_ were used for the
+    A couple of paragraphs from I<Perl 6 Essentials> were used for the
     overview. Most of the Bible docs (Apocalypses, Exegeses, Synopses)
     are from the official Perl development site. 
 

@@ -1,13 +1,13 @@
+name: Perl6-Doc
+version: 0.33
 abstract: all useful Perl 6 Docs in your command line
-author: Brian Ingerson, Herbert Breunung. All rights reserved.
+author: lichtkind@cpan.org
+license: perl
 distribution_type: module
 generated_by: Module::Install version 0.57
-license: perl
-name: Perl6-Doc
 no_index: 
   directory: 
     - inc
     - t
 requires: 
   perl: 5.000
-version: 0.33
