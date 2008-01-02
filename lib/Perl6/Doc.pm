@@ -114,7 +114,7 @@ sub perldoc {
             elsif ($file eq 'M05') { $document .= 'perl-6-parameter-passing'}
             else                   { $self->contents, return }
         } else {
-            $document .= '::Design::' . $file_name;
+            $document .= '::Design::' . $file;
         }
     }
     my $options = join ' ', grep { defined $args->{$_} } qw(-t -u -m -T);
