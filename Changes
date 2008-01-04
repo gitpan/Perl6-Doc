@@ -1,11 +1,20 @@
-version: 0.33
+---
+date: Fri Jan 4 2008
+- removed dir 'Perl6/Doc/Docs' and moved docs from there to 'Perl6/Doc'
+- updated S03.pod, S06.pod, S09.pod
+- release 0.34
+
 date: Sun Dec 31 2007
 changes:
 - updated S05 S26
 - add documentation for perl.com articles
-- added "everyday perl 6" => EverydayPerl6.pod
-- added "The Beauty of Perl 6 Parameter Passing" => Perl6Parameter.pod
-- enhaced doc selection logic
+- added article "everyday perl 6" => EverydayPerl6.pod
+- added article  "The Beauty of Perl 6 Parameter Passing" => Perl6Parameter.pod
+- changed names of articles a la : everyday-perl-6.pod
+- added article what-is-perl-6.pod
+- added article pugs-interview.pod
+- added article perl-6-announcement.pod
+- enhanced doc selection logic
 - redirect to table of content when doc not found
 ---
 version: 0.32_9

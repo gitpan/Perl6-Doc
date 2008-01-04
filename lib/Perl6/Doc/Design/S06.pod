@@ -13,9 +13,9 @@ Allison Randal <al@shadowed.net>
 
   Maintainer: Larry Wall <larry@wall.org>
   Date: 21 Mar 2003
-  Last Modified: 26 Oct 2007
+  Last Modified: 2 Jan 2008
   Number: 6
-  Version: 90
+  Version: 91
 
 
 This document summarizes Apocalypse 6, which covers subroutines and the
@@ -124,18 +124,37 @@ You can declare a sub without parameter list, as in Perl 5:
 
     sub foo {...}
 
-Arguments implicitly come in via the C<@_> array, but they are C<readonly>
-aliases to actual arguments:
+This is equivalent to 
+
+    sub foo (*@_, *%_) {...}
+
+Positional arguments implicitly come in via the C<@_> array, but
+unlike in Perl 5 they are C<readonly> aliases to actual arguments:
 
     sub say { print qq{"@_[]"\n}; }   # args appear in @_
 
     sub cap { $_ = uc $_ for @_ }   # Error: elements of @_ are read-only
 
-If you need to modify the elements of C<@_>, declare the array explicitly
-with the C<is rw> trait:
+Also unlike in Perl 5, Perl 6 has true named arguments, which come in
+via C<%_> instead of C<@_>.  (To construct pseudo-named arguments that
+come in via C<@_> as in Perl 5, the p5-to-p6 translator will use the ugly
+C<< p5=> >> operator instead of Perl 6's C<< => >> Pair constructor.)
 
-    sub swap (*@_ is rw) { @_[0,1] = @_[1,0] }
+If you need to modify the elements of C<@_> or C<%_>, declare the
+array or hash explicitly with the C<is rw> trait:
 
+    sub swap (*@_ is rw, *%_ is rw) { @_[0,1] = @_[1,0]; %_<status> = "Q:S"; }
+
+Note: the "rw" container trait is automatically distributed to the
+individual elements by the the slurpy star even though there's no
+actual array or hash passed in.  More precisely, the slurpy star
+means the declared formal parameter is I<not> considered readonly; only
+its elements are.  See L</Parameters and arguments> below.
+
+Note also that if the sub's block contains placeholder variables (such
+as C<$^foo>), it is considered to have a formal signature already, so
+no implicit bindings to C<@_> or C<%_> are assumed (nor is an explicit
+signature allowed.)  So in that case, this section does not apply.
 
 =head2 Blocks
 
@@ -315,7 +334,7 @@ a hash subscript (but evaluated at compile time).  So any of these
 indicates the same binary addition operator:
 
     infix:<+>
-    infix:Â«+Â»
+    infix:«+»
     infix:<<+>>
     infix:{'+'}
     infix:{"+"}
@@ -358,18 +377,18 @@ Operator names can be any sequence of non-whitespace characters
 including Unicode characters. For example:
 
     sub infix:<(c)> ($text, $owner) { return $text but Copyright($owner) }
-    method prefix:<Â±> (Num $x --> Num) { return +$x | -$x }
+    method prefix:<±> (Num $x --> Num) { return +$x | -$x }
     multi sub postfix:<!> (Int $n) { $n < 2 ?? 1 !! $n*($n-1)! }
-    macro circumfix:Â«<!-- -->Â» ($text) is parsed / .*? / { "" }
+    macro circumfix:«<!-- -->» ($text) is parsed / .*? / { "" }
 
     my $document = $text (c) $me;
 
-    my $tolerance = Â±7!;
+    my $tolerance = ±7!;
 
     <!-- This is now a comment -->
 
 Whitespace may never be part of the name (except as separator
-within a C<< <...> >> or C<Â«...Â»> slice subscript, as in the example above).
+within a C<< <...> >> or C<«...»> slice subscript, as in the example above).
 
 A null operator name does not define a null or whitespace operator, but
 a default matching subrule for that syntactic category, which is useful when
@@ -864,7 +883,7 @@ what signature to match against.
 The unary C<|> operator casts its argument to a C<Capture>
 object, then splices that capture into the argument list
 it occurs in.  To get the same effect on multiple arguments you
-can use the C<< |Â« >> hyperoperator.
+can use the C<< |« >> hyperoperator.
 
 C<Pair> and C<Hash> become named arguments:
 
@@ -1661,16 +1680,16 @@ C<equiv> may be useful for cloning other traits of these operators.)
     circumfix:<( )>
     dotty:<.>
     infix:<+>
-    infix_circumfix_meta_operator:{'Â»','Â«'}
+    infix_circumfix_meta_operator:{'»','«'}
     infix_postfix_meta_operator:<=>
     infix_prefix_meta_operator:<!>
     package_declarator:<class>
     postcircumfix:<( )>
     postfix:<++>
-    postfix_prefix_meta_operator:{'Â»'}
+    postfix_prefix_meta_operator:{'»'}
     prefix:<++>
     prefix_circumfix_meta_operator:{'[',']'} 
-    prefix_postfix_meta_operator:{'Â«'}
+    prefix_postfix_meta_operator:{'«'}
     q_backslash:<\\>
     qq_backslash:<n>
     quote_mod:<c>
@@ -2718,35 +2737,35 @@ as follows:
 
     -name                      :name
     -name=value                :name<value>
-    -name="spacy value"        :nameÂ«'spacy value'Â»
-    -name='spacy value'        :nameÂ«'spacy value'Â»
-    -name=val1,'val 2', etc    :nameÂ«val1 'val 2' etcÂ»
+    -name="spacy value"        :name«'spacy value'»
+    -name='spacy value'        :name«'spacy value'»
+    -name=val1,'val 2', etc    :name«val1 'val 2' etc»
 
     --name                     :name            # only if declared Bool
     --name=value               :name<value>     # don't care
     --name value               :name<value>     # only if not declared Bool
 
-    --name="spacy value"       :nameÂ«'spacy value'Â»
-    --name "spacy value"       :nameÂ«'spacy value'Â»
-    --name='spacy value'       :nameÂ«'spacy value'Â»
-    --name 'spacy value'       :nameÂ«'spacy value'Â»
-    --name=val1,'val 2', etc   :nameÂ«val1 'val 2' etcÂ»
-    --name val1 'val 2' etc    :nameÂ«val1 'val 2' etcÂ» # only if declared @
+    --name="spacy value"       :name«'spacy value'»
+    --name "spacy value"       :name«'spacy value'»
+    --name='spacy value'       :name«'spacy value'»
+    --name 'spacy value'       :name«'spacy value'»
+    --name=val1,'val 2', etc   :name«val1 'val 2' etc»
+    --name val1 'val 2' etc    :name«val1 'val 2' etc» # only if declared @
     --                                 # end named argument processing
 
     +name                      :!name
     +name=value                :name<value> but False
-    +name="spacy value"        :nameÂ«'spacy value'Â» but False
-    +name='spacy value'        :nameÂ«'spacy value'Â» but False
-    +name=val1,'val 2', etc    :nameÂ«val1 'val 2' etcÂ» but False
+    +name="spacy value"        :name«'spacy value'» but False
+    +name='spacy value'        :name«'spacy value'» but False
+    +name=val1,'val 2', etc    :name«val1 'val 2' etc» but False
 
     :name                      :name
     :!name                     :!name   # potential conflict with ! histchar
     :/name                     :!name   # potential workaround?
     :name=value                :name<value>
-    :name="spacy value"        :nameÂ«'spacy value'Â»
-    :name='spacy value'        :nameÂ«'spacy value'Â»
-    :name=val1,'val 2', etc    :nameÂ«val1 'val 2' etcÂ»
+    :name="spacy value"        :name«'spacy value'»
+    :name='spacy value'        :name«'spacy value'»
+    :name=val1,'val 2', etc    :name«val1 'val 2' etc»
 
 Exact Perl 6 forms are okay if quoted from shell processing:
 

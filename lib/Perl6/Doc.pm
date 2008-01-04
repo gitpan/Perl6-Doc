@@ -2,7 +2,7 @@ package Perl6::Doc;
 use 5.000;
 use File::Spec;
 
-$Perl6::Doc::VERSION = '0.33';
+$Perl6::Doc::VERSION = '0.34';
 
 sub new {
     my $class = shift;
@@ -88,15 +88,15 @@ sub perldoc {
         my $file = $self->normalize_name( shift );
         my $sigil = substr $file, 0, 1;
         if ($file eq 'Perlintro'){
-            $document .= '::Tutorial::perlintro';
+            $document .= '::Docs::Tutorial::perlintro';
         } elsif ($sigil eq 'T'){
-            $document .= '::Tutorial::';
+            $document .= '::Docs::Tutorial::';
             if ($file eq 'T01') { $document .= 'perlintro' }
             else                { $self->contents, return  }
         } elsif ($file eq 'F01') { $document .= '::Doc::Capture';
         } elsif ($file eq 'F02') { $document .= '::Doc::FUD';
         } elsif ($sigil eq 'O') {
-            $document .= '::Docs::';
+            $document .= '::';
             if    ($file eq 'O03') { $document .= 'Operator'  }
             elsif ($file eq 'O04') { $document .= 'Smartmatch'}
             elsif ($file eq 'O06') { $document .= 'Subroutine'}
