@@ -1,3 +1,7 @@
+date: Jan 11 2008
+- extended module doku
+- updated  S02.pod, S05.pod, S11.pod
+
 ---
 date: Fri Jan 4 2008
 - removed dir 'Perl6/Doc/Docs' and moved docs from there to 'Perl6/Doc'

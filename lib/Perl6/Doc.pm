@@ -2,7 +2,7 @@ package Perl6::Doc;
 use 5.000;
 use File::Spec;
 
-$Perl6::Doc::VERSION = '0.34';
+$Perl6::Doc::VERSION = '0.34.1';
 
 sub new {
     my $class = shift;
@@ -158,7 +158,7 @@ _
 
 sub version {
     print <<_;
-This is Perl 6 Documentation as of January 1, 2008
+This is Perl 6 Documentation as of January 11, 2008
 (bundled in Perl6-Doc-$VERSION)
 _
 }
@@ -193,8 +193,8 @@ Perl6::Doc - all useful Perl 6 Docs in your command line
 
 =head1 VERSION
 
-This document describes version 0.33 of Perl6::Doc, released
-December 23, 2007.
+This document describes version 0.35 of Perl6::Doc, released
+January 11, 2008.
 
 =head1 SYNOPSIS
 
@@ -209,10 +209,11 @@ This Perl module distribution contains all the latest Perl 6
 documentation and a utility called C<p6doc> for viewing it.
 
 Below is the list of documents that are currently available; a number
-in the column indicates the document is currently available. An 
+in the column indicates, the document is currently available. An 
 asterisk next to a number means that the document is an unofficial
 draft written by a member of the Perl community but not approved by
-the Perl 6 Design Team.
+the Perl 6 Design Team. The pages after the first section are anyway
+no Design docs.
 
 =head2 Contents
 
@@ -236,7 +237,7 @@ the Perl 6 Design Team.
     S26  Perl Documentation
     S27* Perl Culture
     S28* Special Names
-    S29* Functions
+    S29  Functions
 
     F01  FAQ::Captures
     F02  FAQ::FUD
@@ -260,52 +261,67 @@ the Perl 6 Design Team.
 =head1 NOTES
 
 L<Perl6::Doc> was before L<Perl6::Bible> which is now depreciated. We
-changed that name, because we expect here much more content than just
-Apocalypses, Exegeses and Synopses.
+changed that name, because we now deliver much more content than just
+the Apocalypses, Exegeses and Synopses.
 
 If you are interested in helping out the documentation project,
 please contact us on C<irc.freenode.net #perl6> or
-C<perl6-compiler@perl.org>.
+C<perl6-compiler@perl.org>. You can also help greatly by editing the
+official Perl 6 wiki under: L<http://www.perlfoundation.org/perl6>
 
-=head2 Synopses
+=head2 Design Docs
 
-The document codes C<S01 - S33> refer to the Perl 6 Synopses.
+These texts help to understand the genesis, but also the current 
+state of the language Perl 6 on a syntactic level. (Thatswhy they
+are also called Perl 6 Bible, but maybe also because of Larry Wall's
+theological background.) They are placed in the "Perl6/Doc/Design" 
+directory inside of this distribution.
 
-The Synopsis documents are to be taken as the formal specification for
-Perl 6 implementations, while still being reference documentation for
-Perl 6, like I<Programming Perl> is for Perl 5.
-
-Note that while these documents are considered "formal specifications",
-they are still being subjected to the rigours of cross-examination
-through implementation.
-
-In other words, they may change slightly or radically. But the
-expectation is that they are "very close" to the final shape of Perl 6.
-
-=head2 Apocalypses (outdated)
+=head3 Apocalypses (outdated)
 
 The document codes C<A01 - A20> refer to the Perl 6 Apocalypses.
 
-Larry Wall started the Apocalypse series as a systematic way of
-answering the RFCs (Request For Comments) that started the design
-process for Perl 6.  Each Apocalypse corresponds to a chapter in the
-book I<Programming Perl>, 3rd edition, and addresses the features
-relating to that chapter in the book that are likely to change.
+Larry Wall started the Apocalypse (latin for revelation) series as a
+systematic way of answering the RFCs (Request For Comments) that
+started the design process for Perl 6.  Each Apocalypse corresponds to
+a chapter in the book I<Programming Perl>, 3rd edition, and addresses
+the features relating to that chapter in the book that are likely to
+change.
 
 Larry addresses each relevant RFC, and gives reasons why he accepted
 or rejected various pieces of it.  But each Apocalypse also goes
 beyond a simple "yes" and "no" response to attack the roots of the
 problems identified in the RFCs.
 
-=head2 Exegeses (outdated)
+=head3 Exegeses (outdated)
 
 The document codes C<E02 - E07> refer to the Perl 6 Exegeses.
 
-Damian Conway's Exegeses are extensions of each Apocalypse.  Each
-Exegesis is built around a practical code example that applies and
-explains the new ideas.
+Damian Conway's Exegeses (latin for explanation) are extensions of
+each Apocalypse.  Each Exegesis is built around a practical code
+example that applies and explains the new ideas.
 
-=head2 Docs: Overview and FAQ
+=head3 Synopses
+
+The document codes C<S01 - S33> refer to the Perl 6 Synopses.
+
+The Synopsis (latin for comparison) started as a fast to read diff
+between Perl 5 and 6. Because they are also easier to maintain, all
+changes of the language, that are evolving from the design process
+are written down here first. The Apocalypses and Exegeses are frozen
+as "historic documents".
+
+In other words, these docs may change slightly or radically. But the
+expectation is that they are "very close" to the final shape of Perl 6.
+
+The Synopsis documents are to be taken as the formal specification for
+Perl 6 implementations, while still being reference documentation for
+Perl 6, like I<Programming Perl> is for Perl 5.
+
+Note that while these documents still being subjected to the rigours 
+of cross-examination through implementation.
+
+=head2 Perl 6 Docs (Overview and FAQ)
 
 These are shorter summaries about a smaller specific topic. They are
 written mostly by the crazy Pugs people and replacing some of the

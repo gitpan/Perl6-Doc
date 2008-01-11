@@ -311,7 +311,7 @@ C<&> in front of the function's name (providing it is in scope). To curry,
 add C<.assuming> to the end of that and supply values for one or more 
 arguments in parentheses. All of this is harder to talk about than to do: 
 
-   Code :$fprime         = &approxfprime.assuming( f => $f ),
+   $fprime = &approxfprime.assuming( f => $f ),
 
 This code means that the caller might supply a value. If this is the case, use
 it. Otherwise, use C<approxfprime> with the caller's function in place of C<f>. 

@@ -58,16 +58,17 @@ DESCRIPTION
     Reference styled set of wiki pages made by myself.
 
   Magazine articles
-    Helpful articles from perl.com (L<http://www.perl.com>) and $foo
-    (L<http://www.perl-magazin.de/>). See the authors name in the section 
-    L</SCRIBES>, right below.
+    Helpful articles from perl.com (http://www.perl.com) and $foo
+    (http://www.perl-magazin.de). See the authors name in the section 
+    SCRIBES, below.
 
 CONTENTS
-    This is the list of documents that are currently available; a number in
-    the column indicates the document is currently available. An asterisk
-    next to a number means that the document is an unofficial draft written
-    by a member of the Perl community but not approved by the Perl 6 Design
-    Team.
+    Below is the list of documents that are currently available; a 
+    number in the column indicates, the document is currently available.
+    An asterisk next to a number means that the document is an unofficial
+    draft written by a member of the Perl community but not approved by
+    the Perl 6 Design Team. The pages after the first section are anyway
+    no Design docs.
 
     S01  The Ugly, the Bad, and the Good   (A01)
     S02  Bits and Pieces                   (A02) (E02)
@@ -89,7 +90,7 @@ CONTENTS
     S26  Documentation
     S27* Perl Culture
     S28* Special Names
-    S29* Functions
+    S29  Functions
 
     F01  FAQ::Captures
     F02  FAQ::FUD
@@ -109,6 +110,16 @@ CONTENTS
     M03  A Plan for Pugs
     M04  Everyday Perl 6
     M05  The Beauty of Perl 6 Parameter Passing
+
+NOTES
+    Perl6::Doc was before Perl6::Bible which is now depreciated. We
+    changed that name, because we now deliver much more content than just
+    the Apocalypses, Exegeses and Synopses.
+    
+    If you are interested in helping out the documentation project,
+    please contact us on irc.freenode.net #perl6 or
+    perl6-compiler@perl.org. You can also help greatly by editing the
+    official Perl 6 wiki under: http://www.perlfoundation.org/perl6
 
 METHODS
     Perl6::Doc provides a class method to get the raw text of a document:
