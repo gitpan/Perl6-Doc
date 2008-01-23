@@ -2,7 +2,7 @@ package Perl6::Doc;
 use 5.000;
 use File::Spec;
 
-$Perl6::Doc::VERSION = '0.34.1';
+$Perl6::Doc::VERSION = '0.34.2';
 
 sub new {
     my $class = shift;
@@ -93,18 +93,21 @@ sub perldoc {
             $document .= '::Docs::Tutorial::';
             if ($file eq 'T01') { $document .= 'perlintro' }
             else                { $self->contents, return  }
-        } elsif ($file eq 'F01') { $document .= '::Doc::Capture';
-        } elsif ($file eq 'F02') { $document .= '::Doc::FUD';
+        } elsif ($file eq 'F01') { $document .= '::Doc::FAQ::Capture';
+        } elsif ($file eq 'F02') { $document .= '::Doc::FAQ::FUD';
         } elsif ($sigil eq 'O') {
-            $document .= '::';
-            if    ($file eq 'O03') { $document .= 'Operator'  }
-            elsif ($file eq 'O04') { $document .= 'Smartmatch'}
-            elsif ($file eq 'O06') { $document .= 'Subroutine'}
-            elsif ($file eq 'O08') { $document .= 'Variable'  }
-            elsif ($file eq 'O09') { $document .= 'Data'      }
-            elsif ($file eq 'O12') { $document .= 'Object'    }
-            elsif ($file eq 'O16') { $document .= 'File'      } 
-            else                   { $self->contents, return }
+            if    ($file eq 'O01') { $document .= '::Overview'}
+            else {
+                $document .= '::Overview::';
+                if    ($file eq 'O03') { $document .= 'Operator'  }
+                elsif ($file eq 'O04') { $document .= 'Smartmatch'}
+                elsif ($file eq 'O06') { $document .= 'Subroutine'}
+                elsif ($file eq 'O08') { $document .= 'Variable'  }
+                elsif ($file eq 'O09') { $document .= 'Data'      }
+                elsif ($file eq 'O12') { $document .= 'Object'    }
+                elsif ($file eq 'O16') { $document .= 'File'      } 
+                else                   { $self->contents, return }
+            }
         } elsif ($sigil eq 'M') {
             $document .= '::Magazine::';
             if    ($file eq 'M01') { $document .= 'perl-6-announcement'}
@@ -194,7 +197,7 @@ Perl6::Doc - all useful Perl 6 Docs in your command line
 =head1 VERSION
 
 This document describes version 0.35 of Perl6::Doc, released
-January 11, 2008.
+January 23, 2008.
 
 =head1 SYNOPSIS
 
@@ -242,6 +245,7 @@ no Design docs.
     F01  FAQ::Captures
     F02  FAQ::FUD
 
+    O01  Overview
     O03  Overview::Operator
     O04  Overview::Smartmatch
     O06  Overview::Subroutine
@@ -349,16 +353,26 @@ Perl6::Doc provides a class method to get the raw text of a document:
 
     my $text = Perl6::Doc->get_raw('s01');
 
-=head1 SCRIBES
+=head1 AUTHORS
+
+=head2 SCRIBES
 
 These are the authors of the included docs, named in the order their work 
 was added :
 
-* Ingy döt Net <ingy@cpan.org>
+* Larry Wall <larry@wall.org>
 
-* Sam Vilain <samv@cpan.org>
+* Damian Conway <damian@conway.org>
+
+* Luke Palmer <luke@luqui.org>
+
+* Allison Randal <al@shadowed.net>
 
 * Audrey Tang <autrijus@cpan.org>
+
+* Ingy döt Net <ingy@cpan.org> ()
+
+* Sam Vilain <samv@cpan.org> ()
 
 * Kirrily "Skud" Robert <skud@cpan.org>
 
@@ -374,26 +388,36 @@ was added :
 
 * Mark-Jason Dominus <mjd@songline.com>
 
+* Shmarya <shmarya.rubenstein@gmail.com>
+
+* Pawel Murias <13pawel@gazeta.pl>
+
 * Herbert Breunung <lichtkind@cpan.org>
 
-=head1 SOURCES
+=head2 SOURCES
 
 A couple of paragraphs from I<Perl 6 Essentials> were used for the
 overview. Most of the Bible docs (Apocalypses, Exegeses, Synopses)
 are from the official Perl development site. 
 
-http://dev.perl.org/perl6/
+L<http://dev.perl.org/perl6/>
 
 All draft Synopses, Overview, FAQ and Tutorial pages were taken out 
 of the Pugs SVN repository.
 
-http://svn.pugscode.org/pugs/docs/Perl6/
+L<http://svn.pugscode.org/pugs/docs/Perl6/>
 
-=head1 PACKAGING
+Articles are from:
 
-Collection of docs is currently done by: Herbert Breunung <lichtkind@cpan.org>
+L<http://perl.com/pub/q/Article_Archive#Perl%206/>
 
-=head1 COPYRIGHT
+=head2 PACKAGING
+
+Collection of docs is currently done by: 
+
+Herbert Breunung <lichtkind@cpan.org>
+
+=head2 COPYRIGHT
 
 This Copyright applies only to the C<Perl6::Doc> Perl software
 distribution, not the documents bundled within.

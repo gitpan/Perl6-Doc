@@ -59,11 +59,11 @@ DESCRIPTION
 
   Magazine articles
     Helpful articles from perl.com (http://www.perl.com) and $foo
-    (http://www.perl-magazin.de). See the authors name in the section 
+    (http://www.perl-magazin.de). See the authors name in the section
     SCRIBES, below.
 
 CONTENTS
-    Below is the list of documents that are currently available; a 
+    Below is the list of documents that are currently available; a
     number in the column indicates, the document is currently available.
     An asterisk next to a number means that the document is an unofficial
     draft written by a member of the Perl community but not approved by
@@ -82,7 +82,7 @@ CONTENTS
     S11  Modules
     S12  Objects                           (A12)
     S13  Overloading
-    S16* IPC / IO / Signals  
+    S16* IPC / IO / Signals
     S17* Concurrency
          Debugging                         (A20*)
     S22* CPAN
@@ -95,6 +95,7 @@ CONTENTS
     F01  FAQ::Captures
     F02  FAQ::FUD
 
+    O01  Overview
     O03  Overview::Operator
     O04  Overview::Smartmatch
     O06  Overview::Subroutine
@@ -102,9 +103,9 @@ CONTENTS
     O09  Overview::Data
     O12  Overview::Object
     O16  Overview::File
-    
+
     T01  Tutorial perlintro
-    
+
     M01  Report on the Perl 6 Announcement
     M02  What is Perl 6 ?
     M03  A Plan for Pugs
@@ -115,7 +116,7 @@ NOTES
     Perl6::Doc was before Perl6::Bible which is now depreciated. We
     changed that name, because we now deliver much more content than just
     the Apocalypses, Exegeses and Synopses.
-    
+
     If you are interested in helping out the documentation project,
     please contact us on irc.freenode.net #perl6 or
     perl6-compiler@perl.org. You can also help greatly by editing the
@@ -131,11 +132,19 @@ SCRIBES
     These are the authors of the included docs, named in the order their
     work was added :
 
-    * Ingy döt Net <ingy@cpan.org>
+    * Larry Wall <larry@wall.org>
 
-    * Sam Vilain <samv@cpan.org>
+    * Damian Conway <damian@conway.org>
+
+    * Luke Palmer <luke@luqui.org>
+
+    * Allison Randal <al@shadowed.net>
 
     * Audrey Tang <autrijus@cpan.org>
+
+    * Ingy döt Net <ingy@cpan.org> ()
+
+    * Sam Vilain <samv@cpan.org> ()
 
     * Kirrily "Skud" Robert <skud@cpan.org>
 
@@ -151,6 +160,10 @@ SCRIBES
 
     * Mark-Jason Dominus <mjd@songline.com>
 
+    * Shmarya <shmarya.rubenstein@gmail.com>
+
+    * Pawel Murias <13pawel@gazeta.pl>
+
     * Herbert Breunung <lichtkind@cpan.org>
 
 PACKAGING
@@ -163,11 +176,11 @@ SOURCES
 
     A couple of paragraphs from I<Perl 6 Essentials> were used for the
     overview. Most of the Bible docs (Apocalypses, Exegeses, Synopses)
-    are from the official Perl development site. 
+    are from the official Perl development site.
 
     http://dev.perl.org/perl6/
 
-    All draft Synopses, Overview, FAQ and Tutorial pages were taken out 
+    All draft Synopses, Overview, FAQ and Tutorial pages were taken out
     of the Pugs SVN repository.
 
     http://svn.pugscode.org/pugs/docs/Perl6/

@@ -1,4 +1,3 @@
-
 =head1 NAME
 
 Synopsis_29 - Builtin Functions
@@ -10,8 +9,8 @@ Synopsis_29 - Builtin Functions
  Contributions: Aaron Sherman <ajs@ajs.com>
                 Mark Stosberg <mark@summersault.com>
  Date:          12 Mar 2005
- Last Modified: 10 Jan 2008
- Version:       16
+ Last Modified: 14 Jan 2008
+ Version:       18
 
 This document attempts to document the list of builtin functions in Perl 6.
 It assumes familiarity with Perl 5 and prior synopses.
@@ -91,7 +90,7 @@ Subclasses (things that are C<isa AnyChar>):
 
 =item Grapheme (language-independent graphemes)
 
-=item Codepoint or Uni (Unicode codepoints)
+=item Codepoint
 
 =item Byte
 
@@ -100,8 +99,11 @@ Yes, Byte is both a string and a number.
 =back
 
 The short name for C<Grapheme> is typically C<Char> since that's the
-default Unicode level.  A grapheme is defined as a base C<Uni> plus
-any subsequent "combining" C<Uni>s that apply to that base C<Uni>.
+default Unicode level.  A grapheme is defined as a base codepoint plus
+any subsequent "combining" codepoints that apply to that base codepoint.
+Graphemes are always assigned a unique integer id which, in the case of
+a grapheme that has a precomposed codepoint, happens to be the same as
+that codepoint.
 
 There is no short name for C<CharLingua> because the type is meaningless
 outside the scope of a particular language declaration.  In fact,
@@ -205,8 +207,8 @@ until a non-zero (equivalent) result is achieved.
  our Order multi sub cmp (Ordering @by, $a, $b)
  our Order multi sub cmp (Ordering $by = &infix:<cmp>, $a, $b)
 
-Returns C<Order::Increase>, C<Order::Decrease>, or C<Order::Same>
-(which numify to -1, 0, +1) indicating if paramater C<$a> should
+Returns C<Order::Increase>, or C<Order::Same>, or C<Order::Decrease>
+(which numify to -1, 0, +1 respectively) indicating if paramater C<$a> should
 be ordered before/tied with/after parameter C<$b>, using criteria
 C<$by> or C<@by> for comparisons. C<@by> differs from C<$by>
 in that each criterion is applied, in order, until a non-zero
@@ -1110,6 +1112,11 @@ composite where possible.
 These de-compositions and re-compositions are performed recursively,
 until there is no further work to be done.
 
+Note that this function is really only applicable when dealing with codepoint
+strings.  Grapheme strings are normally processed at a higher abstraction level
+that is independent of normalization, and are lazily normalized into the
+desired normalization when transferred to lexical scopes or handles that care.
+
 =item samecase
 
  our Str multi method samecase ( Str $string: Str $pattern ) is export
@@ -1151,7 +1158,7 @@ Returns the number of graphemes in the string in a language-independent way.
 
 =item codes
 
- our Int multi method codes ( Str $string: $nf = "C") is export
+ our Int multi method codes ( Str $string: $nf = $?NF) is export
 
 Returns the number of codepoints in the string if it were canonicalized the
 specified way.  Do not confuse codepoints with UTF-16 encoding.  Characters
@@ -1159,7 +1166,7 @@ above U+FFFF count as a single codepoint.
 
 =item bytes
 
- our Int multi method bytes ( Str $string: $nf = "C", $enc = "UTF-8") is export
+ our Int multi method bytes ( Str $string: $nf = $?NF, $enc = $?ENC) is export
 
 Returns the number of bytes in the string if it were encoded in the
 specified way.  Note the inequality:
@@ -1523,34 +1530,37 @@ for more detailed information on object creation.
 
 =item ord
 
- role Uni {
-     our Uni multi chr( Uni $codepoint )
-     our Uni multi ord( Uni $character )
- }
- multi method ord( Str $string: ) is export
+ multi Char method chr( Int $grid: ) is export
+ multi Char sub chr( Int *@grid )
+ multi Int method ord( Str $string: ) is export
 
-These functions are available for purposes of backward compatibility.
-C<chr> takes a C<Uni> and returns the exact same value with no change.
-This is because, in Perl 6, a C<Uni> is both an integer codepoint when
-numified and a single character when stringified. Thus, C<chr> is just:
+C<chr> takes zero or more integer grapheme ids and returns the
+corresponding characters as a string.  If any grapheme id is used
+that represents a higher abstraction level than the current
+lexical scope supports, that grapheme is converted to the
+corresponding lower-level string of codepoints/bytes that would
+be appropriate to the current context, just as any other Str
+would be downgraded in context.
 
- our Uni multi chr( Uni $codepoint) { $codepoint; }
-
-C<ord> is almost the same, but it also has a form that takes a string.
-In a scalar context, the return value is the C<Uni> representing
-the first codepoint in the string. In a list context, the return
-value is the list of C<Uni>s representing the entire string.
-
-An integer can be passed to C<chr>, but it will automatically
-be upgraded to a C<Uni> (by interpreting it as a Unicode codepoint).
-
-Be aware that the stringification of certain C<Uni>s will
-fail because they have no stand-alone stringified interpretation.
-Similarly, the creation of a C<Uni> from an integer might fail
-due to the integer being out of range. If that
-happens, an undefined C<Uni> is always returned. Similarly,
-C<chr(undef)> or C<ord(undef)> will force the reutrn of an
-undefined C<Uni>.
+C<ord> goes the other direction; it takes a string value and returns
+character values as integers.  In a scalar context, the return value
+is the just the integer value of the first character in the string. In
+a list context, the return value is the list of integers representing
+the entire string.  The definition of character is context dependent.
+Normally it's a grapheme id, but under codepoints or bytes scopes,
+the string is coerced to the appropriate low-level view and interpreted
+as codepoints or bytes.  Hence, under "use bytes" you will never see a
+value larger than 256, and under "use codepoints" you will never see a
+value larger than 0x10ffff.  The only guarantee under "use graphemes"
+(the default) is that the number returned will correspond to the
+codepoint of the precomposed codepoint representing the grapheme, if
+there is such a codepoint.  Otherwise, the implementation is free to
+return any unique id that larger than 0x10ffff.  (The C<chr> function
+will know how to backtranslate such ids properly to codepoints or
+bytes in any context.  Note that we are assuming that every codepoints
+context knows its normalization preferences, and every bytes context
+also knows its encoding preferences. (These are knowable in the
+lexical scope via the $?NF and $?ENC compile-time constants).)
 
 =item list
 

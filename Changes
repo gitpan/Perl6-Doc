@@ -1,3 +1,12 @@
+date: Jan 23 2008
+- moved files from 'lib\Perl6\Doc\'
+                to 'lib\Perl6\Doc\Overview' and 'lib\Perl6\Doc\FAQ'
+- added: Overview.pod
+- updated: S02, S03, S04, S05, S29
+
+date: Jan 11 2008
+- update MANIFEST (was broken in 03.34)
+
 date: Jan 11 2008
 - extended module doku
 - updated  S02.pod, S05.pod, S11.pod
