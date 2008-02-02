@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Apocalypse_03 -  Operators
+Apocalypse_03 - Operators
 
 =head1 AUTHOR
 

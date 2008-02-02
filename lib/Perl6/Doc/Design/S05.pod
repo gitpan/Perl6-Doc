@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Synopsis_05 -  Regexes and Rules
+Synopsis_05 - Regexes and Rules
 
 =head1 AUTHORS
 

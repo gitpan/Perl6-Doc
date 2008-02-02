@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Synopsis_09 -  Data Structures
+Synopsis_09 - Data Structures
 
 =head1 AUTHOR
 

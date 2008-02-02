@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Synopsis_11 -  Modules
+Synopsis_11 - Modules
 
 =head1 AUTHOR
 

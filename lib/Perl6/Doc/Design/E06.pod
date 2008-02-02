@@ -1,6 +1,6 @@
 =head1 NAME
 
-Exegesis_06 -  Subroutines
+Exegesis_06 - Subroutines
 
 =head1 AUTHOR
 

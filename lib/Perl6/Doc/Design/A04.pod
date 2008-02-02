@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Apocalypse_04 -  Syntax
+Apocalypse_04 - Syntax
 
 =head1 AUTHOR
 

@@ -128,7 +128,6 @@ METHODS
         my $text = Perl6::Doc->get_raw('s01');
 
 SCRIBES
-
     These are the authors of the included docs, named in the order their
     work was added :
 
@@ -166,24 +165,24 @@ SCRIBES
 
     * Herbert Breunung <lichtkind@cpan.org>
 
-PACKAGING
-
-    Collecting, cleaning and updating of the docs:
-
-    Herbert Breunung <lichtkind@cpan.org>
-
 SOURCES
-
     A couple of paragraphs from I<Perl 6 Essentials> were used for the
     overview. Most of the Bible docs (Apocalypses, Exegeses, Synopses)
-    are from the official Perl development site.
+    are from the official Perl development site. 
 
     http://dev.perl.org/perl6/
 
-    All draft Synopses, Overview, FAQ and Tutorial pages were taken out
+    All draft Synopses, Overview, FAQ and Tutorial pages were taken out 
     of the Pugs SVN repository.
 
     http://svn.pugscode.org/pugs/docs/Perl6/
+
+    Articles are from: http://perl.com/pub/q/Article_Archive#Perl%206
+
+PACKAGING
+    Collection of docs is currently done by: 
+
+    Herbert Breunung <lichtkind@cpan.org>
 
 COPYRIGHT
     This Copyright applies only to the C<Perl6::Doc> Perl software

@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Synopsis_12 -  Objects
+Synopsis_12 - Objects
 
 =head1 AUTHOR
 

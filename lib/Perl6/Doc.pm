@@ -2,7 +2,7 @@ package Perl6::Doc;
 use 5.000;
 use File::Spec;
 
-$Perl6::Doc::VERSION = '0.34.2';
+$Perl6::Doc::VERSION = '0.34.3';
 
 sub new {
     my $class = shift;
@@ -409,7 +409,7 @@ L<http://svn.pugscode.org/pugs/docs/Perl6/>
 
 Articles are from:
 
-L<http://perl.com/pub/q/Article_Archive#Perl%206/>
+L<http://perl.com/pub/q/Article_Archive#Perl%206>
 
 =head2 PACKAGING
 

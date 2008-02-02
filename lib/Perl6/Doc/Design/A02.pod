@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Apocalypse_02 -  Bits and Pieces
+Apocalypse_02 - Bits and Pieces
 
 =head1 AUTHOR
 

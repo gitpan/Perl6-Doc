@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Synopsis_02 -  Bits and Pieces
+Synopsis_02 - Bits and Pieces
 
 =head1 AUTHOR
 

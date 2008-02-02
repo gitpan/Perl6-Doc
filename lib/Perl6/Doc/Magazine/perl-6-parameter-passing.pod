@@ -302,7 +302,7 @@ If the caller provides the derivative as C<fprime>, I use it. Otherwise,
 as in the example, I use C<approxfprime>. Whereas a caller-supplied C<fprime>
 would take one number and return another, C<approxfprime> needs a number 
 and a function. The function needed is the one the caller passed to C<newton>.
-How do you pass it on? Currying—that is, supplying one or more of the 
+How do you pass it on? Curryingâ€”that is, supplying one or more of the 
 parameters of a function once, then using the simplified version after
 that. 
 

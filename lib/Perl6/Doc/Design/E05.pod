@@ -1,6 +1,6 @@
 =head1 NAME
 
-Exegesis_05 -  Pattern Matching
+Exegesis_05 - Pattern Matching
 
 =head1 AUTHOR
 

@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Synopsis_04 -  Blocks and Statements
+Synopsis_04 - Blocks and Statements
 
 =head1 AUTHOR
 

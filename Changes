@@ -1,3 +1,10 @@
+date: Feb 02 2008
+- UTF-8 fixes (STEVE++)
+- release 0.34_3
+
+date: Jan 26 2008
+- linkfix to perl.com (conrad.schneiker++)
+
 date: Jan 23 2008
 - moved files from 'lib\Perl6\Doc\'
                 to 'lib\Perl6\Doc\Overview' and 'lib\Perl6\Doc\FAQ'
@@ -11,7 +18,6 @@ date: Jan 11 2008
 - extended module doku
 - updated  S02.pod, S05.pod, S11.pod
 
----
 date: Fri Jan 4 2008
 - removed dir 'Perl6/Doc/Docs' and moved docs from there to 'Perl6/Doc'
 - updated S03.pod, S06.pod, S09.pod
@@ -62,7 +68,7 @@ version: 0.32_2
 date: Sun Dec 25 2007
 changes:
 - added myself as author
-- changed brians name to ingy döt net as he requested
+- changed brians name to ingy dÃ¶t net as he requested
 - fixed name of S16*
 - changed all names to syn_nr (looks better in CPAN)
 version: 0.32_1

@@ -1,6 +1,6 @@
 =head1 NAME
 
-Exegesis_04 -  Syntax
+Exegesis_04 - Syntax
 
 =head1 AUTHOR
 

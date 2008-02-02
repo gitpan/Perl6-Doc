@@ -1,6 +1,6 @@
 =head1 NAME
 
-Exegesis_02 -  Bits and Pieces
+Exegesis_02 - Bits and Pieces
 
 =head1 AUTHOR
 
