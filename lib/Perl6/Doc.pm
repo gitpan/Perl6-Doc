@@ -2,7 +2,7 @@ package Perl6::Doc;
 use 5.000;
 use File::Spec;
 
-$Perl6::Doc::VERSION = '0.34.3';
+$Perl6::Doc::VERSION = '0.35';
 
 sub new {
     my $class = shift;
@@ -197,7 +197,7 @@ Perl6::Doc - all useful Perl 6 Docs in your command line
 =head1 VERSION
 
 This document describes version 0.35 of Perl6::Doc, released
-January 23, 2008.
+February 3, 2008.
 
 =head1 SYNOPSIS
 
@@ -325,13 +325,15 @@ Perl 6, like I<Programming Perl> is for Perl 5.
 Note that while these documents still being subjected to the rigours 
 of cross-examination through implementation.
 
-=head2 Perl 6 Docs (Overview and FAQ)
+=head2 Perl 6 User Documentation
+
+=head3 Overview and FAQ
 
 These are shorter summaries about a smaller specific topic. They are
 written mostly by the crazy Pugs people and replacing some of the
 outdated Synopses that are still marked as [Draft].
 
-=head2 Tutorial (building up)
+=head3 Tutorial (building up)
 
 This is an community driven effort to translate the Perl 5 manpages
 into the shiny Perl 6 world. There are still are half way through the

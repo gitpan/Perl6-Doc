@@ -1,3 +1,8 @@
+date: Feb 03 2008
+- update S03.pod, S05.pod
+- module docs
+- release 0.35
+
 date: Feb 02 2008
 - UTF-8 fixes (STEVE++)
 - release 0.34_3
