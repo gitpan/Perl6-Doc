@@ -4,7 +4,7 @@ abstract: all useful Perl 6 Docs in your command line
 author: lichtkind@cpan.org
 license: perl
 distribution_type: module
-generated_by: Module::Install version 0.57
+generated_by: Module::Install version 0.68
 no_index: 
   directory: 
     - inc

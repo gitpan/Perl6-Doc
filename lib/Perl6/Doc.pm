@@ -2,7 +2,7 @@ package Perl6::Doc;
 use 5.000;
 use File::Spec;
 
-$Perl6::Doc::VERSION = '0.35';
+$Perl6::Doc::VERSION = '0.35.1';
 
 sub new {
     my $class = shift;
@@ -357,6 +357,43 @@ Perl6::Doc provides a class method to get the raw text of a document:
 
 =head1 AUTHORS
 
+=head2 COPYRIGHT
+
+This Copyright applies only to the C<Perl6::Doc> Perl software
+distribution, not the documents bundled within.
+
+Copyright (c) 2007. Ingy döt Net, Herbert Breunung. All rights reserved.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+See http://www.perl.com/perl/misc/Artistic.html
+
+=cut
+
+=head2 PACKAGING
+
+Collection of docs is currently done by: 
+
+Herbert Breunung <lichtkind@cpan.org>
+
+=head2 SOURCES
+
+A couple of paragraphs from I<Perl 6 Essentials> were used for the
+overview. Most of the Bible docs (Apocalypses, Exegeses, Synopses)
+are from the official Perl development site. 
+
+L<http://dev.perl.org/perl6/>
+
+All draft Synopses, Overview, FAQ and Tutorial pages were taken out 
+of the Pugs SVN repository.
+
+L<http://svn.pugscode.org/pugs/docs/Perl6/>
+
+Articles are from:
+
+L<http://perl.com/pub/q/Article_Archive#Perl%206>
+
 =head2 SCRIBES
 
 These are the authors of the included docs, named in the order their work 
@@ -395,40 +432,3 @@ was added :
 * Pawel Murias <13pawel@gazeta.pl>
 
 * Herbert Breunung <lichtkind@cpan.org>
-
-=head2 SOURCES
-
-A couple of paragraphs from I<Perl 6 Essentials> were used for the
-overview. Most of the Bible docs (Apocalypses, Exegeses, Synopses)
-are from the official Perl development site. 
-
-L<http://dev.perl.org/perl6/>
-
-All draft Synopses, Overview, FAQ and Tutorial pages were taken out 
-of the Pugs SVN repository.
-
-L<http://svn.pugscode.org/pugs/docs/Perl6/>
-
-Articles are from:
-
-L<http://perl.com/pub/q/Article_Archive#Perl%206>
-
-=head2 PACKAGING
-
-Collection of docs is currently done by: 
-
-Herbert Breunung <lichtkind@cpan.org>
-
-=head2 COPYRIGHT
-
-This Copyright applies only to the C<Perl6::Doc> Perl software
-distribution, not the documents bundled within.
-
-Copyright (c) 2007. Ingy döt Net, Herbert Breunung. All rights reserved.
-
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
-
-See http://www.perl.com/perl/misc/Artistic.html
-
-=cut

@@ -1,6 +1,11 @@
+date: Feb 10 2008
+- update Module::Install to 0.68 (ANDK++)
+- update S02.pod, S03.pod, S04.pod, S06.pod, S11.pod
+- release 0.35_1
+
 date: Feb 03 2008
 - update S03.pod, S05.pod
-- module docs
+- sorted module docs
 - release 0.35
 
 date: Feb 02 2008

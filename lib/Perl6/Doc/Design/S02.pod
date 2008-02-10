@@ -12,9 +12,9 @@ Larry Wall <larry@wall.org>
 
   Maintainer: Larry Wall <larry@wall.org>
   Date: 10 Aug 2004
-  Last Modified: 17 Jan 2008
+  Last Modified: 8 Feb 2008
   Number: 2
-  Version: 126
+  Version: 128
 
 This document summarizes Apocalypse 2, which covers small-scale
 lexical items and typological issues.  (These Synopses also contain
@@ -208,7 +208,7 @@ to pairs of brackets of the same length as the opening brackets:
     }} q<< <<woot>> >>   # says " <<woot>> "
 
 Note however that bare circumfix or postcircumfix C<<< <<...>> >>> is
-not a user-selected bracket, but the ASCII variant of the C<< «...» >>
+not a user-selected bracket, but the ASCII variant of the C<< Â«...Â» >>
 interpolating word list.  Only C<#> and the C<q>-style quoters (including
 C<m>, C<s>, C<tr>, and C<rx>) enable subsequent user-selected brackets.
 
@@ -582,7 +582,7 @@ look like the same object if they happen to have the same contents.
 =item *
 
 Variables with non-native types can always contain I<undefined> values,
-such as C<Undef>, C<Whatever> and C<Failure> objects.  See S04 for more
+such as C<Object>, C<Whatever> and C<Failure> objects.  See S04 for more
 about failures (i.e. unthrown exceptions):
 
     my Int $x = undef;    # works
@@ -856,12 +856,20 @@ C<defined> always returns false.  One can create them with the
 built-in C<undef> and C<fail> functions.  (See S04 for how failures
 are handled.)
 
-    Undef       Undefined (variants serve as prototype objects of classes)
+    Object      Uninitialized (derivatives serve as protoobjects of classes)
     Whatever    Wildcard (like undef, but subject to do-what-I-mean via MMD)
     Failure     Failure (lazy exceptions, thrown if not handled properly)
 
 Whenever you declare any kind of type, class, module, or package, you're
 automatically declaring a undefined prototype value with the same name.
+
+Whenever a C<Failure> value is put into a typed container, it takes
+on the type specified by the container but continues to carry the
+C<Failure> role.  (The C<undef> function merely returns the most
+generic C<Failure> object.  Use C<fail> to return more specific failures.  Use
+C<Object> for the most generic non-failure undefined value.  The C<Any>
+type is also undefined, but excludes C<Junctions> so that autothreading
+may be dispatched using normal multiple dispatch rules.)
 
 =head2 Immutable types
 
@@ -1292,7 +1300,8 @@ is subject to:
 
     $foo        ordinary scoping
     $.foo       object attribute accessor
-    $^foo       self-declared formal parameter
+    $^foo       self-declared formal positional parameter
+    $:foo       self-declared formal named parameter
     $*foo       global variable
     $+foo       contextual variable
     $?foo       compiler hint variable
@@ -1582,6 +1591,10 @@ anonymous variables:
 
     my ($a, $, $c) = 1..3;
     print unless (state $)++;
+
+Outside of declarative contexts you may use C<*> for a placeholder:
+
+    ($a, *, $c) = 1..3;
 
 =item *
 
@@ -2048,7 +2061,7 @@ So we write those as
 
     :2<1.1*2**10>               1536
     :2<1.1*10**10>              15,000,000,000
-    :2«1.1*:2<10>**:2<10>»      6
+    :2Â«1.1*:2<10>**:2<10>Â»      6
 
 The generic string-to-number converter will recognize all of these
 forms (including the * form, since constant folding is not available
@@ -2140,12 +2153,12 @@ you should use C<< ['a'] >> for clarity as well as correctness.
 
 Much like the relationship between single quotes and double quotes, single
 angles do not interpolate while double angles do.  The double angles may
-be written either with French quotes, C<«$foo @bar[]»>, or
+be written either with French quotes, C<Â«$foo @bar[]Â»>, or
 with "Texas" quotes, C<<< <<$foo @bar[]>> >>>, as the ASCII workaround.
 The implicit split is done after interpolation, but respects quotes
-in a shell-like fashion, so that C<«'$foo' "@bar[]"»> is guaranteed to
+in a shell-like fashion, so that C<Â«'$foo' "@bar[]"Â»> is guaranteed to
 produce a list of two "words" equivalent to C<< ('$foo', "@bar[]") >>.
-C<Pair> notation is also recognized inside C<«...»> and such "words" are
+C<Pair> notation is also recognized inside C<Â«...Â»> and such "words" are
 returned as C<Pair> objects.
 
 Colon pairs (but not arrow pairs) are recognized within double angles.
@@ -2170,7 +2183,7 @@ following table shows the correspondence to the "fatarrow" notation:
     a => $x             :a($x)
     a => 'foo'          :a<foo>         :a(<foo>)
     a => <foo bar>      :a<foo bar>     :a(<foo bar>)
-    a => «$foo @bar»    :a«$foo @bar»   :a(«$foo @bar»)
+    a => Â«$foo @barÂ»    :aÂ«$foo @barÂ»   :a(Â«$foo @barÂ»)
     a => {...}          :a{...}         :a({...})
     a => [...]          :a[...]         :a([...])
     a => $a             :$a
@@ -2206,7 +2219,7 @@ the same thing:
     '' => $x            :($x)           arglist or signature literal
     '' => ($x,$y)       :($x,$y)        arglist or signature literal
     '' => <x>           :<x>            identifier extension
-    '' => «x»           :«x»            identifier extension
+    '' => Â«xÂ»           :Â«xÂ»            identifier extension
     '' => [$x,$y]       :[$x,$y]        identifier extension
     '' => { .say }      :{ .say }       adverbial block
 
@@ -2374,7 +2387,7 @@ or
 
 to interpolate items into a C<qw>.  Conveniently, arrays and hashes
 interpolate with only whitespace separators by default, so the subsequent
-split on whitespace still works out.  (But the built-in C<«...»> quoter
+split on whitespace still works out.  (But the built-in C<Â«...Â»> quoter
 automatically does interpolation equivalent to C<qq:ww/.../>.  The
 built-in C<< <...> >> is equivalent to C<q:w/.../>.)
 
@@ -2385,7 +2398,7 @@ Whitespace is allowed between the "q" and its adverb: C<q :w /.../>.
 =item *
 
 For these "q" forms the choice of delimiters has no influence on the
-semantics.  That is, C<''>, C<"">, C<< <> >>, C<«»>, C<``>, C<()>,
+semantics.  That is, C<''>, C<"">, C<< <> >>, C<Â«Â»>, C<``>, C<()>,
 C<[]>, and C<{}> have no special significance when used in place of
 C<//> as delimiters.  There may be whitespace before the
 opening delimiter. (Which is mandatory for parens because C<q()> is
@@ -2780,7 +2793,7 @@ objects in a pinch.)
 
 There is no hash subscript autoquoting in Perl 6.  Use C<< %x<foo> >>
 for constant hash subscripts, or the old standby C<< %x{'foo'} >>.  (It
-also works to say C<%x«foo»> as long as you realized it's subject to
+also works to say C<%xÂ«fooÂ»> as long as you realized it's subject to
 interpolation.)
 
 But C<< => >> still autoquotes any bare identifier to its immediate
@@ -3162,7 +3175,7 @@ is one more than the previous key or pair's value.  This works nicely with
 the new C<qq:ww> form:
 
     %hash = enum <<:Mon(1) Tue Wed Thu Fri Sat Sun>>;
-    %hash = enum « :Mon(1) Tue Wed Thu Fri Sat Sun »;
+    %hash = enum Â« :Mon(1) Tue Wed Thu Fri Sat Sun Â»;
 
 are the same as:
 
@@ -3272,16 +3285,16 @@ Here are the current grammatical categories:
     category:<prefix>                           prefix:<+>
     circumfix:<[ ]>                             [ @x ]
     dotty:<.=>                                  $obj.=method
-    infix_circumfix_meta_operator:{'»','«'}     @a »+« @b
+    infix_circumfix_meta_operator:{'Â»','Â«'}     @a Â»+Â« @b
     infix_postfix_meta_operator:<=>             $x += 2;
     infix_prefix_meta_operator:<!>              $x !~~ 2;
     infix:<+>                                   $x + $y
     package_declarator:<role>                   role Foo;
     postcircumfix:<[ ]>                         $x[$y] or $x.[$y]
-    postfix_prefix_meta_operator:{'»'}          @array »++
+    postfix_prefix_meta_operator:{'Â»'}          @array Â»++
     postfix:<++>                                $x++
     prefix_circumfix_meta_operator:{'[',']'}    [*]
-    prefix_postfix_meta_operator:{'«'}          -« @magnitudes
+    prefix_postfix_meta_operator:{'Â«'}          -Â« @magnitudes
     prefix:<!>                                  !$x (and $x.'!')
     q_backslash:<\\>                            '\\'
     qq_backslash:<n>                            "\n"
