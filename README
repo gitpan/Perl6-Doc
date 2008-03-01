@@ -110,7 +110,9 @@ CONTENTS
     M02  What is Perl 6 ?
     M03  A Plan for Pugs
     M04  Everyday Perl 6
-    M05  The Beauty of Perl 6 Parameter Passing
+    M05  Yet Another Perl 6 Operator (Microarticles)
+    M06  The Beauty of Perl 6 Parameter Passing
+	http://airen.bcm.umontreal.ca/syn_index.html
 
 NOTES
     Perl6::Doc was before Perl6::Bible which is now depreciated. We

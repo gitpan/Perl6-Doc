@@ -2,7 +2,7 @@ package Perl6::Doc;
 use 5.000;
 use File::Spec;
 
-$Perl6::Doc::VERSION = '0.35.1';
+$Perl6::Doc::VERSION = '0.35.2';
 
 sub new {
     my $class = shift;
@@ -114,7 +114,8 @@ sub perldoc {
             elsif ($file eq 'M02') { $document .= 'what-is-perl-6'}
             elsif ($file eq 'M03') { $document .= 'pugs-interview'}
             elsif ($file eq 'M04') { $document .= 'everyday-perl-6'}
-            elsif ($file eq 'M05') { $document .= 'perl-6-parameter-passing'}
+            elsif ($file eq 'M05') { $document .= 'yet-another-perl-6-operator'}
+            elsif ($file eq 'M06') { $document .= 'perl-6-parameter-passing'}
             else                   { $self->contents, return }
         } else {
             $document .= '::Design::' . $file;
@@ -148,7 +149,7 @@ Possible values for document-id are:
   F01 - F02  (Perl 6 FAQ)
   T01        (Perl 6 Tutorial)
   P00 - P09  (Perl(6)Tables)
-  M01 - M05  (Mazine Articles)
+  M01 - M06  (Mazine Articles)
 
 Valid options:
   -h,  --help       Print this help screen
@@ -161,7 +162,7 @@ _
 
 sub version {
     print <<_;
-This is Perl 6 Documentation as of January 11, 2008
+This is Perl 6 Documentation as of March 1, 2008
 (bundled in Perl6-Doc-$VERSION)
 _
 }
@@ -260,7 +261,8 @@ no Design docs.
     M02  What is Perl 6 ?
     M03  A Plan for Pugs
     M04  Everyday Perl 6
-    M05  The Beauty of Perl 6 Parameter Passing
+    M05  Yet Another Perl 6 Operator (Microarticles)
+    M06  The Beauty of Perl 6 Parameter Passing
 
 =head1 NOTES
 

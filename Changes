@@ -1,3 +1,10 @@
+date: Mar 01 2008
+- update S02.pod, S03.pod, S05.pod, S11.pod, S12.pod
+- moved form M05 -> M06 : The Beauty of Perl 6 Parameter Passing
+- added M05 : Yet Another Perl 6 Operator
+# update now works flawless and ready for cpanification
+- release 0.35_2
+
 date: Feb 10 2008
 - update Module::Install to 0.68 (ANDK++)
 - update S02.pod, S03.pod, S04.pod, S06.pod, S11.pod

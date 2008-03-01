@@ -12,9 +12,9 @@ Larry Wall <larry@wall.org>
 
   Maintainer: Larry Wall <larry@wall.org>
   Date: 10 Aug 2004
-  Last Modified: 8 Feb 2008
+  Last Modified: 15 Feb 2008
   Number: 2
-  Version: 128
+  Version: 129
 
 This document summarizes Apocalypse 2, which covers small-scale
 lexical items and typological issues.  (These Synopses also contain
@@ -722,7 +722,7 @@ with 8-bit integers.)
 
 For graphemes that have no precomposed form, a temporary private
 id should be assigned that uniquely identifies the grapheme.
-If such identifiers are assigned consistently thoughout the process,
+If such ids are assigned consistently thoughout the process,
 comparison of two graphemes is no more difficult than the comparison
 of two integers, and comparison of base characters no more difficult
 than a direct lookup into the id-to-NFD table.
@@ -1989,6 +1989,54 @@ current compiling scope.  It may not be shared, at least not without
 explicit consent of all parties.  No magical syntax at a distance.
 Consent of the governed, and all that.
 
+=item *
+
+It is often convenient to have names that contain arbitrary characters
+or other data structures.  Typically these uses involve situations
+where a set of entities shares a common "short" name, but still needs
+for each of its elements to be identifiable individually.  For
+example, you might use a module whose short name is C<ThatModule>,
+but the complete long name of a module includes its version, naming
+authority, and perhaps even its source language.  Similarly,
+sets of operators work together in various syntactic categories
+with names like C<prefix>, C<infix>, C<postfix>, etc.  The long
+names of these operators, however, often contain characters that
+are excluded from ordinary identifiers.
+
+For all such uses, an identifier followed by a subscript-like adverbial
+form (see below) is considered an I<extended identifier>:
+
+    infix:<+>    # the official name of the operator in $a + $b
+    infix:<*>    # the official name of the operator in $a * $b
+    infix:«<=»   # the official name of the operator in $a <= $b
+    prefix:<+>   # the official name of the operator in +$a
+    postfix:<--> # the official name of the operator in $a--
+
+This name is to be thought of semantically, not syntactically.  That is,
+the bracketing characters used do not count as part of the name; only
+the quoted data matters.  These are all the same name:
+
+    infix:<+>
+    infix:<<+>>
+    infix:«+»
+    infix:['+']
+
+Despite the appearance as a subscripting form, these names are resolved
+not at run time but at compile time.  The pseudo-subscripts need not
+be simple scalars.  These are extended with the same two-element list:
+
+    infix:<?? !!>
+    infix:['??','!!']
+
+An identifier may be extended with multiple named identifier
+extensions, in which case the names matter but their order does not.
+These name the same module:
+
+    use ThatModule:ver<2.7.18.28.18>:auth<Somebody>
+    use ThatModule:auth<Somebody>:ver<2.7.18.28.18>
+
+Adverbial syntax will be described more fully later.
+
 =back
 
 =head1 Literals
@@ -2654,6 +2702,57 @@ represented that way; it must be represented something like:
     \o33
 
 Obviously C<\e> is preferred when brevity is needed.
+
+=item *
+
+Any character that I<would> start an interpolation in the current
+quote context may be protected from such interpolation by prefixing with
+backslash.  The backslash is always removed in this case.
+
+The treatment of backslashed characters that would I<not> have
+introduced an interpolation varies depending on the type of quote:
+
+=over 4
+
+=item 1.
+
+Any quoting form that includes C<qq> or C<:qq> in its semantic
+derivation (including the normal double quote form) assumes that all
+backslashes are to be considered meaningful.  The meaning depends
+on whether the following character is alphanumeric; if it is, the
+non-interpolating sequence produces a compile-time error.  If the
+character is non-alphanumeric, the backslash is silently removed, on
+the assumption that the string was backslashed using C<quotemeta()>
+or some such.
+
+=item 2.
+
+All other quoting forms (including standard single quotes)
+assume that non-interpolating sequences are to be left unaltered
+because they are probably intended to pass through to the result.
+Backslashes are removed I<only> for the terminating quote or for
+characters that would interpolate if unbackslashed.  (In either case,
+a special exception is made for brackets; if the left bracket would
+interpolate, the right bracket may optionally also be backslashed,
+and if so, the backslash will be removed.  If brackets are used as
+the delimiters, both left and right C<must> be backslashed the same,
+since they would otherwise be counted wrong in the bracket count.)
+
+=back
+
+As a consequence, these all produce the same literal string:
+
+    " \{ this is not a closure } "
+    " \{ this is not a closure \} "
+    q:c / \{ this is not a closure } /
+    q:c / \{ this is not a closure \} /
+    q:c { \{ this is not a closure \} }
+    q { { this is not a closure } }
+    q { \{ this is not a closure \} }
+
+(Of course, matching backslashes is likely to make your syntax
+highlighter a bit happier, along with any other naïve bracket
+counting algorithms...)
 
 =item *
 

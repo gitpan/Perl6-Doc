@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Magazine_Article_05 - The Beauty of Perl 6 Parameter Passing
+Magazine_Article_06 - The Beauty of Perl 6 Parameter Passing
 
 =head1 AUTHOR
 
