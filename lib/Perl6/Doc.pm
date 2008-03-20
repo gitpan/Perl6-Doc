@@ -2,7 +2,7 @@ package Perl6::Doc;
 use 5.000;
 use File::Spec;
 
-$Perl6::Doc::VERSION = '0.35.2';
+$Perl6::Doc::VERSION = '0.36';
 
 sub new {
     my $class = shift;
@@ -101,12 +101,16 @@ sub perldoc {
                 $document .= '::Overview::';
                 if    ($file eq 'O03') { $document .= 'Operator'  }
                 elsif ($file eq 'O04') { $document .= 'Smartmatch'}
-                elsif ($file eq 'O06') { $document .= 'Subroutine'}
-                elsif ($file eq 'O08') { $document .= 'Variable'  }
-                elsif ($file eq 'O09') { $document .= 'Data'      }
-                elsif ($file eq 'O12') { $document .= 'Object'    }
-                elsif ($file eq 'O16') { $document .= 'File'      } 
-                else                   { $self->contents, return }
+                elsif ($file eq 'O05') { $document .= 'Reduce'    }
+                elsif ($file eq 'O07') { $document .= 'Variable'  }
+                elsif ($file eq 'O08') { $document .= 'Data'      }
+                elsif ($file eq 'O10') { $document .= 'File'      }
+                elsif ($file eq 'O12') { $document .= 'Functions' }
+                elsif ($file eq 'O14') { $document .= 'Control'   }
+                elsif ($file eq 'O15') { $document .= 'Subroutine'}
+                elsif ($file eq 'O17') { $document .= 'Object'    }
+                elsif ($file eq 'O20') { $document .= 'Rule'      }
+                else                   { $self->contents, return  }
             }
         } elsif ($sigil eq 'M') {
             $document .= '::Magazine::';
@@ -145,7 +149,7 @@ Possible values for document-id are:
   A01 - A20  (Perl 6 Apocalypses)
   E02 - E07  (Perl 6 Exegeses)
   S01 - S29  (Perl 6 Synopses)
-  O01 - O16  (Perl 6 Overview)
+  O01 - O20  (Perl 6 Overview)
   F01 - F02  (Perl 6 FAQ)
   T01        (Perl 6 Tutorial)
   P00 - P09  (Perl(6)Tables)
@@ -162,7 +166,7 @@ _
 
 sub version {
     print <<_;
-This is Perl 6 Documentation as of March 1, 2008
+This is Perl 6 Documentation as of March 20, 2008
 (bundled in Perl6-Doc-$VERSION)
 _
 }
@@ -249,12 +253,16 @@ no Design docs.
     O01  Overview
     O03  Overview::Operator
     O04  Overview::Smartmatch
-    O06  Overview::Subroutine
-    O08  Overview::Variable
-    O09  Overview::Data
-    O12  Overview::Object
-    O16  Overview::File
-    
+    O05  Overview::Reduce
+    O07  Overview::Variable
+    O08  Overview::Data
+    O10  Overview::File
+    O12  Overview::Functions
+    O14  Overview::Control
+    O15  Overview::Subroutine
+    O17  Overview::Object
+    O20  Overview::Rule
+
     T01  Tutorial perlintro
 
     M01  Report on the Perl 6 Announcement

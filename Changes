@@ -1,3 +1,7 @@
+date: Mar 20 2008
+- add and update Overview POD from pugs SVN
+- release 0.36
+
 date: Mar 01 2008
 - update S02.pod, S03.pod, S05.pod, S11.pod, S12.pod
 - moved form M05 -> M06 : The Beauty of Perl 6 Parameter Passing

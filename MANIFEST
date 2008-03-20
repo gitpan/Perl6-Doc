@@ -44,10 +44,14 @@ lib/Perl6/Doc/Design/S29.pod
 lib/Perl6/Doc/FAQ/Capture.pod
 lib/Perl6/Doc/FAQ/FUD.pod 
 lib/Perl6/Doc/Overview.pod
+lib/Perl6/Doc/Overview/Control.pod
 lib/Perl6/Doc/Overview/Data.pod
 lib/Perl6/Doc/Overview/File.pod 
+lib/Perl6/Doc/Overview/Functions.pod
 lib/Perl6/Doc/Overview/Object.pod
 lib/Perl6/Doc/Overview/Operator.pod
+lib/Perl6/Doc/Overview/Reduce.pod
+lib/Perl6/Doc/Overview/Rule.pod
 lib/Perl6/Doc/Overview/Smartmatch.pod
 lib/Perl6/Doc/Overview/Subroutine.pod
 lib/Perl6/Doc/Overview/Variable.pod
@@ -56,6 +60,7 @@ lib/Perl6/Doc/Magazine/perl-6-announcement.pod
 lib/Perl6/Doc/Magazine/perl-6-parameter-passing.pod
 lib/Perl6/Doc/Magazine/pugs-interview.pod
 lib/Perl6/Doc/Magazine/what-is-perl-6.pod
+lib/Perl6/Doc/Magazine/yet-another-perl-6-operator.pod
 lib/Perl6/Doc/Tutorial/perlintro.pod
 Makefile.PL
 MANIFEST			This list of files
