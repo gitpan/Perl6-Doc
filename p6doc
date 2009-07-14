@@ -1,6 +1,0 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
-use Perl6::Doc;
-
-Perl6::Doc->new->process(@ARGV);

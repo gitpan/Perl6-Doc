@@ -1,198 +1,126 @@
 NAME
-    Perl6::Doc - all useful Perl 6 Docs in your command line
+    Perl6::Doc - Perl 6 documentation
 
 SYNOPSIS
-        > p6doc -h     # Show p6doc help
-        > p6doc -c     # Show Table of Contents
-        > p6doc s05    # Browse Synopsis 05
+    This distribution is documentation-only. It contains no code for you to
+    run. Included are various Perl 5 Pod and Perl 6 Pod files describing the
+    Perl 6 language. For a tool to read this documentation, see grok.
 
 DESCRIPTION
-    This Perl module distribution contains all the latest Perl 6
-    documentation and a utility called "p6doc" for viewing it.
+    Currently included in this distribution:
 
-  Apocalypses
-    The document codes "A01 - A20" refer to the Perl 6 Apocalypses.
-
-    Larry Wall started the Apocalypse series as a systematic way of
-    answering the RFCs (Request For Comments) that started the design
-    process for Perl 6. Each Apocalypse corresponds to a chapter in the book
-    I<Programming Perl>, 3rd edition, and addresses the features relating to
-    that chapter in the book that are likely to change.
+  Design docs
+   Apocalypses (outdated
+    Larry Wall started the Apocalypse (latin for revelation) series as a
+    systematic way of answering the RFCs (Request For Comments) that started
+    the design process for Perl 6. Each Apocalypse corresponds to a chapter
+    in the book *Programming Perl, 3rd edition*, and addresses the features
+    relating to that chapter in the book that are likely to change.
 
     Larry addresses each relevant RFC, and gives reasons why he accepted or
     rejected various pieces of it. But each Apocalypse also goes beyond a
     simple "yes" and "no" response to attack the roots of the problems
     identified in the RFCs.
 
-  Exegeses
-    The document codes "E02 - E07" refer to the Perl 6 Exegeses.
+    Note: These documents are outdated and and will not be updated to match
+    the specification (see "Synopses").
 
-    Damian Conway's Exegeses are extensions of each Apocalypse. Each
-    Exegesis is built around a practical code example that applies and
-    explains the new ideas.
+   Exegeses (outdated)
+    Damian Conway's Exegeses (latin for *explanation*) are extensions of
+    each Apocalypse. Each Exegesis is built around a practical code example
+    that applies and explains the new ideas.
 
-  Synopses
-    The document codes "S01 - S29" refer to the Perl 6 Synopses.
+    Note: These documents are outdated and and will not be updated to match
+    the specification (see "Synopses").
+
+   Synopses
+    The Synopsis (latin for comparison) started as a fast to read diff
+    between Perl 5 and 6. Because they are also easier to maintain, all
+    changes of the language, that are evolving from the design process are
+    written down here first. The Apocalypses and Exegeses are frozen as
+    "historic documents".
+
+    In other words, these docs may change slightly or radically. But the
+    expectation is that they are "very close" to the final shape of Perl 6.
 
     The Synopsis documents are to be taken as the formal specification for
     Perl 6 implementations, while still being reference documentation for
-    Perl 6, like I<Programming Perl> is for Perl 5.
+    Perl 6, like *Programming Perl* is for Perl 5.
 
-    Note that while these documents are considered "formal specifications",
-    they are still being subjected to the rigours of cross-examination
-    through implementation.
-
-    In other words, they may change slightly or radically. But the
-    expectation is that they are "very close" to the final shape of Perl 6.
-
-  Overview and FAQ
-    These are shorter summaries about a smaller specific topic. They are
-    written mostly by the crazy Pugs people and replacing some of the
-    outdated Synopses that are still marked as [Draft].
-
-  Tutorial (building up)
-    This is an community driven effort to translate the Perl 5 manpages into
-    the shiny Perl 6 world. There are still are half way through the intro.
-
-  Perl Tables
-    Reference styled set of wiki pages made by myself.
+    Note that while these documents still being subjected to the rigours of
+    cross-examination through implementation.
 
   Magazine articles
-    Helpful articles from perl.com (http://www.perl.com) and $foo
-    (http://www.perl-magazin.de). See the authors name in the section
-    SCRIBES, below.
+    These are Pod-ified versions of magazine articles about Perl 6 that have
+    appeared in print during the design process. Take these with a grain of
+    salt as they might not describe Perl 6 as it is now. They are mostly
+    from <http://www.perl.com> and <http://www.perl-magazin.de/>.
 
-CONTENTS
-    Below is the list of documents that are currently available; a
-    number in the column indicates, the document is currently available.
-    An asterisk next to a number means that the document is an unofficial
-    draft written by a member of the Perl community but not approved by
-    the Perl 6 Design Team. The pages after the first section are anyway
-    no Design docs.
-
-    S01  The Ugly, the Bad, and the Good   (A01)
-    S02  Bits and Pieces                   (A02) (E02)
-    S03  Operators                         (A03) (E03)
-    S04  Syntax                            (A04) (E04)
-    S05  Pattern Matching                  (A05) (E05)
-    S06  Subroutines                       (A06) (E06)
-         Formats                                 (E07)
-    S09  Data Structures
-    S10  Packages
-    S11  Modules
-    S12  Objects                           (A12)
-    S13  Overloading
-    S16* IPC / IO / Signals
-    S17* Concurrency
-         Debugging                         (A20*)
-    S22* CPAN
-         Portable Perl
-    S26  Documentation
-    S27* Perl Culture
-    S28* Special Names
-    S29  Functions
-
-    F01  FAQ::Captures
-    F02  FAQ::FUD
-
-    O01  Overview
-    O03  Overview::Operator
-    O04  Overview::Smartmatch
-    O06  Overview::Subroutine
-    O08  Overview::Variable
-    O09  Overview::Data
-    O12  Overview::Object
-    O16  Overview::File
-
-    T01  Tutorial perlintro
-
-    M01  Report on the Perl 6 Announcement
-    M02  What is Perl 6 ?
-    M03  A Plan for Pugs
-    M04  Everyday Perl 6
-    M05  Yet Another Perl 6 Operator (Microarticles)
-    M06  The Beauty of Perl 6 Parameter Passing
-	http://airen.bcm.umontreal.ca/syn_index.html
-
-NOTES
-    Perl6::Doc was before Perl6::Bible which is now depreciated. We
-    changed that name, because we now deliver much more content than just
-    the Apocalypses, Exegeses and Synopses.
-
-    If you are interested in helping out the documentation project,
-    please contact us on irc.freenode.net #perl6 or
-    perl6-compiler@perl.org. You can also help greatly by editing the
-    official Perl 6 wiki under: http://www.perlfoundation.org/perl6
-
-METHODS
-    Perl6::Doc provides a class method to get the raw text of a document:
-
-        my $text = Perl6::Doc->get_raw('s01');
-
-SCRIBES
-    These are the authors of the included docs, named in the order their
-    work was added :
-
-    * Larry Wall <larry@wall.org>
-
-    * Damian Conway <damian@conway.org>
-
-    * Luke Palmer <luke@luqui.org>
-
-    * Allison Randal <al@shadowed.net>
-
-    * Audrey Tang <autrijus@cpan.org>
-
-    * Ingy d�t Net <ingy@cpan.org> ()
-
-    * Sam Vilain <samv@cpan.org> ()
-
-    * Kirrily "Skud" Robert <skud@cpan.org>
-
-    * Moritz Lenz <moritz@fau2ik3.org>
-
-    * David Koenig <karhu@u.washington.edu>
-
-    * Jonathan Scott Duff <duff@pobox.com>
-
-    * Phil Crow <philcrow2000@yahoo.com>
-
-    * chromatic <chromatic@oreilly.com>
-
-    * Mark-Jason Dominus <mjd@songline.com>
-
-    * Shmarya <shmarya.rubenstein@gmail.com>
-
-    * Pawel Murias <13pawel@gazeta.pl>
-
-    * Herbert Breunung <lichtkind@cpan.org>
-
-SOURCES
-    A couple of paragraphs from I<Perl 6 Essentials> were used for the
-    overview. Most of the Bible docs (Apocalypses, Exegeses, Synopses)
-    are from the official Perl development site. 
-
-    http://dev.perl.org/perl6/
-
-    All draft Synopses, Overview, FAQ and Tutorial pages were taken out 
-    of the Pugs SVN repository.
-
-    http://svn.pugscode.org/pugs/docs/Perl6/
-
-    Articles are from: http://perl.com/pub/q/Article_Archive#Perl%206
+HISTORY
+    As of version 0.37, this distribution has been overhauled and is no
+    longer maintained by Herbert Breunung.
 
 PACKAGING
-    Collection of docs is currently done by: 
+    Hinrik Örn Sigurðsson, hinrik.sig@gmail.com
 
-    Herbert Breunung <lichtkind@cpan.org>
+    I'm not the author of the documentation in this distro, of course, I
+    merely maintain this package.
 
-COPYRIGHT
-    This Copyright applies only to the C<Perl6::Doc> Perl software
+SOURCES
+    All Apocalypses and Exegeses were taken from the official Perl
+    development site: <http://dev.perl.org/perl6/>
+
+    All Synopese were taken from the Pugs repository:
+    <http://svn.pugscode.org/pugs/docs/Perl6/>
+
+    The magazine articles are from perl.com:
+    <http://perl.com/pub/q/Article_Archive#Perl%206>
+
+LICENSE AND COPYRIGHT
+    This copyright applies only to the "Perl6::Doc" Perl software
     distribution, not the documents bundled within.
 
-    Copyright (c) 2007. Ingy d�t Net, Herbert Breunung. All rights reserved.
+    Copyright (c) 2009, Hinrik Örn Sigurðsson hinrik.sig@gmail.com.
 
-    This program is free software; you can redistribute it and/or modify it
-    under the same terms as Perl itself.
+    "grok" is distributed under the terms of the Artistic License 2.0. For
+    more details, see the full text of the license in the file LICENSE that
+    came with this distribution.
 
-    See http://www.perl.com/perl/misc/Artistic.html
+  SCRIBES
+    These are the authors of the included docs, named in the order their
+    work was added. This list is not exhaustive.
+
+    * Larry Wall larry@wall.org
+
+    * Damian Conway damian@conway.org
+
+    * Luke Palmer luke@luqui.org
+
+    * Allison Randal al@shadowed.net
+
+    * Audrey Tang autrijus@cpan.org
+
+    * Ingy döt Net ingy@cpan.org
+
+    * Sam Vilain samv@cpan.org
+
+    * Kirrily "Skud" Robert skud@cpan.org
+
+    * Moritz Lenz moritz@fau2ik3.org
+
+    * David Koenig karhu@u.washington.edu
+
+    * Jonathan Scott Duff duff@pobox.com
+
+    * Phil Crow philcrow2000@yahoo.com
+
+    * chromatic chromatic@oreilly.com
+
+    * Mark-Jason Dominus mjd@songline.com
+
+    * Shmarya shmarya.rubenstein@gmail.com
+
+    * Pawel Murias 13pawel@gazeta.pl
+
+    * Herbert Breunung lichtkind@cpan.org
+
