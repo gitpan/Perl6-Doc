@@ -1,7 +1,7 @@
 package Perl6::Doc;
 use strict;
 use warnings;
-our $VERSION = '0.40';
+our $VERSION = '0.41';
 
 =encoding UTF-8
 
@@ -21,7 +21,7 @@ Currently included in this distribution:
 
 =head2 Design docs
 
-=head3 Apocalypses (outdated
+=head3 Apocalypses (outdated)
 
 Larry Wall started the Apocalypse (latin for revelation) series as a
 systematic way of answering the RFCs (Request For Comments) that
@@ -72,9 +72,14 @@ appeared in print during the design process. Take these with a grain of salt
 as they might not describe Perl 6 as it is now. They are mostly from
 L<http://www.perl.com> and L<http://www.perl-magazin.de/>.
 
+=head2 Perl 6 Table Index
+
+A Pod-ified version of L<http://www.perlfoundation.org/perl6/index.cgi?perl_table_index>
+is included.
+
 =head1 HISTORY
 
-As of version 0.37, this distribution has been overhauled and is no longer
+As of version 0.40, this distribution has been overhauled and is no longer
 maintained by Herbert Breunung.
 
 =head1 PACKAGING
@@ -106,7 +111,7 @@ C<grok> is distributed under the terms of the Artistic License 2.0.
 For more details, see the full text of the license in the file F<LICENSE>
 that came with this distribution.
 
-=head2 SCRIBES
+=head2 Scribes
 
 These are the authors of the included docs, named in the order their work 
 was added. This list is not exhaustive.
