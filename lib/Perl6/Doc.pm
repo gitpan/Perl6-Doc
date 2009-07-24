@@ -1,7 +1,7 @@
 package Perl6::Doc;
 use strict;
 use warnings;
-our $VERSION = '0.41';
+our $VERSION = '0.42';
 
 =encoding UTF-8
 
@@ -76,6 +76,10 @@ L<http://www.perl.com> and L<http://www.perl-magazin.de/>.
 
 A Pod-ified version of L<http://www.perlfoundation.org/perl6/index.cgi?perl_table_index>
 is included.
+
+=head2 Man pages
+
+Currently included are draft versions of F<perlintro> and F<perlsyn>.
 
 =head1 HISTORY
 
