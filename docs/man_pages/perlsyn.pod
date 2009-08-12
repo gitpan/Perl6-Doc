@@ -5,7 +5,7 @@ TODO: Maybe add sections on aliasing (C<:=>), gather/take, :10<number>,
 Q://, repeat { }, exceptions, try/CATCH, laziness
 
 =for NAME
-perlsyn - Perl syntax
+perlsyn - Perl 6 syntax
 X<syntax>
 
 =begin DESCRIPTION
@@ -49,7 +49,7 @@ uninitialized value whenever you treat C<undef> as a string or a number.
 Well, usually.  Boolean contexts, such as:
 
     my $a;
-    if ($a) {}
+    if $a { ... }
 
 are exempt from warnings (because they care about truth rather than
 definedness).  Operators such as C<++>, C<-->, C<+=>,
@@ -418,10 +418,10 @@ X<eof> X<end-of-file> X<end of file>
 
 =begin comment
 
-Using C<readline> (or the operator form, C<< <EXPR> >>) as the
+Using C<readline> (or the operator form, C«<EXPR>») as the
 conditional of a C<for> loop is shorthand for the following.  This
 behaviour is the same as a C<while> loop conditional.
-X<readline> X<< <> >>
+X<readline> X«<>»
 
     for ( prompt(); defined( $_ = <STDIN> ); prompt() ) {
         # do something
@@ -834,6 +834,9 @@ C<eval{}> and die() for exception processing can also be a prudent approach.
 =head2 Pod: Embedded Documentation
 X<Pod> X<documentation>
 
+For now see Synopsis 26 for information on Pod.
+
+=begin comment
 Perl has a mechanism for intermixing documentation with source code.
 While it's expecting the beginning of a new statement, if the compiler
 encounters a line that begins with an equal sign and a word, like this
@@ -878,6 +881,7 @@ the compiler will become pickier.
 
 One may also use pod directives to quickly comment out a section
 of code.
+=end comment
 
 =head2 Plain Old Comments (Not!)
 X<comment> X<line> X<#> X<preprocessor> X<eval>
@@ -933,9 +937,9 @@ shell:
 =end DESCRIPTION
 
 =begin AUTHORS
-The Perl 5 documentation authors
-
 L<Hinrik Örn Sigurðsson|mailto:hinrik.sig@gmail.com> (Perl 6 port)
+
+The Perl 5 documentation authors
 =end AUTHORS
 
 =comment vim: filetype=perl6
