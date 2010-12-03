@@ -58,7 +58,7 @@ DESCRIPTION
 
   Perl 6 Table Index
     A Pod-ified version of
-    <http://www.perlfoundation.org/perl6/index.cgi?perl_table_index> is
+    <http://www.perlfoundation.org/perl6/index.cgi?perl_6_index_tablet> is
     included.
 
   Man pages
@@ -66,7 +66,8 @@ DESCRIPTION
 
 HISTORY
     As of version 0.40, this distribution has been overhauled and is no
-    longer maintained by Herbert Breunung.
+    longer maintained by Herbert Breunung, who originally took it over from
+    ingy and audreyt.
 
 PACKAGING
     Hinrik Örn Sigurðsson, hinrik.sig@gmail.com
