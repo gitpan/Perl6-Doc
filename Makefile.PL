@@ -23,7 +23,7 @@ my %WriteMakefileArgs = (
   'LICENSE' => 'artistic_2',
   'NAME' => 'Perl6::Doc',
   'PREREQ_PM' => {},
-  'VERSION' => '0.46',
+  'VERSION' => '0.47',
   'test' => {
     'TESTS' => 't/*.t'
   }

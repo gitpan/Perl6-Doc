@@ -3,7 +3,7 @@ BEGIN {
   $Perl6::Doc::AUTHORITY = 'cpan:HINRIK';
 }
 BEGIN {
-  $Perl6::Doc::VERSION = '0.46';
+  $Perl6::Doc::VERSION = '0.47';
 }
 use strict;
 use warnings FATAL => 'all';
